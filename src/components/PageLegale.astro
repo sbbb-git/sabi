@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionTitle from './SectionTitle.astro';
+
+interface Props {
+  titre: string;
+  description: string;
+  miseAJour: string;
+}
+
+const { titre, description, miseAJour } = Astro.props;
+---
+
+<Base titre={titre} description={description} noindex>
+  <section class="pt-24 pb-12 lg:pt-32 lg:pb-16">
+    <div class="conteneur">
+      <SectionTitle surtitre="Informations légales" titre={titre} principal />
+      <p class="mt-6 text-[0.9375rem] text-gris">Dernière mise à jour : {miseAJour}</p>
+    </div>
+  </section>
+
+  <section class="pb-24 lg:pb-32">
+    <div class="conteneur">
+      <div class="legale mesure">
+        <slot />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .legale h2 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-nuit);
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-bord);
+  }
+
+  .legale h2:first-child {
+    margin-top: 0;
+  }
+
+  .legale p,
+  .legale ul {
+    margin-top: 1rem;
+    color: var(--color-texte);
+  }
+
+  .legale ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .legale li {
+    padding-left: 1.125rem;
+    position: relative;
+    margin-top: 0.5rem;
+  }
+
+  .legale li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75em;
+    width: 0.5rem;
+    height: 1px;
+    background-color: var(--color-bleu);
+  }
+
+  .legale a {
+    color: var(--color-bleu);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  /* Marqueur des informations que Sacha doit fournir avant mise en ligne. */
+  .a-completer {
+    background-color: var(--color-pale);
+    border-bottom: 1px solid var(--color-bleu);
+    padding: 0 0.25rem;
+    font-weight: 500;
+    color: var(--color-nuit);
+  }
+</style>

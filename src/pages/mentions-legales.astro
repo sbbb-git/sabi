@@ -1,0 +1,63 @@
+---
+import PageLegale from '../components/PageLegale.astro';
+import { CONTACT, MARQUE } from '../consts';
+
+/*
+  TODO mentions légales : les informations marquées « à compléter » doivent être
+  fournies par Sacha avant la mise en ligne. Ne rien inventer.
+  Manquent : dénomination sociale exacte, forme juridique, capital social,
+  numéro SIREN, numéro de TVA intracommunautaire, adresse du siège,
+  numéro RCS et ville d'immatriculation, nom de l'hébergeur retenu.
+*/
+const AC = 'à compléter';
+---
+
+<PageLegale
+  titre="Mentions légales"
+  description="Mentions légales du cabinet sabi : éditeur du site, directeur de la publication, hébergeur et propriété intellectuelle."
+  miseAJour="septembre 2026"
+>
+  <h2>Éditeur du site</h2>
+  <ul>
+    <li>Dénomination sociale : <span class="a-completer">{AC}</span></li>
+    <li>Forme juridique : <span class="a-completer">{AC}</span></li>
+    <li>Capital social : <span class="a-completer">{AC}</span></li>
+    <li>Siège social : <span class="a-completer">{AC}</span></li>
+    <li>Numéro SIREN : <span class="a-completer">{AC}</span></li>
+    <li>Immatriculation RCS : <span class="a-completer">{AC}</span></li>
+    <li>Numéro de TVA intracommunautaire : <span class="a-completer">{AC}</span></li>
+    <li>Adresse électronique : <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
+    <li>Téléphone : <a href={`tel:${CONTACT.telephoneLien}`}>{CONTACT.telephone}</a></li>
+  </ul>
+
+  <h2>Directeur de la publication</h2>
+  <p>Sacha Bitoun, fondateur.</p>
+
+  <h2>Hébergeur</h2>
+  <ul>
+    <li>Raison sociale : <span class="a-completer">{AC}</span></li>
+    <li>Adresse : <span class="a-completer">{AC}</span></li>
+    <li>Téléphone : <span class="a-completer">{AC}</span></li>
+  </ul>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>
+    L'ensemble des contenus de ce site, textes et éléments graphiques, est la propriété de
+    l'éditeur. Toute reproduction ou représentation, totale ou partielle, sans autorisation
+    écrite préalable est interdite.
+  </p>
+
+  <h2>Données personnelles</h2>
+  <p>
+    Le traitement des données transmises par le formulaire de contact est décrit dans la
+    <a href="/politique-de-confidentialite">politique de confidentialité</a>.
+  </p>
+
+  <h2>Responsabilité</h2>
+  <p>
+    Les informations publiées sur ce site sont fournies à titre indicatif. Elles ne constituent
+    ni un conseil financier, ni un conseil juridique, ni un conseil fiscal personnalisé. Le site
+    {' '}{MARQUE} peut contenir des liens vers des sites tiers dont le contenu n'engage pas
+    l'éditeur.
+  </p>
+</PageLegale>

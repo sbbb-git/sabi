@@ -1,0 +1,310 @@
+@import 'tailwindcss';
+
+/* Inter variable, servie en local. Pas de CDN Google Fonts. */
+@import '@fontsource-variable/inter/index.css';
+
+@theme {
+  /* Couleurs. Une seule couleur d'accent : --color-bleu. */
+  --color-nuit: #0a2540;
+  --color-bleu: #1660c9;
+  --color-pale: #eef4fc;
+  --color-tres-pale: #f7fafe;
+  --color-bord: #d5e0ee;
+  --color-texte: #101c29;
+  --color-gris: #5b6b7d;
+  --color-blanc: #ffffff;
+
+  /* Déclinaisons réservées aux aplats sombres, pour tenir le contraste. */
+  --color-sur-nuit: #b8c9dc;
+  --color-bord-nuit: #23415e;
+  --color-bleu-clair: #8fb8f0;
+
+  --font-sans:
+    'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Échelle typographique du cahier des charges. */
+  --text-surtitre: 0.75rem; /* 12px */
+  --text-surtitre--line-height: 1.2;
+  --text-corps: 1.0625rem; /* 17px */
+  --text-corps--line-height: 1.6;
+  --text-sub: 1.25rem; /* 20px */
+  --text-sub--line-height: 1.5;
+  --text-h2-m: 1.5rem; /* 32px section, 24px mobile */
+  --text-h2: 2rem;
+  --text-h1-m: 2rem; /* 48px page, 32px mobile */
+  --text-h1: 3rem;
+
+  --breakpoint-xs: 26rem;
+}
+
+/* Réglages de base */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-blanc);
+    color: var(--color-texte);
+    font-family: var(--font-sans);
+    font-size: var(--text-corps);
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Le gras porte un chiffre ou un nom de dispositif, jamais une phrase. */
+  strong,
+  b {
+    font-weight: 600;
+    color: var(--color-nuit);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-bleu);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-nuit);
+    color: var(--color-blanc);
+  }
+
+  /* Ancres sous le header fixe */
+  :target {
+    scroll-margin-top: 7rem;
+  }
+}
+
+@layer components {
+  /* Conteneur : 1200px, 24px de marge en mobile, 64px en desktop. */
+  .conteneur {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    .conteneur {
+      padding-inline: 4rem;
+    }
+  }
+
+  /* Rythme vertical : 96px mobile, 144px desktop. */
+  .section {
+    padding-block: 6rem;
+  }
+
+  @media (min-width: 64rem) {
+    .section {
+      padding-block: 9rem;
+    }
+  }
+
+  .section-serree {
+    padding-block: 4rem;
+  }
+
+  @media (min-width: 64rem) {
+    .section-serree {
+      padding-block: 6rem;
+    }
+  }
+
+  /* Largeur de ligne maximale : 68 caractères. */
+  .mesure {
+    max-width: 68ch;
+  }
+
+  .mesure-courte {
+    max-width: 52ch;
+  }
+
+  .surtitre {
+    font-size: var(--text-surtitre);
+    line-height: 1.2;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-bleu);
+  }
+
+  .surtitre-sombre {
+    color: var(--color-bleu-clair);
+  }
+
+  .titre-page {
+    font-size: var(--text-h1-m);
+    line-height: 1.12;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-nuit);
+    text-wrap: balance;
+  }
+
+  @media (min-width: 48rem) {
+    .titre-page {
+      font-size: var(--text-h1);
+    }
+  }
+
+  .titre-section {
+    font-size: var(--text-h2-m);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--color-nuit);
+    text-wrap: balance;
+  }
+
+  @media (min-width: 48rem) {
+    .titre-section {
+      font-size: var(--text-h2);
+    }
+  }
+
+  .accroche {
+    font-size: var(--text-sub);
+    line-height: 1.5;
+    color: var(--color-texte);
+    text-wrap: pretty;
+  }
+
+  /* Liens de contenu : soulignement fin qui s'épaissit. */
+  .lien {
+    color: var(--color-bleu);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-thickness 150ms ease;
+  }
+
+  .lien:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  /* Lien d'action : soulignement animé. */
+  .action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: var(--text-corps);
+    font-weight: 500;
+    color: var(--color-nuit);
+    padding-block: 0.375rem;
+    position: relative;
+  }
+
+  .action::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: var(--color-bord);
+  }
+
+  .action::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 0;
+    background-color: var(--color-bleu);
+    transition: width 200ms ease;
+    z-index: 1;
+  }
+
+  .action:hover::before,
+  .action:focus-visible::before {
+    width: 100%;
+  }
+
+  .action .fleche {
+    transition: transform 200ms ease;
+  }
+
+  .action:hover .fleche {
+    transform: translateX(3px);
+  }
+
+  .action-accent {
+    color: var(--color-bleu);
+  }
+
+  .action-sombre {
+    color: var(--color-blanc);
+  }
+
+  .action-sombre::after {
+    background-color: var(--color-bord-nuit);
+  }
+
+  .action-sombre::before {
+    background-color: var(--color-bleu-clair);
+  }
+
+  /* Filet de séparation fin, jeu de structure principal du site. */
+  .filet {
+    border-top: 1px solid var(--color-bord);
+  }
+
+  .filet-sombre {
+    border-top: 1px solid var(--color-bord-nuit);
+  }
+}
+
+/* Apparition en fondu au scroll, 200ms. Sans JavaScript, tout reste visible. */
+@layer utilities {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 200ms ease-out,
+      transform 200ms ease-out;
+  }
+
+  .js .reveal.vu {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media print {
+  .sans-impression {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+}

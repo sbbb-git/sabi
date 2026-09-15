@@ -1,0 +1,89 @@
+---
+import { CONTACT, MARQUE, NAV, NAV_LEGAL } from '../consts';
+
+const annee = new Date().getFullYear();
+---
+
+{/* Le filet sépare le pied de page d'une bande sombre qui le précède. */}
+<footer class="border-t border-bord-nuit bg-nuit text-blanc">
+  <div class="conteneur">
+    <div class="grid gap-12 py-16 lg:grid-cols-12 lg:gap-8 lg:py-24">
+      <div class="lg:col-span-5">
+        <p class="text-[1.375rem] font-semibold lowercase tracking-[-0.02em]">{MARQUE}</p>
+        <p class="mt-4 max-w-[34ch] text-corps text-sur-nuit">
+          Le bras droit financier des dirigeants.
+        </p>
+      </div>
+
+      <nav class="lg:col-span-3" aria-label="Navigation de pied de page">
+        <p class="surtitre surtitre-sombre">Navigation</p>
+        <ul class="mt-5 space-y-3">
+          {
+            NAV.map((lien) => (
+              <li>
+                <a
+                  href={lien.href}
+                  class="text-corps text-blanc transition-colors duration-150 hover:text-bleu-clair"
+                >
+                  {lien.libelle}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="lg:col-span-4">
+        <p class="surtitre surtitre-sombre">Contact</p>
+        <ul class="mt-5 space-y-3">
+          <li>
+            <a
+              href={`mailto:${CONTACT.email}`}
+              class="text-corps text-blanc transition-colors duration-150 hover:text-bleu-clair"
+            >
+              {CONTACT.email}
+            </a>
+          </li>
+          <li>
+            <a
+              href={`tel:${CONTACT.telephoneLien}`}
+              class="text-corps text-blanc transition-colors duration-150 hover:text-bleu-clair"
+            >
+              {CONTACT.telephone}
+            </a>
+          </li>
+          <li>
+            <a
+              href={CONTACT.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-corps text-blanc transition-colors duration-150 hover:text-bleu-clair"
+            >
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="filet-sombre flex flex-col gap-4 py-8 text-[0.9375rem] text-sur-nuit sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>&copy; {annee} {MARQUE}. Tous droits réservés.</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {
+          NAV_LEGAL.map((lien) => (
+            <li>
+              <a
+                href={lien.href}
+                class="transition-colors duration-150 hover:text-bleu-clair"
+              >
+                {lien.libelle}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</footer>

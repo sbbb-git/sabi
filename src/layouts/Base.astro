@@ -1,0 +1,143 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { CONTACT, MARQUE } from '../consts';
+
+interface Props {
+  /** Sans le suffixe « | sabi », ajouté ici. 60 caractères maximum au total. */
+  titre: string;
+  /** 155 caractères maximum. Unique pour chaque page. */
+  description: string;
+  /** Header transparent au chargement, utilisé sur les pages qui ouvrent sur un héros clair. */
+  headerTransparent?: boolean;
+  /** Ajoute les données structurées ProfessionalService. Accueil uniquement. */
+  donneesStructurees?: boolean;
+  /** Retire la page des moteurs. Pages légales. */
+  noindex?: boolean;
+}
+
+const {
+  titre,
+  description,
+  headerTransparent = false,
+  donneesStructurees = false,
+  noindex = false,
+} = Astro.props;
+
+const titreComplet = `${titre} | ${MARQUE}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || Astro.site!.href;
+const ogImage = new URL('/og-image.png', Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: MARQUE,
+  description: 'Cabinet de direction financière à temps partagé. Structurer et financer la croissance.',
+  url: Astro.site!.href,
+  email: CONTACT.email,
+  telephone: CONTACT.telephone,
+  areaServed: CONTACT.pays,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: CONTACT.ville,
+    addressCountry: 'FR',
+    // TODO mentions légales : ajouter streetAddress et postalCode une fois l'adresse arrêtée.
+  },
+  founder: {
+    '@type': 'Person',
+    name: 'Sacha Bitoun',
+  },
+  sameAs: [CONTACT.linkedin],
+};
+---
+
+<!doctype html>
+<html lang="fr-FR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{titreComplet}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={MARQUE} />
+    <meta property="og:title" content={titreComplet} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="sabi, le bras droit financier des dirigeants" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={titreComplet} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0A2540" />
+
+    {
+      donneesStructurees && (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      )
+    }
+
+    {/*
+      TODO analytics : brancher Plausible ou Umami une fois le domaine actif.
+      Aucun cookie déposé par ces deux outils, donc aucun bandeau de consentement.
+      Exemple : <script defer data-domain="sabi.fr" src="https://plausible.io/js/script.js" />
+    */}
+
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+
+  <body>
+    <a
+      href="#contenu"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-nuit focus:text-blanc focus:px-4 focus:py-3 focus:text-corps"
+    >
+      Aller au contenu
+    </a>
+
+    <Header transparent={headerTransparent} />
+
+    <main id="contenu">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      // Apparition en fondu, 200ms. Désactivée si l'utilisateur réduit les animations.
+      const reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const cibles = document.querySelectorAll<HTMLElement>('.reveal');
+
+      if (reduit || !('IntersectionObserver' in window)) {
+        cibles.forEach((el) => el.classList.add('vu'));
+      } else {
+        const observateur = new IntersectionObserver(
+          (entrees) => {
+            entrees.forEach((entree) => {
+              if (entree.isIntersecting) {
+                entree.target.classList.add('vu');
+                observateur.unobserve(entree.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+        );
+        cibles.forEach((el) => observateur.observe(el));
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+---
+interface Props {
+  /** Une seule idée par bande. */
+  texte?: string;
+  class?: string;
+}
+
+const { texte, class: classe = '' } = Astro.props;
+---
+
+<section class:list={['bg-nuit text-blanc', classe]}>
+  <div class="conteneur">
+    <div class="py-20 lg:py-28">
+      {
+        texte ? (
+          <p class="reveal mesure text-[1.25rem] leading-[1.55] text-blanc lg:text-[1.5rem]">
+            {texte}
+          </p>
+        ) : (
+          <slot />
+        )
+      }
+    </div>
+  </div>
+</section>

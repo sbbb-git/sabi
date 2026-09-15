@@ -1,0 +1,32 @@
+---
+interface Props {
+  surtitre?: string;
+  titre: string;
+  phrase: string;
+}
+
+const { surtitre, titre, phrase } = Astro.props;
+---
+
+<section class="flex min-h-[86svh] flex-col justify-center pt-32 pb-20 lg:min-h-[88svh] lg:pt-40 lg:pb-28">
+  <div class="conteneur">
+    {surtitre && <p class="surtitre reveal">{surtitre}</p>}
+
+    <h1
+      class:list={[
+        'reveal max-w-[15ch] text-[clamp(2.5rem,8.5vw,5rem)] leading-[1.04] font-semibold tracking-[-0.035em] text-nuit',
+        surtitre && 'mt-6',
+      ]}
+    >
+      {titre}
+    </h1>
+
+    <p class="reveal mesure mt-8 text-[1.25rem] leading-[1.5] lg:mt-10 lg:text-[1.5rem]">
+      {phrase}
+    </p>
+
+    <div class="reveal mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10 lg:mt-16">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

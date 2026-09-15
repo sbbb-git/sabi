@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { CONTACT } from '../consts';
+
+const moyens = [
+  {
+    surtitre: 'Écrire',
+    valeur: CONTACT.email,
+    href: `mailto:${CONTACT.email}`,
+    externe: false,
+  },
+  {
+    surtitre: 'Appeler',
+    valeur: CONTACT.telephone,
+    href: `tel:${CONTACT.telephoneLien}`,
+    externe: false,
+  },
+  {
+    surtitre: 'Réserver',
+    valeur: '30 minutes',
+    href: CONTACT.calendly,
+    externe: true,
+  },
+];
+---
+
+<Base
+  titre="Contact"
+  description="Dites-nous où vous en êtes. Par email, par téléphone ou en réservant 30 minutes directement dans l'agenda du cabinet."
+>
+  <section class="pt-24 pb-16 lg:pt-32 lg:pb-20">
+    <div class="conteneur">
+      <SectionTitle
+        titre="Parlons de votre projet."
+        phrase="Dites-nous où vous en êtes. Nous vous dirons où nous pouvons intervenir."
+        principal
+      />
+    </div>
+  </section>
+
+  <section class="pb-20 lg:pb-24">
+    <div class="conteneur">
+      <ul class="grid gap-px border-t border-bord md:grid-cols-3">
+        {
+          moyens.map((moyen) => (
+            <li class="reveal border-b border-bord pt-8 pb-10 md:pr-8">
+              <p class="surtitre">{moyen.surtitre}</p>
+              <a
+                href={moyen.href}
+                target={moyen.externe ? '_blank' : undefined}
+                rel={moyen.externe ? 'noopener noreferrer' : undefined}
+                class="mt-4 inline-block text-[1.125rem] leading-[1.4] font-medium tracking-[-0.01em] text-nuit underline decoration-bord decoration-1 underline-offset-[0.3em] transition-colors duration-150 hover:text-bleu hover:decoration-bleu"
+              >
+                {moyen.valeur}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="pb-24 lg:pb-32">
+    <div class="conteneur">
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-8">
+        <div class="lg:col-span-4">
+          <p class="surtitre reveal">Formulaire</p>
+        </div>
+        <div class="lg:col-span-8">
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

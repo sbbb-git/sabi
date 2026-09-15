@@ -1,0 +1,152 @@
+---
+/**
+ * Formulaire Netlify Forms. Aucun backend.
+ * Sans JavaScript, le navigateur poste normalement et Netlify affiche sa page
+ * de confirmation. Avec JavaScript, la confirmation s'affiche sans rechargement.
+ * TODO hébergeur : si le site part sur Vercel plutôt que Netlify, remplacer
+ * l'attribut data-netlify par une action Formspree. Le reste du balisage ne change pas.
+ */
+const champ =
+  'mt-2 block w-full border border-bord bg-blanc px-4 py-3 text-corps text-texte placeholder:text-gris transition-colors duration-150 focus:border-bleu focus:outline-none';
+const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
+---
+
+<div class="reveal">
+  <form
+    id="formulaire-contact"
+    name="contact"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="societe-web"
+    class="grid gap-6 sm:grid-cols-2"
+  >
+    <input type="hidden" name="form-name" value="contact" />
+
+    {/* Piège à robots. Masqué, jamais rempli par un humain. */}
+    <p class="hidden" aria-hidden="true">
+      <label>
+        Ne pas remplir
+        <input name="societe-web" tabindex="-1" autocomplete="off" />
+      </label>
+    </p>
+
+    <div>
+      <label class={etiquette} for="nom">Nom</label>
+      <input class={champ} id="nom" name="nom" type="text" autocomplete="name" required />
+    </div>
+
+    <div>
+      <label class={etiquette} for="societe">Société</label>
+      <input
+        class={champ}
+        id="societe"
+        name="societe"
+        type="text"
+        autocomplete="organization"
+        required
+      />
+    </div>
+
+    <div>
+      <label class={etiquette} for="email">Email</label>
+      <input class={champ} id="email" name="email" type="email" autocomplete="email" required />
+    </div>
+
+    <div>
+      <label class={etiquette} for="telephone">
+        Téléphone <span class="font-normal text-gris">(facultatif)</span>
+      </label>
+      <input class={champ} id="telephone" name="telephone" type="tel" autocomplete="tel" />
+    </div>
+
+    <div class="sm:col-span-2">
+      <label class={etiquette} for="message">Message</label>
+      <textarea class={champ} id="message" name="message" rows="6" required></textarea>
+    </div>
+
+    <div class="sm:col-span-2">
+      <label class="flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-[1.6] text-texte">
+        <input
+          class="mt-1 h-4 w-4 shrink-0 accent-[#1660C9]"
+          id="consentement"
+          name="consentement"
+          type="checkbox"
+          required
+        />
+        <span>
+          J'accepte que les informations saisies soient utilisées pour répondre à ma demande.
+          Voir la <a class="lien" href="/politique-de-confidentialite">politique de
+          confidentialité</a>.
+        </span>
+      </label>
+    </div>
+
+    <div class="sm:col-span-2">
+      <button
+        type="submit"
+        class="inline-flex items-center gap-3 bg-nuit px-8 py-4 text-corps font-medium text-blanc transition-colors duration-150 hover:bg-bleu focus-visible:bg-bleu"
+      >
+        Envoyer
+        <span aria-hidden="true">&rarr;</span>
+      </button>
+    </div>
+  </form>
+
+  <p
+    id="message-confirmation"
+    hidden
+    role="status"
+    class="border-l-2 border-bleu bg-pale py-6 pr-6 pl-6 text-corps text-texte"
+  >
+    Message envoyé. Nous revenons vers vous par email.
+  </p>
+
+  <p
+    id="message-erreur"
+    hidden
+    role="alert"
+    class="mt-6 border-l-2 border-nuit bg-pale py-4 pr-6 pl-6 text-corps text-texte"
+  >
+    L'envoi n'a pas abouti. Écrivez-nous directement à
+    <a class="lien" href="mailto:sacha.bitoun@essec.edu">sacha.bitoun@essec.edu</a>.
+  </p>
+</div>
+
+<script>
+  const formulaire = document.getElementById('formulaire-contact') as HTMLFormElement | null;
+  const confirmation = document.getElementById('message-confirmation');
+  const erreur = document.getElementById('message-erreur');
+
+  formulaire?.addEventListener('submit', async (evenement) => {
+    evenement.preventDefault();
+
+    const bouton = formulaire.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (bouton) {
+      bouton.disabled = true;
+      bouton.style.opacity = '0.6';
+    }
+    if (erreur) erreur.hidden = true;
+
+    try {
+      const reponse = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(formulaire) as unknown as string[][]).toString(),
+      });
+
+      if (!reponse.ok) throw new Error(String(reponse.status));
+
+      formulaire.hidden = true;
+      if (confirmation) {
+        confirmation.hidden = false;
+        confirmation.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
+    } catch {
+      if (erreur) erreur.hidden = false;
+      if (bouton) {
+        bouton.disabled = false;
+        bouton.style.opacity = '';
+      }
+    }
+  });
+</script>

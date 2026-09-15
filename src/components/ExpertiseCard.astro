@@ -1,0 +1,39 @@
+---
+interface Props {
+  titre: string;
+  phrase: string;
+  /** Numéro d'ordre, affiché en surtitre. Pas d'icône décorative. */
+  rang?: number;
+  href?: string;
+  /** Niveau de titre. 2 quand la carte suit directement le h1 de la page. */
+  niveau?: 2 | 3;
+}
+
+const { titre, phrase, rang, href, niveau = 3 } = Astro.props;
+const Balise = href ? 'a' : 'div';
+const Titre = `h${niveau}` as 'h2' | 'h3';
+---
+
+<Balise
+  href={href}
+  class:list={[
+    'reveal group flex h-full flex-col border border-bord bg-tres-pale p-8 transition-colors duration-200 lg:p-10',
+    href && 'hover:border-bleu',
+  ]}
+>
+  {
+    rang !== undefined && (
+      <p class="surtitre">{String(rang).padStart(2, '0')}</p>
+    )
+  }
+  <Titre
+    class:list={[
+      'text-[1.25rem] leading-[1.35] font-semibold tracking-[-0.01em] text-nuit',
+      rang !== undefined && 'mt-5',
+    ]}
+  >
+    {titre}
+  </Titre>
+  <p class="mt-4 text-corps text-texte">{phrase}</p>
+  <slot />
+</Balise>

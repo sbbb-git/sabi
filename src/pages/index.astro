@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import DarkBand from '../components/DarkBand.astro';
+import ExpertiseCard from '../components/ExpertiseCard.astro';
+import ReferenceRow from '../components/ReferenceRow.astro';
+import { CONTACT, RDV } from '../consts';
+import { BANDE_ACCUEIL, EXPERTISES, PILIERS, REFERENCES } from '../data/contenu';
+
+const apercuReferences = REFERENCES.slice(0, 3);
+---
+
+<Base
+  titre="Le bras droit financier des dirigeants"
+  description="Direction financière à temps partagé. Chiffres, structure, projets, financements et outils de pilotage, pris en charge aux côtés de vos équipes."
+  headerTransparent
+  donneesStructurees
+>
+  <Hero
+    titre="Le bras droit financier des dirigeants"
+    phrase="Structurer et financer la croissance."
+  >
+    <a slot="actions" href="/expertises" class="action">
+      Découvrir nos expertises
+      <span class="fleche" aria-hidden="true">&rarr;</span>
+    </a>
+    <a
+      slot="actions"
+      href={CONTACT.calendly}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="action action-accent"
+    >
+      {RDV}
+      <span class="fleche" aria-hidden="true">&rarr;</span>
+    </a>
+  </Hero>
+
+  {/* Qui sommes-nous */}
+  <section class="section filet">
+    <div class="conteneur">
+      <SectionTitle
+        surtitre="Le cabinet"
+        titre="En grandissant, une entreprise crée des sujets que personne ne porte vraiment."
+        phrase="sabi les prend en charge, et reste jusqu'à ce qu'ils tournent seuls."
+      />
+
+      <ul class="mt-16 grid gap-px border-t border-bord sm:grid-cols-2 lg:mt-24 lg:grid-cols-5">
+        {
+          PILIERS.map((pilier) => (
+            <li class="reveal border-b border-bord pt-8 pb-10 sm:pr-8">
+              <h3 class="text-[1.0625rem] font-semibold tracking-[-0.01em] text-nuit">
+                {pilier.titre}
+              </h3>
+              <p class="mt-3 text-corps text-texte">{pilier.phrase}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <DarkBand texte={BANDE_ACCUEIL} />
+
+  {/* Aperçu des expertises */}
+  <section class="section">
+    <div class="conteneur">
+      <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <SectionTitle
+          surtitre="L'offre"
+          titre="Six expertises, séparées ou combinées"
+          class="lg:max-w-[52ch]"
+        />
+        <a href="/expertises" class="action action-accent shrink-0 self-start lg:self-auto">
+          Voir le détail
+          <span class="fleche" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="mt-14 grid gap-px bg-bord md:grid-cols-2 lg:mt-20 lg:grid-cols-3">
+        {
+          EXPERTISES.map((expertise, i) => (
+            <ExpertiseCard titre={expertise.titre} phrase={expertise.phrase} rang={i + 1} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Aperçu des références */}
+  <section class="section-serree bg-pale">
+    <div class="conteneur">
+      <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <SectionTitle
+          surtitre="Missions conduites"
+          titre="Des dossiers menés, décrits par leur objet"
+          class="lg:max-w-[52ch]"
+        />
+        <a href="/references" class="action action-accent shrink-0 self-start lg:self-auto">
+          Voir les références
+          <span class="fleche" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="mt-12 lg:mt-16">
+        {apercuReferences.map((ref) => <ReferenceRow {...ref} />)}
+        <div class="filet" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  {/* Bloc de fin */}
+  <section class="section">
+    <div class="conteneur">
+      <h2
+        class="reveal max-w-[18ch] text-[clamp(2.25rem,6vw,4rem)] leading-[1.05] font-semibold tracking-[-0.035em] text-nuit"
+      >
+        Parlons de votre projet.
+      </h2>
+      <div class="reveal mt-12 lg:mt-16">
+        <a href="/contact" class="action action-accent">
+          Nous écrire
+          <span class="fleche" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

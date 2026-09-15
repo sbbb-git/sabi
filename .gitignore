@@ -1,0 +1,23 @@
+# build
+dist/
+.astro/
+
+# deps
+node_modules/
+
+# env
+.env
+.env.production
+.env.local
+
+# os
+.DS_Store
+Thumbs.db
+
+# logs
+npm-debug.log*
+*.log
+
+# hôtes
+.netlify/
+.vercel/

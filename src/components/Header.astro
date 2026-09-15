@@ -1,0 +1,187 @@
+---
+import { CONTACT, MARQUE, NAV, RDV } from '../consts';
+
+interface Props {
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
+const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header
+  id="entete"
+  data-transparent={transparent ? 'true' : 'false'}
+  class:list={[
+    'fixed top-0 left-0 right-0 z-50 sans-impression transition-colors duration-200',
+    transparent ? 'bg-transparent' : 'bg-blanc border-b border-bord',
+  ]}
+>
+  <div class="conteneur">
+    <div class="flex h-20 items-center justify-between gap-8">
+      <a
+        href="/"
+        class="text-[1.375rem] font-semibold lowercase tracking-[-0.02em] text-nuit"
+        aria-label={`${MARQUE}, accueil`}
+      >
+        {MARQUE}
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-10" aria-label="Navigation principale">
+        {
+          NAV.map((lien) => {
+            const actif = ici === lien.href;
+            return (
+              <a
+                href={lien.href}
+                aria-current={actif ? 'page' : undefined}
+                class:list={[
+                  'relative py-1 text-corps transition-colors duration-150',
+                  actif ? 'text-bleu' : 'text-texte hover:text-bleu',
+                ]}
+              >
+                {lien.libelle}
+                <span
+                  class:list={[
+                    'pointer-events-none absolute -bottom-0.5 left-0 h-px bg-bleu transition-[width] duration-200',
+                    actif ? 'w-full' : 'w-0',
+                  ]}
+                  aria-hidden="true"
+                  data-souligne
+                />
+              </a>
+            );
+          })
+        }
+
+        <a
+          href={CONTACT.calendly}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="action action-accent"
+        >
+          {RDV}
+          <span class="fleche" aria-hidden="true">&rarr;</span>
+        </a>
+      </nav>
+
+      <button
+        type="button"
+        id="bouton-menu"
+        class="lg:hidden -mr-2 flex h-11 w-11 items-center justify-center text-nuit"
+        aria-expanded="false"
+        aria-controls="menu-mobile"
+      >
+        <span class="sr-only">Ouvrir le menu</span>
+        <span class="relative block h-3.5 w-6" aria-hidden="true">
+          <span
+            data-barre="haut"
+            class="absolute left-0 top-0 h-px w-6 bg-current transition-transform duration-200"
+          ></span>
+          <span
+            data-barre="bas"
+            class="absolute left-0 bottom-0 h-px w-6 bg-current transition-transform duration-200"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Menu plein écran, mobile -->
+<div
+  id="menu-mobile"
+  hidden
+  class="fixed inset-0 z-40 bg-blanc lg:hidden sans-impression"
+>
+  <div class="conteneur flex h-full flex-col pt-28 pb-10">
+    <nav class="flex flex-col" aria-label="Navigation mobile">
+      {
+        NAV.map((lien) => (
+          <a
+            href={lien.href}
+            class="border-t border-bord py-5 text-[1.75rem] font-medium tracking-[-0.015em] text-nuit"
+          >
+            {lien.libelle}
+          </a>
+        ))
+      }
+      <span class="border-t border-bord"></span>
+    </nav>
+
+    <div class="mt-auto pt-10">
+      <a
+        href={CONTACT.calendly}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="action action-accent"
+      >
+        {RDV}
+        <span class="fleche" aria-hidden="true">&rarr;</span>
+      </a>
+      <p class="mt-8 text-corps text-gris">
+        <a class="lien" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+      </p>
+      <p class="mt-2 text-corps text-gris">
+        <a class="lien" href={`tel:${CONTACT.telephoneLien}`}>{CONTACT.telephone}</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Compense la hauteur du header fixe quand il n'est pas transparent. -->
+{!transparent && <div class="h-20" aria-hidden="true"></div>}
+
+<script>
+  const entete = document.getElementById('entete');
+  const bouton = document.getElementById('bouton-menu');
+  const menu = document.getElementById('menu-mobile');
+
+  // État du header au scroll : transparent sur le héros, blanc avec filet dès 80px.
+  if (entete) {
+    const demarreTransparent = entete.dataset.transparent === 'true';
+
+    const majEntete = () => {
+      const passe = window.scrollY > 80;
+      const opaque = passe || !demarreTransparent || menu?.hidden === false;
+      entete.classList.toggle('bg-blanc', opaque);
+      entete.classList.toggle('border-b', opaque);
+      entete.classList.toggle('border-bord', opaque);
+      entete.classList.toggle('bg-transparent', !opaque);
+    };
+
+    majEntete();
+    window.addEventListener('scroll', majEntete, { passive: true });
+
+    // Menu plein écran
+    if (bouton && menu) {
+      const barreHaut = bouton.querySelector<HTMLElement>('[data-barre="haut"]');
+      const barreBas = bouton.querySelector<HTMLElement>('[data-barre="bas"]');
+      const libelle = bouton.querySelector<HTMLElement>('.sr-only');
+
+      const basculer = (ouvrir: boolean) => {
+        menu.hidden = !ouvrir;
+        bouton.setAttribute('aria-expanded', String(ouvrir));
+        document.body.style.overflow = ouvrir ? 'hidden' : '';
+        if (libelle) libelle.textContent = ouvrir ? 'Fermer le menu' : 'Ouvrir le menu';
+        if (barreHaut) barreHaut.style.transform = ouvrir ? 'translateY(6px) rotate(45deg)' : '';
+        if (barreBas) barreBas.style.transform = ouvrir ? 'translateY(-6px) rotate(-45deg)' : '';
+        majEntete();
+      };
+
+      bouton.addEventListener('click', () => basculer(menu.hidden));
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !menu.hidden) {
+          basculer(false);
+          bouton.focus();
+        }
+      });
+
+      // Repasse en mode desktop si la fenêtre s'élargit menu ouvert.
+      window.matchMedia('(min-width: 64rem)').addEventListener('change', (e) => {
+        if (e.matches && !menu.hidden) basculer(false);
+      });
+    }
+  }
+</script>

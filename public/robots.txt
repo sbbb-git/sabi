@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sabi.fr/sitemap-index.xml
