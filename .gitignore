@@ -22,5 +22,8 @@ npm-debug.log*
 .wrangler/
 .vercel/
 
-# outillage design, reinstallable : npx skills add pbakaus/impeccable
+# Outillage design. Le skill lui-meme n'est pas versionne : 2,3 Mo de
+# binaires dans un depot de site vitrine, pour rien. skills-lock.json le
+# reste, il suffit a le restaurer : npx skills add pbakaus/impeccable
 .agents/
+.claude/skills/
