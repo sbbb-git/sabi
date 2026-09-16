@@ -12,12 +12,6 @@ const moyens = [
     externe: false,
   },
   {
-    surtitre: 'Appeler',
-    valeur: CONTACT.telephone,
-    href: `tel:${CONTACT.telephoneLien}`,
-    externe: false,
-  },
-  {
     surtitre: 'Réserver',
     valeur: '30 minutes',
     href: CONTACT.calendly,
@@ -31,14 +25,14 @@ const moyens = [
   description="Dites-nous où vous en êtes. Par email, par téléphone ou en réservant 30 minutes directement dans l'agenda du cabinet."
 >
   <EnTetePlanche
-    rubrique="Rubrique 04 &middot; Contact"
+    rubrique="Rubrique 04 · Contact"
     titre="Parlons de votre projet."
     objet="Dites-nous où vous en êtes. Nous vous dirons où nous pouvons intervenir."
   />
 
   <section class="pt-16 pb-20 lg:pt-24 lg:pb-24">
     <div class="planche">
-      <ul class="grid border-t border-encre md:grid-cols-3">
+      <ul class="grid border-t border-encre md:grid-cols-2">
         {
           moyens.map((moyen) => (
             <li class="border-b border-tirage-pale pt-7 pb-9 md:pr-8">
@@ -47,7 +41,7 @@ const moyens = [
                 href={moyen.href}
                 target={moyen.externe ? '_blank' : undefined}
                 rel={moyen.externe ? 'noopener noreferrer' : undefined}
-                class="titre-rubrique mt-4 inline-block underline decoration-tirage-pale decoration-1 underline-offset-[0.3em] transition-colors duration-150 hover:text-sanguine hover:decoration-sanguine"
+                class="titre-rubrique mt-4 inline-block underline decoration-tirage-pale decoration-1 underline-offset-[0.3em] transition-colors duration-150 hover:text-tirage hover:decoration-tirage"
               >
                 {moyen.valeur}
               </a>

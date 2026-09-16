@@ -7,10 +7,12 @@ produit vit dans `PRODUCT.md`. Le contrat de direction de l'accueil vit dans
 
 ## Le monde : le plan de masse
 
-Le site est une planche de dessin technique. Ce n'est pas une métaphore
-décorative : sabi&co a réellement implanté treize centres en cinq ans, et le
-plan est le document que ce travail produit. Le monde dit « on trace et on fait
-construire » là où la catégorie dit « on conseille ».
+Le site est une planche de dessin technique : trame, cotes, repères, cartouche.
+Le monde dit « on trace et on fait construire » là où la catégorie dit « on
+conseille ». La photographie y apporte la structure réelle.
+
+Le plan d'implantation du premier jet a été retiré : il chiffrait des ouvertures
+de centres, ce que le client ne veut plus voir mentionné.
 
 Directions rejetées, elles ne se rediscutent pas :
 
@@ -42,24 +44,34 @@ mesuré avant correction.
 
 ## Palette
 
+Bleu et blanc, rien d'autre. Le crème et la sanguine de la première version
+ont été rejetés par le client.
+
 ```
---papier        #F2EFE6   fond général, jamais de blanc écran
---papier-clair  #F8F6F0   sections en retrait
---calque        #E8E4D8   fond de barre de défilement
---encre         #14263D   texte, cartouche, traits forts
---tirage        #2F5D92   cotes, filets de cote, repères
---tirage-pale   #9DB4CC   filets uniquement, jamais du texte
---sanguine      #B23A1F   cotes actives, action, repères nommés
---sanguine-clair #E8734F  la même, sur fond encre
---graphite      #5A6472   texte secondaire sur papier
+--papier        #FFFFFF   fond général
+--papier-clair  #F4F7FB   sections en retrait
+--calque        #E7EEF6   fond de barre de défilement
+--encre         #0B2545   texte, cartouche, traits forts
+--tirage        #1D4ED8   accent unique : cotes, repères, action, renvois
+--tirage-clair  #7FA8F0   le même, sur fond encre
+--tirage-pale   #CBD9EC   filets uniquement, jamais du texte
+--graphite      #55657A   texte secondaire
 ```
 
-Deux pièges vérifiés et corrigés :
+Un seul bleu d'accent. La distinction entre une étiquette et une cote se fait
+par l'aplat et la graisse, jamais par une seconde teinte.
 
-- `--tirage-pale` tombe à **1,9:1** sur le papier. Il ne sert qu'aux filets.
-  Pour du texte pâle sur papier, c'est `--tirage` qui sert, à 5,9:1.
-- `--sanguine` tombe à **2,6:1** sur l'encre. Sur le cartouche, c'est
-  `--sanguine-clair` qui sert, à 5,1:1.
+Contrastes vérifiés : `--tirage` sur blanc 6,6:1, blanc sur `--tirage` 6,6:1,
+`--graphite` sur blanc 5,9:1, `--tirage-clair` sur `--encre` 6,4:1.
+
+## Photographies
+
+Trois photographies sous licence CC BY 2.0, créditées dans les mentions
+légales, servies en local et converties en WebP par Astro.
+
+Elles sont **désaturées** par `.tirage-photo` pour entrer dans le bleu et blanc.
+Aucune couleur parasite n'entre sur le site par une image. Elles montrent de la
+structure, jamais une scène de bureau ni une poignée de main.
 
 ## Le vocabulaire de la planche
 
@@ -70,15 +82,11 @@ Aucune carte, aucun rayon de bordure, aucune ombre. La structure vient du trait.
 | `.planche` | le conteneur, 1320px, marges 20px puis 56px |
 | `.trait` | filet de séparation, 1px de `--tirage-pale` |
 | `.ligne-cote` | segment à empattements, se termine sur une arête réelle |
-| `.repere` | pastille circulaire d'implantation |
+| `.repere` | pastille circulaire numérotée |
 | `.cartouche` | le bloc en pied, seul aplat de la planche, porte l'action |
 | `.etiquette` | l'action, en étiquette de cartouche, capitales resserrées |
 | `.renvoi` | lien annoté, sa ligne de rappel se déploie au survol |
 | `.hachure` | hachure d'emprise bâtie, jamais une texture de fond |
-
-Le composant `PlanImplantation` dessine les treize implantations en géométrie
-fixe. Il porte un nom accessible et une légende. Le blanc de réserve derrière
-la cote suit la convention du dessin : la cote interrompt son trait.
 
 ## Interdits, vérifiés contre ce projet
 
@@ -88,8 +96,8 @@ Issus du socle de qualité d'Impeccable :
   **repères de planche numérotés**, placés en colonne latérale, jamais en
   étiquette posée sur un titre.
 - Pas de grille de cartes identiques. Les expertises sont des lignes cotées.
-- Pas de bandeau de chiffres collé sous le héros. Les quatre cotes de l'ouvrage
-  vivent sur la page À propos.
+- Pas de bandeau de chiffres collé sous le héros. Les cotes de l'ouvrage vivent
+  sur la page À propos.
 - Pas de monospace en costume technique. Il n'y a pas de monospace sur ce site.
 - **Pas d'apparition en fondu au scroll.** Une entrée identique sur chaque
   section est le réglage par défaut. Elle a été retirée.

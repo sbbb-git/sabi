@@ -46,17 +46,12 @@ const jsonLd = {
   description: 'Cabinet de direction financière à temps partagé. Structurer et financer la croissance.',
   url: Astro.site!.href,
   email: CONTACT.email,
-  telephone: CONTACT.telephone,
   areaServed: CONTACT.pays,
   address: {
     '@type': 'PostalAddress',
     addressLocality: CONTACT.ville,
     addressCountry: 'FR',
     // TODO mentions légales : ajouter streetAddress et postalCode une fois l'adresse arrêtée.
-  },
-  founder: {
-    '@type': 'Person',
-    name: 'Sacha Bitoun',
   },
   sameAs: [CONTACT.linkedin],
 };

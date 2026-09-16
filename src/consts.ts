@@ -6,9 +6,7 @@
 export const MARQUE = 'sabi&co';
 
 export const CONTACT = {
-  email: 'sacha.bitoun@essec.edu',
-  telephone: '+33 6 19 87 80 96',
-  telephoneLien: '+33619878096',
+  email: 'sacha@sabi-co.fr',
   calendly: 'https://calendly.com/b00765209-essec/new-meeting',
   linkedin: 'https://www.linkedin.com/in/sachabitoun/',
   ville: 'Paris',

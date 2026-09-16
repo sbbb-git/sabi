@@ -27,11 +27,15 @@ const AC = 'à compléter';
     <li>Immatriculation RCS : <span class="a-completer">{AC}</span></li>
     <li>Numéro de TVA intracommunautaire : <span class="a-completer">{AC}</span></li>
     <li>Adresse électronique : <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
-    <li>Téléphone : <a href={`tel:${CONTACT.telephoneLien}`}>{CONTACT.telephone}</a></li>
   </ul>
 
   <h2>Directeur de la publication</h2>
-  <p>Sacha Bitoun, fondateur.</p>
+  {/*
+    Le nom du directeur de la publication est une obligation legale, article 6
+    de la LCEN. Il ne peut pas etre retire, contrairement au reste des mentions
+    de la personne sur le site.
+  */}
+  <p>Sacha Bitoun.</p>
 
   <h2>Hébergeur</h2>
   <ul>
@@ -52,6 +56,30 @@ const AC = 'à compléter';
     Le traitement des données transmises par le formulaire de contact est décrit dans la
     <a href="/politique-de-confidentialite">politique de confidentialité</a>.
   </p>
+
+  <h2>Crédits photographiques</h2>
+  <p>
+    Les photographies du site sont publiées sous licence Creative Commons
+    Attribution. Elles sont désaturées pour entrer dans la charte, ce que la
+    licence autorise.
+  </p>
+  <ul>
+    <li>
+      « paulo mendes da rocha, sao paulo april 2006 », seier+seier, sous licence
+      <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>,
+      via <a href="https://www.flickr.com/photos/94852245@N00/699528054" target="_blank" rel="noopener noreferrer">la source</a>.
+    </li>
+    <li>
+      « Tension detail », jieq, sous licence
+      <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>,
+      via <a href="https://www.flickr.com/photos/25128555@N03/2739667531" target="_blank" rel="noopener noreferrer">la source</a>.
+    </li>
+    <li>
+      « Abstracción #57643 », Noel Feans, sous licence
+      <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>,
+      via <a href="https://www.flickr.com/photos/37563893@N00/15543411263" target="_blank" rel="noopener noreferrer">la source</a>.
+    </li>
+  </ul>
 
   <h2>Responsabilité</h2>
   <p>

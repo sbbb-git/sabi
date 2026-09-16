@@ -62,8 +62,8 @@ export const REFERENCES: Reference[] = [
   {
     secteur: 'Imagerie médicale',
     objet: "Structuration et pilotage d'un groupe multi-entités",
-    phrase: 'Consolidation de 15 entités, 200 000 patients analysés par an.',
-    chiffre: '3 à 13 centres',
+    phrase: 'Consolidation de 15 entités et refonte du reporting de groupe.',
+    chiffre: '15 entités',
   },
   {
     secteur: "Distribution d'équipements",
@@ -85,8 +85,8 @@ export const REFERENCES: Reference[] = [
   },
   {
     secteur: 'Centre de santé pluridisciplinaire',
-    objet: "Accompagnement complet, de l'étude au dossier ARS",
-    phrase: "De l'étude du territoire au dossier ARS et au financement.",
+    objet: "Accompagnement complet, de l'étude au financement",
+    phrase: "De l'étude du territoire au montage financier de l'ouverture.",
     chiffre: '6 volets traités',
   },
   {
@@ -100,21 +100,3 @@ export const REFERENCES: Reference[] = [
     phrase: 'Subventions ouvertes jamais demandées, identifiées puis sécurisées.',
   },
 ];
-
-/** Page À propos, chiffres affichés en grand. */
-export const CHIFFRES = [
-  { valeur: '3 à 13', libelle: 'centres en 5 ans' },
-  { valeur: '6 M€', libelle: 'levés en fonds propres' },
-  { valeur: '7 M€', libelle: 'structurés en dette et crédit-bail' },
-  { valeur: '3', libelle: 'acquisitions menées' },
-] as const;
-
-/** Page À propos, bloc fondateur. */
-export const FONDATEUR = {
-  nom: 'Sacha Bitoun',
-  role: 'fondateur',
-  formations: [
-    'ESSEC Grande École, Finance Track',
-    'Paris-Dauphine, mathématiques appliquées',
-  ],
-} as const;

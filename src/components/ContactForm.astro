@@ -15,7 +15,7 @@ import { CONTACT, FORMSPREE_ID } from '../consts';
 const action = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : '';
 
 const champ =
-  'mt-2 block w-full border border-tirage-pale bg-papier-clair px-4 py-3 text-corps text-encre transition-colors duration-150 focus:border-sanguine focus:outline-none';
+  'mt-2 block w-full border border-tirage-pale bg-papier-clair px-4 py-3 text-corps text-encre transition-colors duration-150 focus:border-tirage focus:outline-none';
 const etiquette = 'cote';
 ---
 
@@ -30,13 +30,8 @@ const etiquette = 'cote';
       </p>
       <ul class="mt-6 space-y-2">
         <li>
-          <a class="text-sanguine underline underline-offset-[0.2em]" href={`mailto:${CONTACT.email}`}>
+          <a class="text-tirage underline underline-offset-[0.2em]" href={`mailto:${CONTACT.email}`}>
             {CONTACT.email}
-          </a>
-        </li>
-        <li>
-          <a class="text-sanguine underline underline-offset-[0.2em]" href={`tel:${CONTACT.telephoneLien}`}>
-            {CONTACT.telephone}
           </a>
         </li>
       </ul>
@@ -99,7 +94,7 @@ const etiquette = 'cote';
         <div class="sm:col-span-2">
           <label class="flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-[1.6] text-graphite">
             <input
-              class="mt-1 h-4 w-4 shrink-0 accent-[#B23A1F]"
+              class="mt-1 h-4 w-4 shrink-0 accent-[#1D4ED8]"
               id="consentement"
               name="consentement"
               type="checkbox"
@@ -107,7 +102,7 @@ const etiquette = 'cote';
             />
             <span>
               J'accepte que les informations saisies soient utilisées pour répondre à ma demande.
-              Voir la <a class="text-sanguine underline underline-offset-[0.2em]" href="/politique-de-confidentialite">politique de
+              Voir la <a class="text-tirage underline underline-offset-[0.2em]" href="/politique-de-confidentialite">politique de
               confidentialité</a>.
             </span>
           </label>
@@ -125,7 +120,7 @@ const etiquette = 'cote';
         id="message-confirmation"
         hidden
         role="status"
-        class="border border-sanguine bg-papier-clair p-6 text-corps text-encre"
+        class="border border-tirage bg-papier-clair p-6 text-corps text-encre"
       >
         Message envoyé. Nous revenons vers vous par email.
       </p>
@@ -137,7 +132,7 @@ const etiquette = 'cote';
         class="mt-6 border border-encre bg-papier-clair p-5 text-corps text-encre"
       >
         L'envoi n'a pas abouti. Écrivez-nous directement à
-        <a class="text-sanguine underline underline-offset-[0.2em]" href={`mailto:${CONTACT.email}`}>
+        <a class="text-tirage underline underline-offset-[0.2em]" href={`mailto:${CONTACT.email}`}>
           {CONTACT.email}
         </a>.
       </p>

@@ -18,8 +18,9 @@ Des dirigeants de PME et de scale-up dont l'entreprise grandit plus vite que sa
 structure financière. Le déclencheur typique : un sujet financier que personne
 en interne ne porte vraiment, et qui devient bloquant.
 
-Aucun secteur n'est affiché comme spécialité, même si les missions conduites
-viennent majoritairement de la santé.
+Aucun secteur n'est affiché comme spécialité. Le client a demandé que le site
+ne se lise pas comme un cabinet de santé : ni compte de centres ouverts, ni
+volume de patients, ni mention de l'ARS.
 
 ## Ce qu'on vend
 
@@ -38,8 +39,8 @@ de subventions font le public, les réseaux de DAF font le temps partagé.
 
 ## Objectif du site
 
-Un seul : obtenir un premier échange. Trois chemins, tous équivalents, email,
-téléphone, créneau de 30 minutes. Le formulaire est un confort, pas le passage
+Un seul : obtenir un premier échange. Deux chemins, email et créneau de
+30 minutes. Le formulaire est un confort, pas le passage
 obligé.
 
 ## Ce qui est vrai, et rien d'autre
@@ -48,13 +49,16 @@ Les seuls chiffres autorisés sur le site, tous vérifiés :
 
 | Chiffre | Sens |
 |---|---|
-| 3 à 13 centres en 5 ans | croissance du groupe de santé dirigé |
-| 6 M€ | levés en fonds propres |
-| 7 M€ | structurés en dette et crédit-bail |
-| 3 | acquisitions menées |
-| 15 entités | consolidées, mission imagerie médicale |
-| 200 000 patients | analysés par an, même mission |
+| 15 entités | consolidées, mission structuration de groupe |
 | 500 000 € | recherchés, mission distribution d'équipements |
+
+Les chiffres n'apparaissent plus que dans les références, attachés à une
+mission. **Le bandeau de statistiques de la page À propos a été supprimé** sur
+demande du client, avec les montants levés, structurés et le nombre
+d'acquisitions.
+
+Retirés également : le compte de centres ouverts, le volume de patients, et
+toute mention de l'ARS. Le site ne doit pas se lire comme un cabinet de santé.
 
 Aucun autre chiffre ne doit apparaître. Aucun nom de client. Aucun témoignage
 tant qu'il n'y en a pas de réel.
@@ -73,11 +77,11 @@ tant qu'il n'y en a pas de réel.
 
 ## Le fondateur
 
-Sacha Bitoun. ESSEC Grande École, Finance Track. Paris-Dauphine, mathématiques
-appliquées. LinkedIn : https://www.linkedin.com/in/sachabitoun/
+**Il n'est pas nommé sur le site.** Le client a demandé qu'on ne parle pas de
+lui comme fondateur : le site parle au nom du cabinet, point. Le bloc signataire
+de la page À propos a été supprimé.
 
-Il apparaît sur la page À propos, comme fondateur du cabinet, pas comme le sujet
-du site.
+Le lien LinkedIn reste dans le pied de page et dans les données structurées.
 
 ## Contraintes techniques
 
