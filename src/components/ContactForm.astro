@@ -1,114 +1,149 @@
 ---
 /**
- * Formulaire de contact. Il poste sur /api/contact, une Cloudflare Pages
- * Function qui relaie le message par email.
+ * Formulaire de contact, adossé à Formspree. Aucun backend, aucun secret dans
+ * le dépôt : l'identifiant d'un formulaire Formspree est public par nature.
  *
- * Sans JavaScript, le navigateur poste normalement et la fonction renvoie sa
- * propre page de confirmation. Avec JavaScript, la réponse est du JSON et la
- * confirmation s'affiche sans rechargement.
+ * Sans JavaScript, le navigateur poste et Formspree affiche sa page de
+ * confirmation. Avec JavaScript, la réponse est du JSON et la confirmation
+ * s'affiche sans rechargement.
+ *
+ * Tant que FORMSPREE_ID est vide, aucun formulaire n'est affiché : mieux vaut
+ * renvoyer vers les coordonnées directes qu'un envoi qui échoue en silence.
  */
+import { CONTACT, FORMSPREE_ID } from '../consts';
+
+const action = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : '';
+
 const champ =
   'mt-2 block w-full border border-bord bg-blanc px-4 py-3 text-corps text-texte placeholder:text-gris transition-colors duration-150 focus:border-bronze focus:outline-none';
 const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
 ---
 
-<div class="reveal">
-  <form
-    id="formulaire-contact"
-    name="contact"
-    method="POST"
-    action="/api/contact"
-    class="grid gap-6 sm:grid-cols-2"
-  >
-    {/* Piège à robots. Masqué, jamais rempli par un humain. */}
-    <p class="hidden" aria-hidden="true">
-      <label>
-        Ne pas remplir
-        <input name="societe-web" tabindex="-1" autocomplete="off" />
-      </label>
-    </p>
-
-    <div>
-      <label class={etiquette} for="nom">Nom</label>
-      <input class={champ} id="nom" name="nom" type="text" autocomplete="name" required />
+{
+  !action ? (
+    <div class="reveal border-l-2 border-bronze bg-creme p-8">
+      <p class="font-titre text-[1.5rem] leading-[1.25] text-nuit">
+        Le formulaire n'est pas encore actif.
+      </p>
+      <p class="mt-4 max-w-[46ch] text-corps text-texte">
+        En attendant, écrivez directement ou réservez un créneau. La réponse est la même.
+      </p>
+      <ul class="mt-6 space-y-2">
+        <li>
+          <a class="lien" href={`mailto:${CONTACT.email}`}>
+            {CONTACT.email}
+          </a>
+        </li>
+        <li>
+          <a class="lien" href={`tel:${CONTACT.telephoneLien}`}>
+            {CONTACT.telephone}
+          </a>
+        </li>
+      </ul>
     </div>
+  ) : (
+    <div class="reveal">
+      <form id="formulaire-contact" method="POST" action={action} class="grid gap-6 sm:grid-cols-2">
+        <input type="hidden" name="_subject" value="Nouveau message depuis sabi-co.fr" />
 
-    <div>
-      <label class={etiquette} for="societe">Société</label>
-      <input
-        class={champ}
-        id="societe"
-        name="societe"
-        type="text"
-        autocomplete="organization"
-        required
-      />
-    </div>
+        {/* Piège à robots. Formspree écarte l'envoi si ce champ est rempli. */}
+        <p class="hidden" aria-hidden="true">
+          <label>
+            Ne pas remplir
+            <input name="_gotcha" tabindex="-1" autocomplete="off" />
+          </label>
+        </p>
 
-    <div>
-      <label class={etiquette} for="email">Email</label>
-      <input class={champ} id="email" name="email" type="email" autocomplete="email" required />
-    </div>
+        <div>
+          <label class={etiquette} for="nom">
+            Nom
+          </label>
+          <input class={champ} id="nom" name="nom" type="text" autocomplete="name" required />
+        </div>
 
-    <div>
-      <label class={etiquette} for="telephone">
-        Téléphone <span class="font-normal text-gris">(facultatif)</span>
-      </label>
-      <input class={champ} id="telephone" name="telephone" type="tel" autocomplete="tel" />
-    </div>
+        <div>
+          <label class={etiquette} for="societe">
+            Société
+          </label>
+          <input
+            class={champ}
+            id="societe"
+            name="societe"
+            type="text"
+            autocomplete="organization"
+            required
+          />
+        </div>
 
-    <div class="sm:col-span-2">
-      <label class={etiquette} for="message">Message</label>
-      <textarea class={champ} id="message" name="message" rows="6" required></textarea>
-    </div>
+        <div>
+          <label class={etiquette} for="email">
+            Email
+          </label>
+          <input class={champ} id="email" name="email" type="email" autocomplete="email" required />
+        </div>
 
-    <div class="sm:col-span-2">
-      <label class="flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-[1.6] text-texte">
-        <input
-          class="mt-1 h-4 w-4 shrink-0 accent-[#7E6127]"
-          id="consentement"
-          name="consentement"
-          type="checkbox"
-          required
-        />
-        <span>
-          J'accepte que les informations saisies soient utilisées pour répondre à ma demande.
-          Voir la <a class="lien" href="/politique-de-confidentialite">politique de
-          confidentialité</a>.
-        </span>
-      </label>
-    </div>
+        <div>
+          <label class={etiquette} for="telephone">
+            Téléphone <span class="font-normal text-gris">(facultatif)</span>
+          </label>
+          <input class={champ} id="telephone" name="telephone" type="tel" autocomplete="tel" />
+        </div>
 
-    <div class="sm:col-span-2">
-      <button
-        type="submit"
-        class="bouton bouton-sombre"
+        <div class="sm:col-span-2">
+          <label class={etiquette} for="message">
+            Message
+          </label>
+          <textarea class={champ} id="message" name="message" rows="6" required />
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-[1.6] text-texte">
+            <input
+              class="mt-1 h-4 w-4 shrink-0 accent-[#7E6127]"
+              id="consentement"
+              name="consentement"
+              type="checkbox"
+              required
+            />
+            <span>
+              J'accepte que les informations saisies soient utilisées pour répondre à ma demande.
+              Voir la <a class="lien" href="/politique-de-confidentialite">politique de
+              confidentialité</a>.
+            </span>
+          </label>
+        </div>
+
+        <div class="sm:col-span-2">
+          <button type="submit" class="bouton bouton-sombre">
+            Envoyer
+            <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      </form>
+
+      <p
+        id="message-confirmation"
+        hidden
+        role="status"
+        class="border-l-2 border-bronze bg-creme py-6 pr-6 pl-6 text-corps text-texte"
       >
-        Envoyer
-        <span aria-hidden="true">&rarr;</span>
-      </button>
+        Message envoyé. Nous revenons vers vous par email.
+      </p>
+
+      <p
+        id="message-erreur"
+        hidden
+        role="alert"
+        class="mt-6 border-l-2 border-nuit bg-creme py-4 pr-6 pl-6 text-corps text-texte"
+      >
+        L'envoi n'a pas abouti. Écrivez-nous directement à
+        <a class="lien" href={`mailto:${CONTACT.email}`}>
+          {CONTACT.email}
+        </a>.
+      </p>
     </div>
-  </form>
-
-  <p
-    id="message-confirmation"
-    hidden
-    role="status"
-    class="border-l-2 border-bronze bg-creme py-6 pr-6 pl-6 text-corps text-texte"
-  >
-    Message envoyé. Nous revenons vers vous par email.
-  </p>
-
-  <p
-    id="message-erreur"
-    hidden
-    role="alert"
-    class="mt-6 border-l-2 border-nuit bg-creme py-4 pr-6 pl-6 text-corps text-texte"
-  >
-    L'envoi n'a pas abouti. Écrivez-nous directement à
-    <a class="lien" href="mailto:sacha.bitoun@essec.edu">sacha.bitoun@essec.edu</a>.
-  </p>
-</div>
+  )
+}
 
 <script>
   const formulaire = document.getElementById('formulaire-contact') as HTMLFormElement | null;
@@ -126,15 +161,12 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
     if (erreur) erreur.hidden = true;
 
     try {
-      const reponse = await fetch('/api/contact', {
+      const reponse = await fetch(formulaire.action, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          // Demande explicite de JSON : la fonction sait ainsi qu'elle ne doit
-          // pas renvoyer sa page HTML de confirmation.
-          Accept: 'application/json',
-        },
-        body: new URLSearchParams(new FormData(formulaire) as unknown as string[][]).toString(),
+        // Formspree renvoie du JSON plutôt que sa page de confirmation
+        // dès que la requête l'annonce ainsi.
+        headers: { Accept: 'application/json' },
+        body: new FormData(formulaire),
       });
 
       if (!reponse.ok) throw new Error(String(reponse.status));

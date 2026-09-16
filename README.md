@@ -84,50 +84,55 @@ sitemap.
 Le site est hébergé sur **Cloudflare Pages**, le domaine est géré dans le même
 compte Cloudflare.
 
+Le dépôt n'a qu'une seule branche, `claude/sabi-site-dev-95r6po`, qui est aussi
+la branche par défaut. C'est donc elle que Cloudflare doit construire en
+production. Rien à fusionner.
+
 Réglages du projet Pages :
 
 | Réglage | Valeur |
 |---|---|
+| Framework preset | Astro, ou aucun |
 | Commande de build | `npm run build` |
 | Dossier de sortie | `dist` |
-| Version de Node | 22 |
+| Branche de production | `claude/sabi-site-dev-95r6po` |
+| Variable `NODE_VERSION` | `22` |
+
+Aucune variable secrète n'est nécessaire.
 
 Les en-têtes de sécurité et de cache sont dans `public/_headers`, que Cloudflare
 Pages lit au déploiement. Rien à configurer dans l'interface.
 
+Pousser sur GitHub ne met pas le site en ligne par soi-même : il faut d'abord
+créer le projet Pages et le brancher sur ce dépôt. Chaque poussée déclenche
+ensuite un déploiement automatique.
+
 ### Le formulaire de contact
 
-`functions/api/contact.js` est une **Pages Function**. Cloudflare la déploie
-automatiquement depuis le dossier `functions/` à la racine du dépôt, à côté du
-site statique. Elle valide les champs, écarte les robots avec le champ piège
-`societe-web`, puis relaie le message par email via **Resend**.
+Le formulaire poste sur **Formspree**. Aucun backend, aucun secret dans le
+dépôt : l'identifiant d'un formulaire Formspree est public par nature.
 
-Elle répond de deux façons, pour que le site marche aussi sans JavaScript :
+Une seule valeur à renseigner, `FORMSPREE_ID` dans `src/consts.ts` :
 
-- requête portant `Accept: application/json` : réponse JSON, la confirmation
-  s'affiche sans rechargement
-- sinon : le navigateur a posté normalement, la fonction sert sa propre page de
-  confirmation, aux couleurs du site, avec un lien de retour
-
-Variables à définir dans Cloudflare Pages, onglet Settings puis Variables :
-
-| Nom | Type | Obligatoire | Rôle |
-|---|---|---|---|
-| `RESEND_API_KEY` | secret | oui | clé API Resend |
-| `CONTACT_TO` | variable | non | destinataire, par défaut `sacha.bitoun@essec.edu` |
-| `CONTACT_FROM` | variable | non | expéditeur, par défaut `sabi&co <contact@sabi-co.fr>` |
-
-Sans `RESEND_API_KEY`, la fonction renvoie une erreur explicite avec l'adresse
-email en repli. Elle ne fait jamais croire à un envoi réussi.
-
-### Tester la fonction en local
-
-```bash
-npm run build
-npx wrangler pages dev dist --binding RESEND_API_KEY=votre_cle
+```ts
+export const FORMSPREE_ID = 'xxxxxxxx';
 ```
 
-Le site répond alors sur `http://localhost:8788`, fonction comprise.
+C'est la fin de l'URL que Formspree donne, `https://formspree.io/f/xxxxxxxx`.
+
+Tant que cette valeur est vide, **aucun formulaire n'est affiché** : la page
+Contact montre à la place un encart renvoyant vers l'email et le téléphone.
+Personne ne se retrouve devant un envoi qui échoue en silence.
+
+Une fois l'identifiant posé, le formulaire fonctionne dans les deux cas :
+
+- avec JavaScript, la requête annonce `Accept: application/json`, Formspree
+  répond en JSON et la confirmation s'affiche sans rechargement
+- sans JavaScript, le navigateur poste normalement et Formspree affiche sa
+  propre page de confirmation
+
+Le champ `_gotcha` est le piège à robots reconnu par Formspree, et `_subject`
+fixe l'objet des emails reçus.
 
 ## Contrôle qualité, état au 16 septembre 2026
 
@@ -137,10 +142,8 @@ Le site répond alors sur `http://localhost:8788`, fonction comprise.
 | Débordement horizontal | aucun, à ces 4 largeurs, sur les 8 pages |
 | Liens internes | tous résolus |
 | Lien Calendly | 200 |
-| Lien LinkedIn | URL provisoire, à confirmer, voir TODO 2 |
-| Formulaire avec JavaScript | vérifié sur `wrangler pages dev`, confirmation et erreur |
-| Formulaire sans JavaScript | vérifié, la fonction sert sa page de repli |
-| Fonction de contact | 9 cas testés : méthode, validation, piège à robots, appel Resend réel |
+| Lien LinkedIn | URL réelle, LinkedIn renvoie 999 aux robots, normal |
+| Formulaire | balisage vérifié avec un identifiant de test, repli vérifié sans identifiant |
 | Texte gris clair sur fond clair | aucun, contraste minimal mesuré 5.1:1 |
 | Tiret cadratin ou double tiret | aucun |
 | Chiffres hors cahier des charges | aucun, hors numérotation 01 à 06 des cartes |
@@ -152,23 +155,20 @@ Le site répond alors sur `http://localhost:8788`, fonction comprise.
 
 ## TODO avant mise en ligne
 
-1. **URL LinkedIn.** `CONTACT.linkedin` dans `src/consts.ts` est une supposition.
-   Remplacer par l'URL réelle.
+1. **Identifiant Formspree.** Créer le formulaire sur Formspree et coller son
+   identifiant dans `FORMSPREE_ID`, `src/consts.ts`. Tant qu'il est vide, la
+   page Contact affiche les coordonnées directes au lieu du formulaire.
 2. **Mentions légales.** Dans `src/pages/mentions-legales.astro`, les champs
    marqués « à compléter » : dénomination sociale, forme juridique, capital
    social, adresse du siège, SIREN, RCS, TVA intracommunautaire, puis raison
-   sociale, adresse et téléphone de l'hébergeur retenu.
+   sociale, adresse et téléphone de l'hébergeur retenu, ici Cloudflare.
 3. **Politique de confidentialité.** Identité du responsable de traitement et
    adresse du siège, dans `src/pages/politique-de-confidentialite.astro`.
 4. **Données structurées.** `streetAddress` et `postalCode` dans le JSON-LD de
    `src/layouts/Base.astro`, une fois l'adresse arrêtée.
-5. **Analytics.** Plausible ou Umami à brancher dans `src/layouts/Base.astro`.
-   Ces deux outils ne déposent pas de cookie, donc pas de bandeau de
-   consentement. Cloudflare Web Analytics fait aussi l'affaire et ne dépose rien.
-6. **Clé Resend.** Créer un compte Resend, y vérifier le domaine `sabi-co.fr`
-   avec les enregistrements DNS fournis, à poser dans Cloudflare, puis ajouter
-   `RESEND_API_KEY` en secret dans le projet Pages. Tant que ce n'est pas fait,
-   le formulaire affiche une erreur et renvoie vers l'adresse email.
+5. **Analytics.** Cloudflare Web Analytics est le plus simple ici, il ne dépose
+   aucun cookie, donc pas de bandeau de consentement. Plausible ou Umami font
+   aussi l'affaire, à brancher dans `src/layouts/Base.astro`.
 
 Aucune de ces informations n'a été inventée.
 
