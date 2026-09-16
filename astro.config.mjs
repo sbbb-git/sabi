@@ -3,9 +3,9 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// TODO domaine : remplacer par https://sabi.fr une fois le nom de domaine acheté.
-// Cette valeur alimente les URL canoniques, le sitemap et les balises Open Graph.
-export const SITE_URL = 'https://sabi.fr';
+// Domaine du cabinet. Alimente les URL canoniques, le sitemap et l'Open Graph.
+// Le domaine porte un tiret, la marque une esperluette : sabi-co.fr pour sabi&co.
+export const SITE_URL = 'https://sabi-co.fr';
 
 export default defineConfig({
   site: SITE_URL,

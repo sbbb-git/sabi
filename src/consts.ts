@@ -3,7 +3,7 @@
  * Aucun chiffre ne doit être ajouté sans figurer au cahier des charges.
  */
 
-export const MARQUE = 'sabi';
+export const MARQUE = 'sabi&co';
 
 export const CONTACT = {
   email: 'sacha.bitoun@essec.edu',

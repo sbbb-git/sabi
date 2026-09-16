@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import { CONTACT, MARQUE } from '../consts';
 
 interface Props {
-  /** Sans le suffixe « | sabi », ajouté ici. 60 caractères maximum au total. */
+  /** Sans le suffixe « | sabi&co », ajouté ici. 60 caractères maximum au total. */
   titre: string;
   /** 155 caractères maximum. Unique pour chaque page. */
   description: string;
@@ -23,7 +23,15 @@ const {
 } = Astro.props;
 
 const titreComplet = `${titre} | ${MARQUE}`;
-const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || Astro.site!.href;
+
+/*
+  Le build sort des fichiers .html mais les pages sont servies sans extension,
+  et c'est cette forme que reprennent le sitemap et tous les liens internes.
+  L'URL canonique doit être la même, sinon elle contredit le sitemap.
+*/
+const cheminBrut = Astro.url.pathname.replace(/index\.html$/, '/').replace(/\.html$/, '');
+const chemin = cheminBrut === '' || cheminBrut === '/' ? '/' : cheminBrut.replace(/\/$/, '');
+const canonical = new URL(chemin, Astro.site).href;
 const ogImage = new URL('/og-image.png', Astro.site).href;
 
 const jsonLd = {
@@ -70,7 +78,7 @@ const jsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="sabi, structurer et financer la croissance" />
+    <meta property="og:image:alt" content="sabi&co, structurer et financer la croissance" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={titreComplet} />
@@ -90,7 +98,7 @@ const jsonLd = {
     {/*
       TODO analytics : brancher Plausible ou Umami une fois le domaine actif.
       Aucun cookie déposé par ces deux outils, donc aucun bandeau de consentement.
-      Exemple : <script defer data-domain="sabi.fr" src="https://plausible.io/js/script.js" />
+      Exemple : <script defer data-domain="sabi-co.fr" src="https://plausible.io/js/script.js" />
     */}
 
     <script is:inline>

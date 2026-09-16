@@ -1,6 +1,6 @@
-# sabi.fr
+# sabi-co.fr
 
-Site vitrine du cabinet sabi. Astro en sortie statique, Tailwind CSS 4, TypeScript.
+Site vitrine du cabinet sabi&co. Astro en sortie statique, Tailwind CSS 4, TypeScript.
 Aucun framework front, aucun backend.
 
 ## Démarrer
@@ -22,9 +22,9 @@ src/
   consts.ts              coordonnées, navigation, marque
   data/contenu.ts        tout le texte éditorial, source unique
   layouts/Base.astro     head, SEO, JSON-LD, apparition au scroll
-  components/            Header, Footer, Hero, Masthead, SectionTitle,
-                         ExpertiseCard, ReferenceRow, DarkBand, ContactForm,
-                         PageLegale
+  components/            Header, Footer, Wordmark, Hero, Masthead,
+                         SectionTitle, ExpertiseCard, ReferenceRow, DarkBand,
+                         ContactForm, PageLegale
   pages/                 accueil, expertises, references, a-propos, contact,
                          mentions-legales, politique-de-confidentialite, 404
 public/                  robots.txt, favicon.svg, og-image.png, apple-touch-icon.png
@@ -64,6 +64,21 @@ Deux polices, servies en local, aucun CDN. **Instrument Serif** porte les titres
 et les chiffres, c'est elle qui donne la voix. **Inter** porte tout le reste,
 corps de texte, navigation, formulaire.
 
+## Marque et domaine
+
+La marque s'écrit `sabi&co`, en minuscules, esperluette collée. Le domaine, lui,
+porte un tiret : `sabi-co.fr`.
+
+`MARQUE` dans `src/consts.ts` est la chaîne de référence. Elle sert partout où
+il faut du texte brut : balise `title`, `og:site_name`, JSON-LD, attributs
+`alt` et `aria-label`. Pour l'affichage, c'est le composant `Wordmark` qui rend
+le logotype, avec l'esperluette en sable sur fond sombre et en bronze sur fond
+clair. L'esperluette sert aussi de favicon et d'icône iOS.
+
+Le domaine est posé dans `SITE_URL` (`astro.config.mjs`), d'où découlent les URL
+canoniques, le sitemap et l'Open Graph, et dans `public/robots.txt` pour l'URL du
+sitemap.
+
 ## Déploiement
 
 `netlify.toml` est prêt : commande `npm run build`, dossier `dist`, en-têtes de
@@ -76,7 +91,7 @@ s'affiche sans rechargement. Pour partir sur Vercel, remplacer l'attribut
 `data-netlify` par une action Formspree dans `src/components/ContactForm.astro`,
 le reste du balisage ne change pas.
 
-## Contrôle qualité, état au 15 septembre 2026
+## Contrôle qualité, état au 16 septembre 2026
 
 | Point | État |
 |---|---|
@@ -90,18 +105,17 @@ le reste du balisage ne change pas.
 | Tiret cadratin ou double tiret | aucun |
 | Chiffres hors cahier des charges | aucun, hors numérotation 01 à 06 des cartes |
 | `npm run build` | 0 erreur, 0 avertissement |
-| Lighthouse mobile, accueil | 100 / 100 / 100 / 100 |
-| Lighthouse mobile, expertises | 100 / 100 / 100 / 100 |
-| Lighthouse mobile, à propos | 100 / 100 / 100 / 100 |
-| Lighthouse mobile, contact | 100 / 100 / 100 / 100 |
+| URL canoniques | vérifiées, sans `.html`, alignées sur le sitemap |
+| Lighthouse mobile, 5 pages | 100 / 100 / 100 / 100 partout |
 | Site lisible sans JavaScript | vérifié, tous les blocs visibles |
 | `prefers-reduced-motion` | animations désactivées |
 
 ## TODO avant mise en ligne
 
-1. **Nom de domaine.** `SITE_URL` dans `astro.config.mjs` et l'URL du sitemap
-   dans `public/robots.txt` pointent sur `https://sabi.fr`. À confirmer une fois
-   le domaine acheté.
+1. **Branchement du domaine.** `sabi-co.fr` est déjà posé dans `SITE_URL` et
+   dans `public/robots.txt`. Il reste à faire pointer le DNS sur l'hébergeur et
+   à choisir le domaine principal, apex ou `www`, la redirection de l'autre se
+   règle côté hébergeur.
 2. **URL LinkedIn.** `CONTACT.linkedin` dans `src/consts.ts` est une supposition.
    Remplacer par l'URL réelle.
 3. **Mentions légales.** Dans `src/pages/mentions-legales.astro`, les champs

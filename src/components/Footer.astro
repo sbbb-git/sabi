@@ -1,4 +1,5 @@
 ---
+import Wordmark from './Wordmark.astro';
 import { CONTACT, MARQUE, NAV, NAV_LEGAL } from '../consts';
 
 const annee = new Date().getFullYear();
@@ -8,7 +9,7 @@ const annee = new Date().getFullYear();
   <div class="conteneur">
     <div class="grid gap-12 py-16 lg:grid-cols-12 lg:gap-8 lg:py-24">
       <div class="lg:col-span-5">
-        <p class="font-titre text-[2rem] leading-none lowercase">{MARQUE}</p>
+        <p class="text-[2rem] leading-none"><Wordmark /></p>
         <p class="mt-5 max-w-[32ch] text-corps text-sur-nuit">
           Structurer et financer la croissance.
         </p>

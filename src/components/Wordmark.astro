@@ -1,0 +1,17 @@
+---
+/**
+ * Logotype. L'esperluette porte l'accent sable, c'est la marque du cabinet.
+ * Partout ailleurs (title, JSON-LD, alt), c'est la chaîne MARQUE qui sert.
+ */
+interface Props {
+  class?: string;
+  /** Sur fond clair, l'esperluette passe en bronze pour tenir le contraste. */
+  clair?: boolean;
+}
+
+const { class: classe = '', clair = false } = Astro.props;
+---
+
+<span class:list={['font-titre lowercase', classe]}>
+  sabi<span class:list={[clair ? 'text-bronze' : 'text-sable']}>&amp;</span>co
+</span>
