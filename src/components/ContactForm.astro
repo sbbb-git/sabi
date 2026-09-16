@@ -1,10 +1,11 @@
 ---
 /**
- * Formulaire Netlify Forms. Aucun backend.
- * Sans JavaScript, le navigateur poste normalement et Netlify affiche sa page
- * de confirmation. Avec JavaScript, la confirmation s'affiche sans rechargement.
- * TODO hébergeur : si le site part sur Vercel plutôt que Netlify, remplacer
- * l'attribut data-netlify par une action Formspree. Le reste du balisage ne change pas.
+ * Formulaire de contact. Il poste sur /api/contact, une Cloudflare Pages
+ * Function qui relaie le message par email.
+ *
+ * Sans JavaScript, le navigateur poste normalement et la fonction renvoie sa
+ * propre page de confirmation. Avec JavaScript, la réponse est du JSON et la
+ * confirmation s'affiche sans rechargement.
  */
 const champ =
   'mt-2 block w-full border border-bord bg-blanc px-4 py-3 text-corps text-texte placeholder:text-gris transition-colors duration-150 focus:border-bronze focus:outline-none';
@@ -16,12 +17,9 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
     id="formulaire-contact"
     name="contact"
     method="POST"
-    data-netlify="true"
-    netlify-honeypot="societe-web"
+    action="/api/contact"
     class="grid gap-6 sm:grid-cols-2"
   >
-    <input type="hidden" name="form-name" value="contact" />
-
     {/* Piège à robots. Masqué, jamais rempli par un humain. */}
     <p class="hidden" aria-hidden="true">
       <label>
@@ -128,9 +126,14 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
     if (erreur) erreur.hidden = true;
 
     try {
-      const reponse = await fetch('/', {
+      const reponse = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          // Demande explicite de JSON : la fonction sait ainsi qu'elle ne doit
+          // pas renvoyer sa page HTML de confirmation.
+          Accept: 'application/json',
+        },
         body: new URLSearchParams(new FormData(formulaire) as unknown as string[][]).toString(),
       });
 

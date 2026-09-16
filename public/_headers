@@ -1,0 +1,10 @@
+# En-tetes de securite. Lus par Cloudflare Pages comme par Netlify.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Les fichiers d'Astro portent un hash dans leur nom : cache long et immuable.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

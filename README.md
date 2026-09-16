@@ -79,17 +79,55 @@ Le domaine est posé dans `SITE_URL` (`astro.config.mjs`), d'où découlent les 
 canoniques, le sitemap et l'Open Graph, et dans `public/robots.txt` pour l'URL du
 sitemap.
 
-## Déploiement
+## Déploiement, Cloudflare Pages
 
-`netlify.toml` est prêt : commande `npm run build`, dossier `dist`, en-têtes de
-sécurité et cache long sur `/_astro/*`.
+Le site est hébergé sur **Cloudflare Pages**, le domaine est géré dans le même
+compte Cloudflare.
 
-Le formulaire de contact utilise **Netlify Forms** (`data-netlify="true"`, champ
-piège `societe-web`). Il fonctionne sans JavaScript, le navigateur poste et
-Netlify affiche sa page de confirmation. Avec JavaScript, la confirmation
-s'affiche sans rechargement. Pour partir sur Vercel, remplacer l'attribut
-`data-netlify` par une action Formspree dans `src/components/ContactForm.astro`,
-le reste du balisage ne change pas.
+Réglages du projet Pages :
+
+| Réglage | Valeur |
+|---|---|
+| Commande de build | `npm run build` |
+| Dossier de sortie | `dist` |
+| Version de Node | 22 |
+
+Les en-têtes de sécurité et de cache sont dans `public/_headers`, que Cloudflare
+Pages lit au déploiement. Rien à configurer dans l'interface.
+
+### Le formulaire de contact
+
+`functions/api/contact.js` est une **Pages Function**. Cloudflare la déploie
+automatiquement depuis le dossier `functions/` à la racine du dépôt, à côté du
+site statique. Elle valide les champs, écarte les robots avec le champ piège
+`societe-web`, puis relaie le message par email via **Resend**.
+
+Elle répond de deux façons, pour que le site marche aussi sans JavaScript :
+
+- requête portant `Accept: application/json` : réponse JSON, la confirmation
+  s'affiche sans rechargement
+- sinon : le navigateur a posté normalement, la fonction sert sa propre page de
+  confirmation, aux couleurs du site, avec un lien de retour
+
+Variables à définir dans Cloudflare Pages, onglet Settings puis Variables :
+
+| Nom | Type | Obligatoire | Rôle |
+|---|---|---|---|
+| `RESEND_API_KEY` | secret | oui | clé API Resend |
+| `CONTACT_TO` | variable | non | destinataire, par défaut `sacha.bitoun@essec.edu` |
+| `CONTACT_FROM` | variable | non | expéditeur, par défaut `sabi&co <contact@sabi-co.fr>` |
+
+Sans `RESEND_API_KEY`, la fonction renvoie une erreur explicite avec l'adresse
+email en repli. Elle ne fait jamais croire à un envoi réussi.
+
+### Tester la fonction en local
+
+```bash
+npm run build
+npx wrangler pages dev dist --binding RESEND_API_KEY=votre_cle
+```
+
+Le site répond alors sur `http://localhost:8788`, fonction comprise.
 
 ## Contrôle qualité, état au 16 septembre 2026
 
@@ -100,7 +138,9 @@ le reste du balisage ne change pas.
 | Liens internes | tous résolus |
 | Lien Calendly | 200 |
 | Lien LinkedIn | URL provisoire, à confirmer, voir TODO 2 |
-| Formulaire, envoi et confirmation | vérifié, envoi simulé |
+| Formulaire avec JavaScript | vérifié sur `wrangler pages dev`, confirmation et erreur |
+| Formulaire sans JavaScript | vérifié, la fonction sert sa page de repli |
+| Fonction de contact | 9 cas testés : méthode, validation, piège à robots, appel Resend réel |
 | Texte gris clair sur fond clair | aucun, contraste minimal mesuré 5.1:1 |
 | Tiret cadratin ou double tiret | aucun |
 | Chiffres hors cahier des charges | aucun, hors numérotation 01 à 06 des cartes |
@@ -112,24 +152,23 @@ le reste du balisage ne change pas.
 
 ## TODO avant mise en ligne
 
-1. **Branchement du domaine.** `sabi-co.fr` est déjà posé dans `SITE_URL` et
-   dans `public/robots.txt`. Il reste à faire pointer le DNS sur l'hébergeur et
-   à choisir le domaine principal, apex ou `www`, la redirection de l'autre se
-   règle côté hébergeur.
-2. **URL LinkedIn.** `CONTACT.linkedin` dans `src/consts.ts` est une supposition.
+1. **URL LinkedIn.** `CONTACT.linkedin` dans `src/consts.ts` est une supposition.
    Remplacer par l'URL réelle.
-3. **Mentions légales.** Dans `src/pages/mentions-legales.astro`, les champs
+2. **Mentions légales.** Dans `src/pages/mentions-legales.astro`, les champs
    marqués « à compléter » : dénomination sociale, forme juridique, capital
    social, adresse du siège, SIREN, RCS, TVA intracommunautaire, puis raison
    sociale, adresse et téléphone de l'hébergeur retenu.
-4. **Politique de confidentialité.** Identité du responsable de traitement et
+3. **Politique de confidentialité.** Identité du responsable de traitement et
    adresse du siège, dans `src/pages/politique-de-confidentialite.astro`.
-5. **Données structurées.** `streetAddress` et `postalCode` dans le JSON-LD de
+4. **Données structurées.** `streetAddress` et `postalCode` dans le JSON-LD de
    `src/layouts/Base.astro`, une fois l'adresse arrêtée.
-6. **Analytics.** Plausible ou Umami à brancher dans `src/layouts/Base.astro`.
+5. **Analytics.** Plausible ou Umami à brancher dans `src/layouts/Base.astro`.
    Ces deux outils ne déposent pas de cookie, donc pas de bandeau de
-   consentement. Si un autre outil est retenu et qu'il dépose un cookie, il faut
-   ajouter un bandeau conforme.
+   consentement. Cloudflare Web Analytics fait aussi l'affaire et ne dépose rien.
+6. **Clé Resend.** Créer un compte Resend, y vérifier le domaine `sabi-co.fr`
+   avec les enregistrements DNS fournis, à poser dans Cloudflare, puis ajouter
+   `RESEND_API_KEY` en secret dans le projet Pages. Tant que ce n'est pas fait,
+   le formulaire affiche une erreur et renvoie vers l'adresse email.
 
 Aucune de ces informations n'a été inventée.
 

@@ -19,5 +19,5 @@ npm-debug.log*
 *.log
 
 # hôtes
-.netlify/
+.wrangler/
 .vercel/
