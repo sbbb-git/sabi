@@ -1,8 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import structure from '../assets/structure.jpg';
-import beton from '../assets/beton.jpg';
+import toits from '../assets/toits.jpg';
+import avenue from '../assets/avenue.jpg';
 import { CONTACT, RDV } from '../consts';
 import { BANDE_ACCUEIL, EXPERTISES, PILIERS, REFERENCES } from '../data/contenu';
 
@@ -14,49 +14,46 @@ const apercuReferences = REFERENCES.slice(0, 3);
   description="Direction financière, financement et opérations, en temps partagé. Le cabinet prend en charge les sujets financiers que personne ne porte."
   donneesStructurees
 >
-  {/* Premier écran : le titre posé sur la trame, le plan à droite, cotes en pied. */}
-  <section class="planche pt-14 pb-20 lg:pt-20 lg:pb-28">
-    <div class="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-10">
-      <div class="lg:col-span-5">
-        <p class="cote">Cabinet de direction financière · Paris</p>
+  {/* Premier écran. Aplat bleu nuit pleine largeur, la ville dedans.
+      C'est la composition de sateip.fr, relevée puis traduite. */}
+  <section class="relative isolate overflow-hidden bg-encre text-blanc">
+    <Image
+      src={toits}
+      alt=""
+      aria-hidden="true"
+      widths={[768, 1024]}
+      sizes="100vw"
+      quality={62}
+      class="tirage-photo absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.34]"
+      loading="eager"
+    />
+    <div
+      class="absolute inset-0 -z-10 bg-gradient-to-r from-encre via-encre/90 to-encre/40"
+      aria-hidden="true"
+    ></div>
 
-        <h1 class="nom-ouvrage mt-6">Structurer et financer la croissance.</h1>
+    <div class="planche pt-20 pb-24 lg:pt-28 lg:pb-32">
+      <p class="cote cote-claire">Finance &middot; Développement &middot; Pilotage &amp; data</p>
 
-        {/* Preuve accolée : la phrase se termine sur sa cote, comme une ligne
-            de cote se termine toujours sur une arête réelle. */}
-        <p class="mt-8 max-w-[38ch] text-[1.0625rem] leading-[1.6] text-graphite lg:text-[1.1875rem]">
-          Direction financière, financement et opérations, en temps partagé.
-        </p>
+      <h1 class="nom-ouvrage mt-7 max-w-[15ch] text-blanc">
+        Structurer et financer la croissance.
+      </h1>
 
-        <div class="mt-10 flex flex-wrap items-center gap-3">
-          <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
-            {RDV}
-          </a>
-          <a href="/expertises" class="etiquette etiquette-encre">Les expertises</a>
-        </div>
+      <p class="mt-8 max-w-[42ch] text-[1.0625rem] leading-[1.6] text-tirage-clair lg:text-[1.1875rem]">
+        Direction financière, financement et opérations, en temps partagé.
+      </p>
+
+      <div class="mt-11 flex flex-wrap items-center gap-3">
+        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
+          Prendre rendez-vous
+        </a>
+        <a href="/expertises" class="etiquette etiquette-claire">Les expertises</a>
       </div>
-
-      {/* La photographie tient le rôle que tenait le plan : montrer de la
-          structure. Recadrée en portrait, elle tient la colonne entière. */}
-      <figure class="relative m-0 lg:col-span-7">
-        <Image
-          src={structure}
-          alt="Treillis d'acier vu en contre-plongée, structure répétée"
-          widths={[640, 960, 1280]}
-          sizes="(min-width: 64rem) 55vw, 100vw"
-          class="tirage-photo aspect-[4/3] w-full object-cover lg:aspect-[7/6]"
-          loading="eager"
-        />
-        <figcaption class="cote mt-4 flex items-center gap-3">
-          <span class="ligne-cote w-10 shrink-0" aria-hidden="true"></span>
-          Structure
-        </figcaption>
-      </figure>
     </div>
   </section>
 
   {/* Le constat, une idée par planche. */}
-  <section class="planche border-t border-encre py-16 lg:py-24">
+  <section class="planche py-16 lg:py-24">
     <div class="grid gap-10 lg:grid-cols-12 lg:gap-10">
       <div class="lg:col-span-3">
         <p class="cote">Le cabinet</p>
@@ -90,13 +87,13 @@ const apercuReferences = REFERENCES.slice(0, 3);
       lisible par dessus. */}
   <section class="cartouche relative overflow-hidden">
     <Image
-      src={beton}
+      src={avenue}
       alt=""
       aria-hidden="true"
-      widths={[960, 1440]}
+      widths={[768, 1024]}
       sizes="100vw"
-      quality={45}
-      class="tirage-photo absolute inset-0 h-full w-full object-cover opacity-[0.20]"
+      quality={52}
+      class="tirage-photo absolute inset-0 h-full w-full object-cover opacity-[0.22]"
       loading="lazy"
     />
     <div class="planche relative py-20 lg:py-32">

@@ -44,34 +44,39 @@ mesuré avant correction.
 
 ## Palette
 
-Bleu et blanc, rien d'autre. Le crème et la sanguine de la première version
-ont été rejetés par le client.
+Relevée sur les références du client, pas choisie au jugé. Mesure des surfaces
+réellement peintes sur leurs pages :
+
+| Source | Valeur | Ce qu'elle couvre chez eux |
+|---|---|---|
+| sateip.fr | `#0B1728` | 6,5 M px², la couleur dominante du site |
+| 26advisory.com | `#18509E` | 5,9 M px², devant leur propre marine |
 
 ```
---papier        #FFFFFF   fond général
---papier-clair  #F4F7FB   sections en retrait
---calque        #E7EEF6   fond de barre de défilement
---encre         #0B2545   texte, cartouche, traits forts
---tirage        #1D4ED8   accent unique : cotes, repères, action, renvois
---tirage-clair  #7FA8F0   le même, sur fond encre
---tirage-pale   #CBD9EC   filets uniquement, jamais du texte
---graphite      #55657A   texte secondaire
+--papier        #FFFFFF   fond des sections de contenu
+--papier-clair  #F6F7F9   sections en retrait
+--encre         #0B1728   héros, bandes fortes, cartouche, texte
+--tirage        #18509E   accent unique : cotes, repères, action, renvois
+--tirage-clair  #8FB6E8   le même, sur fond encre
+--tirage-pale   #D4DFEC   filets uniquement, jamais du texte
+--graphite      #5A6A7D   texte secondaire sur blanc
 ```
 
-Un seul bleu d'accent. La distinction entre une étiquette et une cote se fait
-par l'aplat et la graisse, jamais par une seconde teinte.
-
-Contrastes vérifiés : `--tirage` sur blanc 6,6:1, blanc sur `--tirage` 6,6:1,
-`--graphite` sur blanc 5,9:1, `--tirage-clair` sur `--encre` 6,4:1.
+Contrastes : `--tirage` sur blanc 7,8:1, `--graphite` sur blanc 5,6:1,
+`--tirage-clair` sur `--encre` 8,7:1.
 
 ## Photographies
 
-Trois photographies sous licence CC BY 2.0, créditées dans les mentions
-légales, servies en local et converties en WebP par Astro.
+Des vues de **Paris** : toits, ciel, avenue. Jamais de bureau, jamais de
+réunion, jamais de poignée de main. C'est la leçon de sateip.fr, qui illustre
+à l'haussmannien et non au open space.
 
-Elles sont **désaturées** par `.tirage-photo` pour entrer dans le bleu et blanc.
-Aucune couleur parasite n'entre sur le site par une image. Elles montrent de la
-structure, jamais une scène de bureau ni une poignée de main.
+Deux images sous licence CC BY 2.0, créditées dans les mentions légales,
+servies en local, converties en WebP par Astro, et désaturées par
+`.tirage-photo` pour n'introduire aucune couleur parasite.
+
+Le héros les pose sous un dégradé d'encre, de l'opaque à gauche vers le
+translucide à droite, pour que le titre garde son contraste.
 
 ## Le vocabulaire de la planche
 

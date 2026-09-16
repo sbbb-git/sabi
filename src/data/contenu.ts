@@ -62,7 +62,7 @@ export const REFERENCES: Reference[] = [
   {
     secteur: 'Imagerie médicale',
     objet: "Structuration et pilotage d'un groupe multi-entités",
-    phrase: 'Consolidation de 15 entités et refonte du reporting de groupe.',
+    phrase: 'Consolidation de 15 entités.',
     chiffre: '15 entités',
   },
   {
@@ -86,7 +86,7 @@ export const REFERENCES: Reference[] = [
   {
     secteur: 'Centre de santé pluridisciplinaire',
     objet: "Accompagnement complet, de l'étude au financement",
-    phrase: "De l'étude du territoire au montage financier de l'ouverture.",
+    phrase: "De l'étude du territoire au financement.",
     chiffre: '6 volets traités',
   },
   {

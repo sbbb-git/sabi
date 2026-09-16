@@ -8,22 +8,23 @@
 @import '@fontsource-variable/archivo/standard.css';
 
 @theme {
-  /* Bleu et blanc, rien d'autre. Le blanc est le papier du tirage. */
+  /*
+    Valeurs relevées sur les références du client, pas choisies au jugé.
+    --color-encre est le bleu nuit qui couvre 6,5 M de px sur sateip.fr.
+    --color-tirage est le bleu franc qui couvre 5,9 M de px sur 26advisory.com.
+  */
   --color-papier: #ffffff;
-  --color-papier-clair: #f4f7fb;
-  --color-calque: #e7eef6;
+  --color-papier-clair: #f6f7f9;
+  --color-calque: #e6ebf2;
 
-  /* L'encre : le bleu profond qui porte le texte et les aplats. */
-  --color-encre: #0b2545;
-
-  /* Un seul bleu d'accent : cotes, repères, action, renvois. */
-  --color-tirage: #1d4ed8;
-  /* Le même, éclairci, pour tenir le contraste sur l'encre. */
-  --color-tirage-clair: #7fa8f0;
+  --color-encre: #0b1728;
+  --color-tirage: #18509e;
+  /* Le même bleu, éclairci, pour tenir le contraste sur le bleu nuit. */
+  --color-tirage-clair: #8fb6e8;
   /* Filets uniquement. Ne jamais porter de texte. */
-  --color-tirage-pale: #cbd9ec;
+  --color-tirage-pale: #d4dfec;
 
-  --color-graphite: #55657a;
+  --color-graphite: #5a6a7d;
   --color-blanc: #ffffff;
 
   /* Un seul alphabet, décliné en largeur. */
@@ -218,7 +219,20 @@
 
   .etiquette:hover,
   .etiquette:focus-visible {
-    background-color: #163fae;
+    background-color: #123f7d;
+  }
+
+  .etiquette-claire {
+    background-color: transparent;
+    color: var(--color-blanc);
+    border: 1px solid color-mix(in srgb, var(--color-tirage-clair) 45%, transparent);
+  }
+
+  .etiquette-claire:hover,
+  .etiquette-claire:focus-visible {
+    background-color: var(--color-blanc);
+    color: var(--color-encre);
+    border-color: var(--color-blanc);
   }
 
   .etiquette-encre {
