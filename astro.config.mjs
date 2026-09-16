@@ -32,7 +32,9 @@ export default defineConfig({
           : chemin === '/lexique' || chemin === '/references' ? 0.8
           : chemin.startsWith('/lexique/') ? 0.6
           : 0.7;
-        return { ...item, priority: priorite, changefreq: 'monthly', lastmod: new Date().toISOString() };
+        // `changefreq` est typé par une énumération de la bibliothèque sitemap,
+        // et Google l'ignore de toute façon. Priorité et date suffisent.
+        return { ...item, priority: priorite, lastmod: new Date().toISOString() };
       },
     }),
   ],
