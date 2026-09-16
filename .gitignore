@@ -21,3 +21,6 @@ npm-debug.log*
 # hôtes
 .wrangler/
 .vercel/
+
+# outillage design, reinstallable : npx skills add pbakaus/impeccable
+.agents/

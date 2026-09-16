@@ -39,8 +39,8 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
                 {lien.libelle}
                 <span
                   class:list={[
-                    'pointer-events-none absolute -bottom-0.5 left-0 h-px bg-sable transition-[width] duration-200',
-                    actif ? 'w-full' : 'w-0',
+                    'pointer-events-none absolute -bottom-0.5 left-0 h-px w-full origin-left bg-sable transition-transform duration-200',
+                    actif ? 'scale-x-100' : 'scale-x-0',
                   ]}
                   aria-hidden="true"
                 />
