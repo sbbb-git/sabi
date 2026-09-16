@@ -1,0 +1,169 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import EnTetePlanche from '../components/EnTetePlanche.astro';
+import avenue from '../assets/avenue.jpg';
+import { CONTACT } from '../consts';
+import { AMORCAGE, ETAPES_FINANCEMENT, VOIES_FINANCEMENT } from '../data/contenu';
+---
+
+<Base
+  titre="Financer votre ambition"
+  description="Financement dilutif et non dilutif : amorçage, dette bancaire, Bpifrance, subventions, crédit-bail et levée de fonds. Le cabinet construit le dossier et mène la recherche."
+>
+  <EnTetePlanche
+    rubrique="Financement"
+    titre="Financer votre ambition"
+    objet="Un projet se finance rarement par une seule source. Nous construisons le dossier, nous identifions les voies ouvertes et nous menons la recherche jusqu'au déblocage des fonds."
+  />
+
+  {/* Les deux voies. La planche les pose côte à côte, séparées par un trait,
+      parce que la distinction est le premier arbitrage d'un dirigeant. */}
+  <section class="bg-papier-clair">
+    <div class="planche py-16 lg:py-24">
+      <h2 class="titre-planche max-w-[24ch]">Deux voies, et le choix entre les deux</h2>
+      <p class="mt-6 max-w-[64ch] text-[1.0625rem] leading-[1.65] text-graphite">
+        Le financement dilutif apporte des moyens en échange d'une part du capital.
+        Le non dilutif laisse la répartition du capital intacte. Les deux se
+        combinent sur un même projet, et l'ordre dans lequel on les sollicite pèse
+        sur le résultat final.
+      </p>
+
+      <div class="mt-12 grid gap-px border-t border-encre lg:mt-16 lg:grid-cols-2">
+        {
+          VOIES_FINANCEMENT.map((voie, i) => (
+            <article
+              class:list={[
+                'border-b border-tirage-pale py-9',
+                i === 0 ? 'lg:border-r lg:pr-12' : 'lg:pl-12',
+              ]}
+            >
+              <span class="cote">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="titre-rubrique mt-4">{voie.titre}</h3>
+              <p
+                class="mt-4 max-w-[36ch] text-[1.125rem] leading-[1.3] font-semibold tracking-[-0.015em] text-tirage lg:text-[1.3125rem]"
+                style="font-stretch:88%"
+              >
+                {voie.accroche}
+              </p>
+              <p class="mt-5 max-w-[56ch] text-[0.9375rem] leading-[1.7] text-graphite">
+                {voie.texte}
+              </p>
+              <ul class="mt-7 space-y-3">
+                {voie.lignes.map((ligne) => (
+                  <li class="flex gap-4 text-[0.9375rem] leading-[1.5] text-encre">
+                    <span class="mt-[0.55em] h-px w-4 shrink-0 bg-tirage" aria-hidden="true" />
+                    <span>{ligne}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* L'amorçage. Le client le fait, le site ne le disait nulle part. */}
+  <section class="planche py-16 lg:py-24">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-3">
+        <p class="cote">Au démarrage</p>
+        <span class="ligne-cote mt-5 block w-24" aria-hidden="true"></span>
+      </div>
+      <div class="lg:col-span-9">
+        <h2 class="titre-planche max-w-[20ch]">{AMORCAGE.titre}</h2>
+        <p
+          class="mt-7 max-w-[46ch] text-[1.25rem] leading-[1.35] font-semibold tracking-[-0.02em] text-encre lg:text-[1.5rem]"
+          style="font-stretch:88%"
+        >
+          {AMORCAGE.chapo}
+        </p>
+        <p class="mt-6 max-w-[64ch] text-[1.0625rem] leading-[1.7] text-graphite">
+          {AMORCAGE.texte}
+        </p>
+
+        <ul class="mt-10 grid gap-px border-t border-tirage-pale sm:grid-cols-2">
+          {
+            AMORCAGE.lignes.map((ligne) => (
+              <li class="border-b border-tirage-pale py-4 pr-8 text-[0.9375rem] leading-[1.5] text-encre last:sm:col-span-2">
+                {ligne}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* Bpifrance et le public. Bande d'encre, la ville dessous. */}
+  <section class="cartouche relative overflow-hidden">
+    <Image
+      src={avenue}
+      alt=""
+      aria-hidden="true"
+      widths={[768, 1024]}
+      sizes="100vw"
+      quality={52}
+      class="tirage-photo absolute inset-0 h-full w-full object-cover opacity-[0.22]"
+      loading="lazy"
+    />
+    <div class="planche relative py-16 lg:py-24">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+        <div class="lg:col-span-3">
+          <p class="cote cote-claire">Financement public</p>
+          <span class="ligne-cote mt-5 block w-20" aria-hidden="true"></span>
+        </div>
+        <div class="lg:col-span-9">
+          <p
+            class="max-w-[34ch] text-[1.375rem] leading-[1.25] font-semibold tracking-[-0.02em] lg:text-[2rem]"
+            style="font-stretch:88%"
+          >
+            Bpifrance, les régions et les guichets sectoriels financent une part du
+            projet sans toucher au capital.
+          </p>
+          <p class="mt-7 max-w-[60ch] text-[0.9375rem] leading-[1.7] text-tirage-clair">
+            Prêts d'amorçage, prêts sans garantie, aides à l'innovation, avances
+            remboursables, subventions régionales, dispositifs de filière. Les
+            guichets sont nombreux et leurs critères diffèrent, ce qui explique que
+            beaucoup de dirigeants passent à côté de sommes auxquelles ils ont droit.
+            Le cabinet couvre ce champ et la direction financière, ce qui reste rare
+            sur le marché : les cabinets de subventions ne font pas le pilotage, les
+            réseaux de DAF ne font pas le public.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* La méthode, en quatre temps cotés. */}
+  <section class="planche py-16 lg:py-24">
+    <h2 class="titre-planche max-w-[22ch]">Comment se mène une recherche de financement</h2>
+
+    <ol class="mt-12 border-t border-encre lg:mt-16">
+      {
+        ETAPES_FINANCEMENT.map((etape, i) => (
+          <li class="grid gap-3 border-b border-tirage-pale py-7 lg:grid-cols-12 lg:items-baseline lg:gap-10">
+            <div class="lg:col-span-1">
+              <span class="repere">{String(i + 1).padStart(2, '0')}</span>
+            </div>
+            <h3 class="titre-rubrique lg:col-span-4">{etape.titre}</h3>
+            <p class="max-w-[62ch] text-[0.9375rem] leading-[1.7] text-graphite lg:col-span-7">
+              {etape.texte}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="mt-16 border-t border-encre pt-10">
+      <p class="titre-planche max-w-[20ch]">Pour enfin avoir les moyens de son ambition.</p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
+          Prendre rendez-vous
+        </a>
+        <a href="/expertises" class="etiquette etiquette-encre">Les six expertises</a>
+      </div>
+    </div>
+  </section>
+</Base>

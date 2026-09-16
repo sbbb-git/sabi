@@ -15,6 +15,7 @@ export const CONTACT = {
 
 export const NAV = [
   { libelle: 'Expertises', href: '/expertises' },
+  { libelle: 'Financement', href: '/financement' },
   { libelle: 'Références', href: '/references' },
   { libelle: 'À propos', href: '/a-propos' },
   { libelle: 'Contact', href: '/contact' },

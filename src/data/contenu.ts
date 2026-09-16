@@ -119,6 +119,8 @@ export const REFERENCES: Reference[] = [
 export type ExpertiseDetail = Expertise & {
   developpe: string;
   couvre: string[];
+  /** Renvoi vers une page qui développe l'expertise, quand elle existe. */
+  renvoi?: { libelle: string; href: string };
 };
 
 export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
@@ -141,14 +143,17 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
     phrase:
       'Nous montons le dossier et mettons les financeurs en concurrence, quelle que soit la source.',
     developpe:
-      "La plupart des dirigeants ne sollicitent qu'une seule source et acceptent la première proposition. Nous construisons le business plan et le modèle financier, nous préparons le dossier tel qu'un comité de crédit l'attend, puis nous interrogeons plusieurs financeurs en parallèle. Chaque source a ses propres critères d'analyse, et le dossier se prépare différemment selon celle que l'on vise.",
+      "La plupart des dirigeants ne sollicitent qu'une seule source et acceptent la première proposition. Nous construisons le business plan et le modèle financier, nous préparons le dossier tel qu'un comité de crédit l'attend, puis nous interrogeons plusieurs financeurs en parallèle. Chaque source a ses propres critères d'analyse, et le dossier se prépare différemment selon celle que l'on vise. Nous couvrons les deux voies. Le financement dilutif ouvre le capital à des investisseurs. Le financement non dilutif laisse le capital intact et passe par la dette, le crédit-bail ou les dispositifs publics.",
     couvre: [
-      'Business plan et modèle financier tenus par les hypothèses',
+      'Financement de l\'amorçage et du lancement d\'une activité',
+      'Levée de fonds en capital, du business plan à la table de capitalisation',
+      'Dispositifs Bpifrance, prêts d\'honneur et avances remboursables',
       'Dossier bancaire, prévisionnel et plan de financement',
-      'Mise en concurrence des banques et des organismes',
-      'Crédit-bail mobilier et immobilier, financement de matériel',
+      'Mise en concurrence des banques et des organismes de financement',
+      'Crédit-bail mobilier et immobilier pour le matériel',
       'Financement du besoin en fonds de roulement et du stock',
     ],
+    renvoi: { libelle: 'Financer votre ambition', href: '/financement' },
   },
   {
     titre: 'Subventions et aides publiques',
@@ -208,6 +213,11 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
 /** Les situations qui déclenchent un appel. Page d'accueil. */
 export const SITUATIONS = [
   {
+    titre: 'Vous lancez et vous cherchez vos premiers financements',
+    texte:
+      "Le projet existe, l'activité démarre, et le financement conditionne tout le reste. Amorçage, premiers dispositifs publics, prêts d'honneur, ouverture du capital. Chaque voie se prépare différemment et se joue sur la qualité du dossier.",
+  },
+  {
     titre: 'Votre croissance dépasse votre structure financière',
     texte:
       "Le chiffre d'affaires progresse, mais personne ne sait dire où en est la trésorerie avant la fin du mois. Les décisions se prennent au ressenti faute de chiffres à jour, et le sujet finit toujours sur le bureau du dirigeant.",
@@ -252,7 +262,85 @@ export const QUESTIONS = [
     r: "Oui. Les six expertises se prennent séparées ou combinées. Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin.",
   },
   {
+    q: 'Accompagnez-vous les créations et les amorçages ?',
+    r: "Oui. Le financement de l'amorçage fait partie du travail, au même titre que celui d'une entreprise installée. Un projet qui démarre a besoin d'un business plan tenu par ses hypothèses et d'un plan de financement crédible, avant même de rencontrer un financeur.",
+  },
+  {
+    q: 'Quelle différence entre financement dilutif et non dilutif ?',
+    r: "Le financement dilutif apporte de l'argent en échange d'une part du capital. Le non dilutif laisse le capital intact et passe par la dette bancaire, le crédit-bail ou les dispositifs publics comme ceux de Bpifrance. Les deux se combinent souvent sur un même projet, et l'ordre dans lequel on les sollicite change beaucoup le résultat.",
+  },
+  {
     q: 'Intervenez-vous en dehors de Paris ?',
     r: "Le cabinet est basé à Paris et intervient sur toute la France. Une grande partie du travail se fait à distance, avec des points sur site aux moments qui le demandent.",
   },
 ];
+
+/** Les deux voies du financement. Section « Financer votre ambition ». */
+export const VOIES_FINANCEMENT = [
+  {
+    titre: 'Non dilutif',
+    accroche: 'Vous gardez la totalité de votre capital.',
+    texte:
+      "La dette bancaire, le crédit-bail et les dispositifs publics financent un projet sans toucher à la répartition du capital. Ce sont souvent les sources les moins sollicitées, parce qu'elles demandent un dossier plus construit et un calendrier tenu.",
+    lignes: [
+      'Prêts bancaires et plan de financement',
+      'Dispositifs Bpifrance et avances remboursables',
+      'Subventions et aides publiques régionales ou sectorielles',
+      'Crédit-bail mobilier et immobilier',
+      "Prêts d'honneur au lancement",
+    ],
+  },
+  {
+    titre: 'Dilutif',
+    accroche: 'Vous ouvrez le capital pour aller plus vite.',
+    texte:
+      "Une levée de fonds finance ce qu'une banque refuse de porter, un développement long ou une conquête de marché. L'investisseur prend en échange une part de l'entreprise. Un tour se prépare des mois à l'avance, et sa réussite tient au dossier autant qu'à la rencontre avec le bon fonds.",
+    lignes: [
+      'Business plan et modèle financier investisseur',
+      "Préparation de l'amorçage et du premier tour",
+      'Valorisation et table de capitalisation',
+      'Documentation et réponses aux questions des fonds',
+      'Articulation avec les financements non dilutifs',
+    ],
+  },
+];
+
+/** Les étapes d'une recherche de financement. Page /financement. */
+export const ETAPES_FINANCEMENT = [
+  {
+    titre: 'Cadrer le besoin',
+    texte:
+      "Combien, pour quoi, à quelle échéance. Un besoin de trésorerie court, un investissement matériel et une accélération commerciale n'appellent pas les mêmes financeurs. Le cadrage détermine la suite.",
+  },
+  {
+    titre: 'Construire le dossier',
+    texte:
+      "Business plan, modèle financier, plan de financement, prévisionnel de trésorerie. Chaque hypothèse doit se défendre devant un analyste qui la testera. Un dossier solide raccourcit la négociation.",
+  },
+  {
+    titre: 'Ouvrir plusieurs portes en parallèle',
+    texte:
+      "Nous sollicitons en même temps les banques, Bpifrance, les guichets régionaux et, selon le projet, les investisseurs. Interroger une seule source revient à accepter ses conditions. Plusieurs discussions menées de front changent le rapport de force.",
+  },
+  {
+    titre: 'Négocier et boucler',
+    texte:
+      "Le taux, la durée, les garanties et les covenants se discutent, comme la valorisation et le pacte d'associés dans un tour de table. Ces conditions pèsent longtemps après la signature. Nous restons en face du financeur jusqu'au déblocage des fonds.",
+  },
+];
+
+/** Le financement de l'amorçage. Page /financement. */
+export const AMORCAGE = {
+  titre: "L'amorçage",
+  chapo:
+    "Un projet qui démarre se finance différemment d'une entreprise installée. Il n'a pas d'historique comptable à présenter, et le financeur regarde alors le dossier, le marché et le porteur.",
+  texte:
+    "Nous accompagnons le lancement et les premiers tours de table. Le travail commence avant la recherche de fonds, par un business plan dont les hypothèses tiennent devant un investisseur ou un comité d'engagement. Beaucoup de dispositifs existent au démarrage, et rares sont les créateurs qui les connaissent tous.",
+  lignes: [
+    "Prêts d'honneur et réseaux d'accompagnement à la création",
+    "Subventions à l'innovation et aides au lancement",
+    'Bourse French Tech et dispositifs Bpifrance pour les jeunes entreprises',
+    'Premier tour de table et entrée de business angels',
+    'Articulation entre apport personnel, dette et capital',
+  ],
+};

@@ -43,6 +43,13 @@ import { EXPERTISES_DETAIL } from '../data/contenu';
                   </li>
                 ))}
               </ul>
+
+              {e.renvoi && (
+                <a href={e.renvoi.href} class="renvoi mt-8 inline-flex">
+                  {e.renvoi.libelle}
+                  <span aria-hidden="true">&rarr;</span>
+                </a>
+              )}
             </div>
           </article>
         ))

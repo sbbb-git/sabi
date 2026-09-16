@@ -37,6 +37,37 @@ L'angle qui n'appartient qu'à nous : personne sur le marché ne couvre à la fo
 le financement public et la direction financière à temps partagé. Les cabinets
 de subventions font le public, les réseaux de DAF font le temps partagé.
 
+### Le financement, dans toute son étendue
+
+Périmètre élargi par le client le 16 septembre 2026, à sa demande et sur ses
+mots. Le portfolio ne le couvrait pas : la source ici, c'est lui.
+
+- **Les deux voies.** Financement **dilutif**, qui ouvre le capital, et
+  financement **non dilutif**, qui le laisse intact. Le site doit le dire
+  explicitement, parce que c'est le premier arbitrage que pose un dirigeant.
+- **L'amorçage.** Le cabinet finance aussi les projets qui démarrent :
+  accompagnement au lancement, prêts d'honneur, premiers tours de table,
+  entrée de business angels.
+- **Bpifrance** est nommé, avec les guichets régionaux et sectoriels.
+
+Ce périmètre a sa page, `/financement`, qui porte la ligne du client en titre et
+entre au sommaire de navigation en rubrique 02.
+
+## La ligne
+
+> « Financer votre ambition »
+> « Pour enfin avoir les moyens de son ambition »
+
+Deux formulations du client, reprises **telles qu'il les a écrites**. La
+première titre la page Financement et la section d'accueil qui lui correspond.
+La seconde ferme l'accueil et la page Financement.
+
+Le détecteur maison signale d'ordinaire l'adverbe d'insistance dans « pour
+enfin ». Ici la formulation du client prime, et elle est conservée.
+
+Le titre d'accueil, « Structurer et financer la croissance », ne bouge pas : il
+a été validé, et la ligne d'ambition vient à côté de lui, pas à sa place.
+
 ## Objectif du site
 
 Un seul : obtenir un premier échange. Deux chemins, email et créneau de

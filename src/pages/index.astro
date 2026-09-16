@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import toits from '../assets/toits.jpg';
 import avenue from '../assets/avenue.jpg';
 import { CONTACT, RDV } from '../consts';
-import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS } from '../data/contenu';
+import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, VOIES_FINANCEMENT } from '../data/contenu';
 
 ---
 
@@ -104,6 +104,56 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS }
           ))
         }
       </div>
+    </div>
+  </section>
+
+  {/* Financer votre ambition. Les deux voies posées côte à côte : c'est le
+      premier arbitrage que pose un dirigeant, et la page dédiée le développe. */}
+  <section class="planche py-16 lg:py-24">
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="cote">Financement</p>
+        <h2 class="titre-planche mt-5 max-w-[16ch]">Financer votre ambition</h2>
+        <p class="mt-6 max-w-[62ch] text-[1.0625rem] leading-[1.65] text-graphite">
+          Un amorçage se finance autrement qu'une reprise ou qu'un parc de matériel.
+          Nous couvrons le financement dilutif, qui ouvre le capital, et le financement
+          non dilutif, qui le laisse intact : dette bancaire, crédit-bail, dispositifs
+          Bpifrance, subventions et aides publiques.
+        </p>
+      </div>
+      <a href="/financement" class="renvoi shrink-0">
+        Le financement en détail
+        <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+
+    <div class="mt-12 grid gap-px border-t border-encre lg:mt-16 lg:grid-cols-2">
+      {
+        VOIES_FINANCEMENT.map((voie, i) => (
+          <article
+            class:list={[
+              'border-b border-tirage-pale py-8',
+              i === 0 ? 'lg:border-r lg:pr-12' : 'lg:pl-12',
+            ]}
+          >
+            <span class="cote">{voie.titre}</span>
+            <p
+              class="mt-4 max-w-[34ch] text-[1.25rem] leading-[1.25] font-semibold tracking-[-0.02em] text-encre lg:text-[1.5rem]"
+              style="font-stretch:88%"
+            >
+              {voie.accroche}
+            </p>
+            <ul class="mt-6 space-y-2.5">
+              {voie.lignes.slice(0, 4).map((ligne) => (
+                <li class="flex gap-4 text-[0.9375rem] leading-[1.5] text-graphite">
+                  <span class="mt-[0.55em] h-px w-4 shrink-0 bg-tirage" aria-hidden="true" />
+                  <span>{ligne}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
     </div>
   </section>
 
@@ -227,11 +277,14 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS }
       }
     </dl>
 
-    <div class="mt-14 flex flex-wrap items-center gap-3">
-      <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
-        Prendre rendez-vous
-      </a>
-      <a href="/contact" class="etiquette etiquette-encre">Nous écrire</a>
+    <div class="mt-16 border-t border-encre pt-10">
+      <p class="titre-planche max-w-[20ch]">Pour enfin avoir les moyens de son ambition.</p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
+          Prendre rendez-vous
+        </a>
+        <a href="/contact" class="etiquette etiquette-encre">Nous écrire</a>
+      </div>
     </div>
   </section>
 </Base>
