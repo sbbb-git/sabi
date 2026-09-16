@@ -102,6 +102,18 @@ const jsonLd = {
       Exemple : <script defer data-domain="sabi-co.fr" src="https://plausible.io/js/script.js" />
     */}
 
+    {/*
+      La classe est posée avant la peinture. Toute la mise en scène du
+      mouvement est conditionnée à elle : sans JavaScript, rien n'est caché.
+    */}
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Filet de sécurité : si le module ne s'annonce pas, tout redevient visible.
+      setTimeout(function () {
+        var r = document.documentElement;
+        if (!r.classList.contains('anime')) r.classList.add('mouvement-abandon');
+      }, 2600);
+    </script>
   </head>
 
   <body>
@@ -120,5 +132,8 @@ const jsonLd = {
 
     <Cartouche />
 
+    <script>
+      import '../scripts/mouvement';
+    </script>
   </body>
 </html>

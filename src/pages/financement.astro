@@ -15,7 +15,7 @@ import { AMORCAGE, ETAPES_FINANCEMENT, VOIES_FINANCEMENT } from '../data/contenu
   <EnTetePlanche
     rubrique="Financement"
     titre="Financer votre ambition"
-    objet="Un projet se finance rarement par une seule source. Nous construisons le dossier, nous identifions les voies ouvertes et nous menons la recherche jusqu'au déblocage des fonds."
+    objet="Un projet se finance rarement par une seule source. Nous construisons le dossier, puis nous menons la recherche jusqu'au déblocage des fonds."
   />
 
   {/* Les deux voies. La planche les pose côte à côte, séparées par un trait,
@@ -24,14 +24,15 @@ import { AMORCAGE, ETAPES_FINANCEMENT, VOIES_FINANCEMENT } from '../data/contenu
     <div class="planche py-16 lg:py-24">
       <h2 class="titre-planche max-w-[24ch]">Deux voies, et le choix entre les deux</h2>
       <p class="mt-6 max-w-[64ch] text-[1.0625rem] leading-[1.65] text-graphite">
-        Les deux se combinent sur un même projet, et l'ordre dans lequel on les
-        sollicite pèse sur le résultat final.
+        Les deux se combinent souvent. L'ordre dans lequel on les sollicite pèse
+        sur le résultat.
       </p>
 
       <div class="mt-12 grid gap-px border-t border-encre lg:mt-16 lg:grid-cols-2">
         {
           VOIES_FINANCEMENT.map((voie, i) => (
             <article
+              data-rangee
               class:list={[
                 'border-b border-tirage-pale py-9',
                 i === 0 ? 'lg:border-r lg:pr-12' : 'lg:pl-12',
@@ -89,7 +90,7 @@ import { AMORCAGE, ETAPES_FINANCEMENT, VOIES_FINANCEMENT } from '../data/contenu
         <ul class="mt-10 grid gap-px border-t border-tirage-pale sm:grid-cols-2">
           {
             AMORCAGE.lignes.map((ligne) => (
-              <li class="border-b border-tirage-pale py-4 pr-8 text-[0.9375rem] leading-[1.5] text-encre last:sm:col-span-2">
+              <li data-rangee class="border-b border-tirage-pale py-4 pr-8 text-[0.9375rem] leading-[1.5] text-encre last:sm:col-span-2">
                 {ligne}
               </li>
             ))
@@ -127,9 +128,9 @@ import { AMORCAGE, ETAPES_FINANCEMENT, VOIES_FINANCEMENT } from '../data/contenu
           </p>
           <p class="mt-7 max-w-[60ch] text-[0.9375rem] leading-[1.7] text-tirage-clair">
             Prêts d'amorçage, aides à l'innovation, avances remboursables,
-            subventions régionales, dispositifs de filière. Les guichets sont
-            nombreux et leurs critères diffèrent, ce qui explique que beaucoup de
-            dirigeants passent à côté de sommes auxquelles ils ont droit.
+            subventions régionales. Les guichets sont nombreux et leurs critères
+            diffèrent. Beaucoup de dirigeants passent à côté de sommes auxquelles
+            ils ont droit.
           </p>
         </div>
       </div>
@@ -143,7 +144,7 @@ import { AMORCAGE, ETAPES_FINANCEMENT, VOIES_FINANCEMENT } from '../data/contenu
     <ol class="mt-12 border-t border-encre lg:mt-16">
       {
         ETAPES_FINANCEMENT.map((etape, i) => (
-          <li class="grid gap-3 border-b border-tirage-pale py-7 lg:grid-cols-[5rem_minmax(0,1fr)_minmax(0,1.6fr)] lg:items-baseline lg:gap-10">
+          <li data-rangee class="grid gap-3 border-b border-tirage-pale py-7 lg:grid-cols-[5rem_minmax(0,1fr)_minmax(0,1.6fr)] lg:items-baseline lg:gap-10">
             <div class="flex items-center gap-4">
               <span class="repere">{String(i + 1).padStart(2, '0')}</span>
               <Icone nom={etape.icone} taille={32} class="text-tirage" />

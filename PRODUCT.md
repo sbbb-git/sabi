@@ -83,10 +83,31 @@ Les seuls chiffres autorisés sur le site, tous vérifiés :
 | 15 entités | consolidées, mission structuration de groupe |
 | 500 000 € | recherchés, mission distribution d'équipements |
 
-Les chiffres n'apparaissent plus que dans les références, attachés à une
-mission. **Le bandeau de statistiques de la page À propos a été supprimé** sur
-demande du client, avec les montants levés, structurés et le nombre
-d'acquisitions.
+### Revirement du client, 16 septembre 2026
+
+Le bandeau de statistiques avait été supprimé sur sa demande, en termes nets.
+Il en redemande un, en haut de l'accueil, sur le modèle de sateip.fr : « mets
+des gros chiffres vers le début, nombre de dossiers, montant levé, entreprises
+accompagnées ».
+
+C'est sa décision, elle est appliquée. Mais elle ne change rien à la source :
+**seuls les chiffres du portfolio peuvent être affichés.** Le bandeau
+`CHIFFRES_CLES` ne porte donc que du vérifiable, et chaque entrée déclare sa
+provenance dans le code.
+
+| Affiché | D'où il vient |
+|---|---|
+| 7 missions conduites | le portfolio en contient exactement sept |
+| 7 secteurs d'activité | un secteur par mission |
+| 15 entités consolidées | mission imagerie médicale |
+| 500 000 € recherchés sur une opération | mission distribution d'équipements |
+
+**Trois chiffres qu'il demande manquent et doivent venir de lui :** le montant
+total levé ou financé, le nombre d'entreprises accompagnées, et le nombre
+d'années d'expérience. Aucun des trois ne se déduit du portfolio. Les inventer
+serait un faux sur une page d'accueil.
+
+Les chiffres de mission restent attachés à leur mission dans les références.
 
 Retirés également : le compte de centres ouverts, le volume de patients, et
 toute mention de l'ARS. Le site ne doit pas se lire comme un cabinet de santé.
@@ -155,7 +176,12 @@ Le lien LinkedIn reste dans le pied de page et dans les données structurées.
 - Hébergé sur Cloudflare Pages, déployé par GitHub Actions à chaque poussée.
 - Le formulaire passe par Formspree, sans backend.
 - Le site doit rester lisible sans JavaScript.
-- Lighthouse mobile visé à 100 sur les 4 catégories, tenu aujourd'hui.
+- Lighthouse mobile : 100 en accessibilité, bonnes pratiques et référencement.
+  **99 en performance** depuis l'arrivée du mouvement, pour 53 Ko compressés de
+  bibliothèque. C'est un arbitrage assumé, pas une dérive : le client a demandé
+  les animations en connaissance de cause.
+- Le mouvement s'appuie sur GSAP, ScrollTrigger, SplitText et Lenis, servis en
+  local. Voir la section « Le mouvement » de `DESIGN.md`.
 
 ## Contenu rédactionnel et contenu factuel
 

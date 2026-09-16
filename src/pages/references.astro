@@ -16,13 +16,13 @@ import { REFERENCES } from '../data/contenu';
     <div class="border-t border-encre">
       {
         REFERENCES.map((ref) => (
-          <article class="grid gap-3 border-b border-tirage-pale py-8 lg:grid-cols-12 lg:items-baseline lg:gap-10">
+          <article data-rangee class="grid gap-3 border-b border-tirage-pale py-8 lg:grid-cols-12 lg:items-baseline lg:gap-10">
             <p class="cote lg:col-span-3">{ref.secteur}</p>
             <div class="lg:col-span-6">
               <h2 class="titre-rubrique">{ref.objet}</h2>
               <p class="mt-3 max-w-[52ch] text-[0.9375rem] leading-[1.55] text-graphite">{ref.phrase}</p>
             </div>
-            <p class="cote cote-accent lg:col-span-3 lg:text-right">{ref.chiffre ?? ''}</p>
+            <p data-compteur class="cote cote-accent lg:col-span-3 lg:text-right">{ref.chiffre ?? ''}</p>
           </article>
         ))
       }

@@ -16,7 +16,7 @@ import { EXPERTISES_DETAIL } from '../data/contenu';
   <EnTetePlanche
     rubrique="Rubrique 01 · L'offre"
     titre="Six expertises, séparées ou combinées"
-    objet="Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin. Une direction financière complète, ou une seule expertise sur un projet précis."
+    objet="Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin. Une direction financière complète, ou une seule expertise."
   />
 
   <BandePhoto src={pont} legende="Paris · ouvrage franchi, rive à rive" />
@@ -26,6 +26,7 @@ import { EXPERTISES_DETAIL } from '../data/contenu';
       {
         EXPERTISES_DETAIL.map((e, i) => (
           <article
+            data-rangee
             id={`expertise-${i + 1}`}
             class="grid gap-6 border-b border-tirage-pale py-12 lg:grid-cols-12 lg:gap-10 lg:py-16"
           >

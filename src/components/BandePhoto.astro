@@ -14,16 +14,33 @@ import type { ImageMetadata } from 'astro';
 interface Props {
   src: ImageMetadata;
   legende: string;
+  /** La bande se fige le temps qu'on la traverse. Réservé à une par page. */
+  fige?: boolean;
   /** Hauteur de la bande. `courte` pour une respiration, `haute` pour un temps fort. */
   hauteur?: 'courte' | 'haute';
   class?: string;
 }
 
-const { src, legende, hauteur = 'courte', class: classe = '' } = Astro.props;
-const h = hauteur === 'haute' ? 'h-[clamp(260px,38vw,520px)]' : 'h-[clamp(190px,26vw,360px)]';
+const { src, legende, hauteur = 'courte', fige = false, class: classe = '' } = Astro.props;
+
+/*
+  Une bande figée occupe presque la fenêtre : c'est ce qui fait qu'on la
+  traverse au lieu de la croiser. Une bande libre reste une respiration.
+*/
+const h = fige
+  ? 'h-[clamp(300px,54vh,540px)] md:h-[82svh]'
+  : hauteur === 'haute'
+    ? 'h-[clamp(260px,38vw,520px)]'
+    : 'h-[clamp(190px,26vw,360px)]';
+
+/* Le débord sert au glissement ; une bande figée se met à l'échelle à la place. */
+const debord = fige ? 'h-full' : 'h-[124%]';
 ---
 
-<figure class:list={['relative isolate overflow-hidden bg-encre', h, classe]}>
+<figure
+  data-fige={fige ? '' : undefined}
+  class:list={['relative isolate overflow-hidden bg-encre', h, classe]}
+>
   <Image
     src={src}
     alt=""
@@ -31,7 +48,9 @@ const h = hauteur === 'haute' ? 'h-[clamp(260px,38vw,520px)]' : 'h-[clamp(190px,
     widths={[768, 1280, 1920]}
     sizes="100vw"
     quality={58}
-    class="tirage-photo absolute inset-0 -z-10 h-full w-full object-cover"
+    class:list={['tirage-photo absolute inset-0 -z-10 w-full object-cover', debord]}
+    data-parallaxe={fige ? undefined : true}
+    data-fige-fond={fige ? '' : undefined}
     loading="lazy"
   />
   {/* L'encre ne revient que sous la légende, pour la tenir lisible. Le reste
@@ -42,7 +61,7 @@ const h = hauteur === 'haute' ? 'h-[clamp(260px,38vw,520px)]' : 'h-[clamp(190px,
   >
   </div>
 
-  <figcaption class="planche absolute inset-x-0 bottom-0 pb-6 lg:pb-8">
+  <figcaption data-fige-contenu class="planche absolute inset-x-0 bottom-0 pb-6 lg:pb-8">
     <span class="ligne-cote mb-3 block w-16" aria-hidden="true"></span>
     <span class="cote cote-claire">{legende}</span>
   </figcaption>

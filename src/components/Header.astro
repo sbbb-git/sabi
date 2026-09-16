@@ -93,6 +93,8 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
     const basculer = (ouvrir: boolean) => {
       menu.hidden = !ouvrir;
       bouton.setAttribute('aria-expanded', String(ouvrir));
+      // Le mouvement lit cet état : bandeau ouvert, bandeau jamais escamoté.
+      document.querySelector('header')?.setAttribute('data-ouvert', ouvrir ? 'oui' : 'non');
       document.body.style.overflow = ouvrir ? 'hidden' : '';
       if (libelle) libelle.textContent = ouvrir ? 'Fermer le menu' : 'Ouvrir le menu';
       if (haut) haut.style.transform = ouvrir ? 'translateY(5px) rotate(45deg)' : '';

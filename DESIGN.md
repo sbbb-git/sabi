@@ -138,15 +138,65 @@ Issus du socle de qualité d'Impeccable :
   **repères de planche numérotés**, placés en colonne latérale, jamais en
   étiquette posée sur un titre.
 - Pas de grille de cartes identiques. Les expertises sont des lignes cotées.
-- Pas de bandeau de chiffres collé sous le héros. Les cotes de l'ouvrage vivent
-  sur la page À propos.
+- ~~Pas de bandeau de chiffres collé sous le héros.~~ **Levé par le client**,
+  qui le demande explicitement, sur le modèle de sateip.fr. Les cotes de
+  l'ouvrage sont revenues juste sous le héros.
 - Pas de monospace en costume technique. Il n'y a pas de monospace sur ce site.
 - **Pas d'icône d'interface générique.** Un jeu tiré d'une bibliothèque, avec
   ses bouts arrondis et ses formes pleines, casse la planche. Les pictos sont
   dessinés pour ce site et ne sortent pas de `Icone.astro`.
-- **Pas d'apparition en fondu au scroll.** Une entrée identique sur chaque
-  section est le réglage par défaut. Elle a été retirée.
+- ~~Pas d'apparition en fondu au scroll.~~ **Levé par le client**, qui demande
+  du mouvement au défilement. La règle qui la remplace est plus dure : voir
+  « Le mouvement » ci-dessous. Une entrée identique sur chaque section reste
+  interdite.
 - Ne jamais animer `width`, `height`, `padding` ou `margin`.
+
+## Le mouvement
+
+Sur une planche, rien n'apparaît en fondu. Un trait se trace, une cote se pose,
+une ligne se tire. Le mouvement suit cette logique, pas le fondu générique.
+
+Tout vit dans `src/scripts/mouvement.ts`. GSAP, ScrollTrigger, SplitText et
+Lenis, servis en local, jamais en CDN.
+
+| Effet | Ce qui bouge | Où |
+|---|---|---|
+| Défilement fluide | Lenis, dans le ticker de GSAP | tout le site |
+| Titre mot par mot | chaque mot monte dans sa fenêtre | `h1`, `h2` |
+| Phrase d'un bloc | `y` et `opacity` | `p.titre-planche` |
+| Filet qui se trace | `scaleX` depuis l'origine gauche | `.ligne-cote`, `.trait` |
+| Picto dessiné | `stroke-dashoffset` | les dix-sept glyphes |
+| Rangée qui monte | `y` et `opacity`, par paquets | `[data-rangee]` |
+| Cote qui s'incrémente | le texte, chiffre par chiffre | `[data-compteur]` |
+| Photo qui glisse | `yPercent`, lié au défilement | `[data-parallaxe]` |
+| Bandeau escamotable | `yPercent` du `header` | tout le site |
+| Bande figée | `pin` plus `scrub` | une seule par page |
+
+Quatre règles, tenues partout :
+
+1. **Le contenu est lisible sans JavaScript.** Les états de départ sont dans la
+   feuille de style, sous `html.js`, classe écrite avant la peinture par un
+   script en ligne. Et un filet : si le module ne s'annonce pas en 2,6 s, la
+   classe `mouvement-abandon` rend tout visible.
+2. **`prefers-reduced-motion` coupe tout.** Aucune branche animée n'est créée,
+   et les états cachés vivent tous dans `@media (prefers-reduced-motion:
+   no-preference)`.
+3. **Jamais de `width`, `height`, `margin` ni `padding` animés.** Uniquement
+   `transform`, `opacity` et `stroke-dashoffset`.
+4. **Un seul rythme.** Lenis tourne dans le ticker de GSAP. Deux boucles
+   concurrentes font dériver les repères et sauter les sections figées.
+
+Deux pièges rencontrés, à ne pas refaire :
+
+- `SplitText` pose un `aria-label` sur l'élément découpé. Cet attribut est
+  interdit sur un `<p>`, qui n'a pas de rôle : Lighthouse tombe à 96. La
+  découpe est donc réservée aux vrais titres.
+- `getTotalLength()` force un calcul de mise en page. Mesurer les dix-sept
+  pictos au démarrage coûtait 100 ms de blocage. La mesure se fait à l'entrée
+  du picto, un seul à la fois.
+
+Le mouvement coûte un point de performance : 99 au lieu de 100, pour 53 Ko
+compressés de bibliothèque. Le blocage reste à 110 ms, sous le seuil de 200.
 
 ## Vérification avant de livrer
 

@@ -300,6 +300,56 @@
   }
 }
 
+/* =======================================================================
+   Le mouvement
+
+   Ces règles ne font qu'une chose : poser l'état de départ de ce qui sera
+   animé. L'animation elle-même vit dans `src/scripts/mouvement.ts`.
+
+   Trois verrous, dans cet ordre :
+
+   1. `@media (prefers-reduced-motion: no-preference)` — qui a demandé moins
+      de mouvement ne voit jamais un état caché.
+   2. `html.js` — la classe est écrite par un script en ligne avant la
+      peinture. Sans JavaScript, rien n'est caché.
+   3. `html:not(.mouvement-abandon)` — si le module de mouvement ne s'est pas
+      annoncé au bout de 2,6 s, tout redevient visible. Un script en échec ne
+      doit jamais laisser une page blanche.
+   ======================================================================= */
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not(.mouvement-abandon) [data-rangee] {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  html.js:not(.mouvement-abandon) .nom-ouvrage,
+  html.js:not(.mouvement-abandon) .titre-planche {
+    opacity: 0;
+  }
+
+  /* Le tracé du picto est posé en JavaScript, il faut la longueur du chemin. */
+  html.js:not(.mouvement-abandon) [data-picto] {
+    opacity: 0;
+  }
+}
+
+/* Le filet part de son origine, jamais de son centre. */
+.ligne-cote,
+.trait {
+  transform-origin: left center;
+}
+
+/* Fenêtre du mot découpé par SplitText. */
+.mot {
+  will-change: transform;
+}
+
+/* Le bandeau se translate, il ne bouge pas la mise en page. */
+header {
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
