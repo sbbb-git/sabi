@@ -12,5 +12,26 @@
     "auteur": "Sir Hectimere",
     "licence": "by 2.0",
     "source": "https://www.flickr.com/photos/16179216@N07/8856839244"
+  },
+  {
+    "fichier": "pont.jpg",
+    "titre": "Pont des Arts and the Palais du Louvre, Paris",
+    "auteur": "Joe deSousa",
+    "licence": "cc0 1.0",
+    "source": "https://commons.wikimedia.org/w/index.php?curid=42472885"
+  },
+  {
+    "fichier": "ciel.webp",
+    "titre": "Vue urbaine, toits et nuages",
+    "auteur": "Rawpixel",
+    "licence": "cc0 1.0",
+    "source": "https://www.rawpixel.com/image/3302512/free-photo-image-architecture-aerial-view-building"
+  },
+  {
+    "fichier": "viaduc.jpg",
+    "titre": "Bir-Hakeim",
+    "auteur": "Bruxelles5",
+    "licence": "by 3.0",
+    "source": "https://commons.wikimedia.org/w/index.php?curid=9981044"
   }
 ]

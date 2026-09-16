@@ -1,4 +1,17 @@
 ---
+import CREDITS from '../assets/credits.json';
+
+/**
+ * Les crédits se lisent dans `src/assets/credits.json`, écrit au moment où
+ * l'image entre dans le dépôt. Toute image ajoutée est créditée ici sans
+ * qu'on ait à y penser.
+ */
+const nomLicence = (l: string) =>
+  l.startsWith('cc0') ? 'CC0 1.0' : `CC BY ${l.split(' ')[1]}`;
+const lienLicence = (l: string) =>
+  l.startsWith('cc0')
+    ? 'https://creativecommons.org/publicdomain/zero/1.0/'
+    : `https://creativecommons.org/licenses/by/${l.split(' ')[1]}/`;
 import PageLegale from '../components/PageLegale.astro';
 import { CONTACT, MARQUE } from '../consts';
 
@@ -60,20 +73,20 @@ const AC = 'à compléter';
 
   <h2>Crédits photographiques</h2>
   <p>
-    Les vues de Paris sont publiées sous licence Creative Commons Attribution.
-    Elles sont désaturées pour entrer dans la charte, ce que la licence autorise.
+    Les vues de Paris sont publiées sous licence Creative Commons. Elles sont désaturées
+    pour entrer dans la charte, ce que chacune de ces licences autorise.
   </p>
   <ul>
-    <li>
-      « baloon », Camy487, sous licence
-      <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>,
-      via <a href="https://www.flickr.com/photos/49759435@N05/26740198177" target="_blank" rel="noopener noreferrer">la source</a>.
-    </li>
-    <li>
-      « April In Paris - 12 », Sir Hectimere, sous licence
-      <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>,
-      via <a href="https://www.flickr.com/photos/16179216@N07/8856839244" target="_blank" rel="noopener noreferrer">la source</a>.
-    </li>
+    {
+      CREDITS.map((c) => (
+        <li>
+          &laquo;&nbsp;{c.titre}&nbsp;&raquo;{c.auteur ? `, ${c.auteur},` : ','} sous licence{' '}
+          <a href={lienLicence(c.licence)} target="_blank" rel="noopener noreferrer">
+            {nomLicence(c.licence)}
+          </a>, via <a href={c.source} target="_blank" rel="noopener noreferrer">la source</a>.
+        </li>
+      ))
+    }
   </ul>
 
   <h2>Responsabilité</h2>

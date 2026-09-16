@@ -65,18 +65,53 @@ réellement peintes sur leurs pages :
 Contrastes : `--tirage` sur blanc 7,8:1, `--graphite` sur blanc 5,6:1,
 `--tirage-clair` sur `--encre` 8,7:1.
 
+## Les pictogrammes
+
+Ce ne sont pas des icônes d'interface. Chacune est un **détail de dessin
+technique** : une forme construite, sa ligne de construction en trait fin sous
+l'encre, et une cote quand elle dit quelque chose. C'est le vocabulaire de
+`.ligne-cote` et de `.repere`, à l'échelle du picto.
+
+Un seul composant, `Icone.astro`, porte les dix-sept glyphes. Le nom du picto
+vit dans la donnée, pas dans la page : `PILIERS`, `EXPERTISES`, `SITUATIONS`,
+`VOIES_FINANCEMENT` et `ETAPES_FINANCEMENT` portent chacun son `icone`, typé
+`NomIcone`. Une faute de frappe casse la compilation.
+
+| Règle | Valeur |
+|---|---|
+| Grille | 32 × 32, jamais redimensionnée dans le tracé |
+| Trait porteur | 1.25 |
+| Ligne de construction | 0.75, opacité 0.4 à 0.55 |
+| Bouts et angles | `square` et `miter`, **jamais d'arrondi** |
+| Remplissage | aucun, `fill="none"` sans exception |
+| Couleur | `currentColor`, posée par `text-tirage` ou `text-tirage-clair` |
+| Tirets | `stroke-dasharray` pour ce qui est hypothétique ou extérieur |
+
+Deux directions écartées à l'essai : une flèche de lancement qui se lisait
+comme une loupe, et une négociation dont les têtes de flèche mangeaient l'axe.
+
+Le picto ne remplace jamais le numéro de repère, il se pose à côté.
+
 ## Photographies
 
-Des vues de **Paris** : toits, ciel, avenue. Jamais de bureau, jamais de
-réunion, jamais de poignée de main. C'est la leçon de sateip.fr, qui illustre
-à l'haussmannien et non au open space.
+Des vues de **Paris** : toits, ciel, avenue, pont, viaduc. Jamais de bureau,
+jamais de réunion, jamais de poignée de main. C'est la leçon de sateip.fr, qui
+illustre à l'haussmannien et non au open space.
 
-Deux images sous licence CC BY 2.0, créditées dans les mentions légales,
+Cinq images sous licence CC BY ou CC0, créditées dans les mentions légales,
 servies en local, converties en WebP par Astro, et désaturées par
 `.tirage-photo` pour n'introduire aucune couleur parasite.
 
 Le héros les pose sous un dégradé d'encre, de l'opaque à gauche vers le
 translucide à droite, pour que le titre garde son contraste.
+
+**La planche photo**, `BandePhoto.astro`, est autre chose : une vue pleine
+largeur qui **coupe une page de texte**, comme une feuille photographique
+glissée entre deux feuilles de dessin. Elle porte sa légende cotée en pied.
+
+La photographie y reste une photographie. Un premier essai la posait à 62 %
+sur l'encre : la vue disparaissait dans l'aplat. L'encre ne revient plus que
+dans les 42 % du bas, en dégradé, pour tenir la légende lisible.
 
 ## Le vocabulaire de la planche
 
@@ -92,6 +127,8 @@ Aucune carte, aucun rayon de bordure, aucune ombre. La structure vient du trait.
 | `.etiquette` | l'action, en étiquette de cartouche, capitales resserrées |
 | `.renvoi` | lien annoté, sa ligne de rappel se déploie au survol |
 | `.hachure` | hachure d'emprise bâtie, jamais une texture de fond |
+| `Icone` | le détail technique, 32 × 32, posé à côté du repère |
+| `BandePhoto` | la feuille photographique qui coupe une page de texte |
 
 ## Interdits, vérifiés contre ce projet
 
@@ -104,6 +141,9 @@ Issus du socle de qualité d'Impeccable :
 - Pas de bandeau de chiffres collé sous le héros. Les cotes de l'ouvrage vivent
   sur la page À propos.
 - Pas de monospace en costume technique. Il n'y a pas de monospace sur ce site.
+- **Pas d'icône d'interface générique.** Un jeu tiré d'une bibliothèque, avec
+  ses bouts arrondis et ses formes pleines, casse la planche. Les pictos sont
+  dessinés pour ce site et ne sortent pas de `Icone.astro`.
 - **Pas d'apparition en fondu au scroll.** Une entrée identique sur chaque
   section est le réglage par défaut. Elle a été retirée.
 - Ne jamais animer `width`, `height`, `padding` ou `margin`.

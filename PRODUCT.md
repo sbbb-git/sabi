@@ -109,6 +109,26 @@ Le détecteur porte sur le **texte rendu**, pas sur le code : les commentaires
 de source ne sont pas du contenu. Deux passes, la seconde attrape ce que la
 réécriture a introduit.
 
+## Densité de texte
+
+Le client a demandé **plus de mots et plus de mots clefs**, puis, une fois
+livré, a trouvé que ça faisait **trop de texte**. Les deux sont vrais, et ce
+n'est pas le nombre de mots qui gênait : c'était le gris, des paragraphes de
+quatre ou cinq phrases sans rien pour les couper.
+
+La règle qui en sort :
+
+- **Trois phrases maximum** dans un paragraphe de corps. Deux valent mieux.
+- Les mots clefs vivent dans les **listes cotées**, qui se balayent, plutôt que
+  dans la prose, qui se lit ou se saute. Le référencement ne perd rien, le
+  lecteur gagne.
+- Un chapô de section ne redit pas la liste qui le suit.
+- Une page de texte se coupe par une **planche photo** ou par une bande
+  d'encre, pas par un titre de plus.
+
+Repères après dégraissage : accueil 1 117 mots, expertises 742, financement
+558. C'est le volume de 26advisory.com et de smashgroup.fr, sans leur gris.
+
 ## Interdits de rédaction
 
 - Aucun prix, aucun tarif, aucun modèle de rémunération. Ne jamais écrire

@@ -1,5 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
+import BandePhoto from '../components/BandePhoto.astro';
+import pont from '../assets/pont.jpg';
 import EnTetePlanche from '../components/EnTetePlanche.astro';
 import { CONTACT } from '../consts';
 import { EXPERTISES_DETAIL } from '../data/contenu';
@@ -15,7 +19,9 @@ import { EXPERTISES_DETAIL } from '../data/contenu';
     objet="Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin. Une direction financière complète, ou une seule expertise sur un projet précis."
   />
 
-  <section class="planche pb-20 lg:pb-28">
+  <BandePhoto src={pont} legende="Paris · ouvrage franchi, rive à rive" />
+
+  <section class="planche py-16 lg:py-20 lg:pb-28">
     <div class="border-t border-encre">
       {
         EXPERTISES_DETAIL.map((e, i) => (
@@ -24,7 +30,10 @@ import { EXPERTISES_DETAIL } from '../data/contenu';
             class="grid gap-6 border-b border-tirage-pale py-12 lg:grid-cols-12 lg:gap-10 lg:py-16"
           >
             <div class="lg:col-span-4">
-              <span class="repere">{String(i + 1).padStart(2, '0')}</span>
+              <div class="flex items-center gap-4">
+                <span class="repere">{String(i + 1).padStart(2, '0')}</span>
+                <Icone nom={e.icone} taille={40} class="text-tirage" />
+              </div>
               <h2 class="titre-planche mt-5 max-w-[16ch]" style="font-size:clamp(1.5rem,2.4vw,2rem)">
                 {e.titre}
               </h2>

@@ -1,8 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
+import BandePhoto from '../components/BandePhoto.astro';
 import toits from '../assets/toits.jpg';
 import avenue from '../assets/avenue.jpg';
+import viaduc from '../assets/viaduc.jpg';
 import { CONTACT, RDV } from '../consts';
 import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, VOIES_FINANCEMENT } from '../data/contenu';
 
@@ -32,7 +35,7 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, 
     ></div>
 
     <div class="planche pt-20 pb-24 lg:pt-28 lg:pb-32">
-      <p class="cote cote-claire">Finance &middot; Développement &middot; Pilotage &amp; data</p>
+      <p class="cote cote-claire">Finance · Développement · Pilotage &amp; data</p>
 
       <h1 class="nom-ouvrage mt-7 max-w-[15ch] text-blanc">
         Structurer et financer la croissance.
@@ -71,7 +74,10 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, 
           {
             PILIERS.map((pilier, i) => (
               <li class="border-b border-tirage-pale pt-6 pb-8 sm:pr-6">
-                <span class="cote">{String(i + 1).padStart(2, '0')}</span>
+                <div class="flex items-center gap-3">
+                  <Icone nom={pilier.icone} taille={28} class="text-tirage" />
+                  <span class="cote">{String(i + 1).padStart(2, '0')}</span>
+                </div>
                 <h3 class="titre-rubrique mt-4">{pilier.titre}</h3>
                 <p class="mt-3 text-[0.9375rem] leading-[1.55] text-graphite">{pilier.phrase}</p>
               </li>
@@ -95,7 +101,10 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, 
         {
           SITUATIONS.map((s, i) => (
             <article class="border-b border-tirage-pale py-8 lg:pr-12">
-              <span class="cote">{String(i + 1).padStart(2, '0')}</span>
+              <div class="flex items-center gap-3">
+                <Icone nom={s.icone} taille={30} class="text-tirage" />
+                <span class="cote">{String(i + 1).padStart(2, '0')}</span>
+              </div>
               <h3 class="titre-rubrique mt-4 max-w-[34ch]">{s.titre}</h3>
               <p class="mt-4 max-w-[58ch] text-[0.9375rem] leading-[1.65] text-graphite">
                 {s.texte}
@@ -116,9 +125,8 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, 
         <h2 class="titre-planche mt-5 max-w-[16ch]">Financer votre ambition</h2>
         <p class="mt-6 max-w-[62ch] text-[1.0625rem] leading-[1.65] text-graphite">
           Un amorçage se finance autrement qu'une reprise ou qu'un parc de matériel.
-          Nous couvrons le financement dilutif, qui ouvre le capital, et le financement
-          non dilutif, qui le laisse intact : dette bancaire, crédit-bail, dispositifs
-          Bpifrance, subventions et aides publiques.
+          Nous couvrons les deux voies, celle qui ouvre le capital et celle qui le
+          laisse intact.
         </p>
       </div>
       <a href="/financement" class="renvoi shrink-0">
@@ -136,9 +144,12 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, 
               i === 0 ? 'lg:border-r lg:pr-12' : 'lg:pl-12',
             ]}
           >
-            <span class="cote">{voie.titre}</span>
+            <div class="flex items-center gap-3">
+              <Icone nom={voie.icone} taille={32} class="text-tirage" />
+              <span class="cote">{voie.titre}</span>
+            </div>
             <p
-              class="mt-4 max-w-[34ch] text-[1.25rem] leading-[1.25] font-semibold tracking-[-0.02em] text-encre lg:text-[1.5rem]"
+              class="mt-5 max-w-[34ch] text-[1.25rem] leading-[1.25] font-semibold tracking-[-0.02em] text-encre lg:text-[1.5rem]"
               style="font-stretch:88%"
             >
               {voie.accroche}
@@ -189,10 +200,8 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, 
       <div>
         <h2 class="titre-planche max-w-[20ch]">Six expertises, séparées ou combinées</h2>
         <p class="mt-6 max-w-[62ch] text-[1.0625rem] leading-[1.65] text-graphite">
-          Direction financière à temps partagé, financement bancaire et non dilutif,
-          subventions publiques, opérations de haut de bilan, structuration de groupe
-          et pilotage par la donnée. Vous prenez ce dont vous avez besoin, au moment
-          où vous en avez besoin.
+          Chacune se prend seule ou avec les autres. Une direction financière
+          complète, ou une seule expertise sur un projet précis.
         </p>
       </div>
       <a href="/expertises" class="renvoi shrink-0">
@@ -205,10 +214,15 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, 
       {
         EXPERTISES.map((expertise, i) => (
           <li class="group grid gap-3 border-b border-tirage-pale py-6 lg:grid-cols-12 lg:items-baseline lg:gap-10 lg:py-7">
-            <div class="flex items-center gap-4 lg:col-span-1">
+            <div class="flex items-center gap-4 lg:col-span-2">
               <span class="repere">{String(i + 1).padStart(2, '0')}</span>
+              <Icone
+                nom={expertise.icone}
+                taille={32}
+                class="text-tirage transition-transform duration-200 group-hover:-translate-y-0.5"
+              />
             </div>
-            <h3 class="titre-rubrique lg:col-span-5">{expertise.titre}</h3>
+            <h3 class="titre-rubrique lg:col-span-4">{expertise.titre}</h3>
             <p class="text-[0.9375rem] leading-[1.55] text-graphite lg:col-span-6">
               {expertise.phrase}
             </p>
@@ -258,6 +272,8 @@ import { BANDE_ACCUEIL, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, 
       </p>
     </div>
   </section>
+
+  <BandePhoto src={viaduc} legende="Paris · ouvrage de franchissement" hauteur="haute" />
 
   {/* Les questions posées en premier rendez-vous. Elles servent au lecteur
       comme aux moteurs, qui piochent dedans pour répondre directement. */}

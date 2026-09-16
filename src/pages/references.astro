@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import EnTetePlanche from '../components/EnTetePlanche.astro';
+import BandePhoto from '../components/BandePhoto.astro';
+import ciel from '../assets/ciel.webp';
 import { REFERENCES } from '../data/contenu';
 ---
 
@@ -30,4 +32,6 @@ import { REFERENCES } from '../data/contenu';
       Prochaine réalisation : la vôtre.
     </p>
   </section>
+
+  <BandePhoto src={ciel} legende="Paris · ligne de toits" />
 </Base>
