@@ -27,3 +27,6 @@ npm-debug.log*
 # reste, il suffit a le restaurer : npx skills add pbakaus/impeccable
 .agents/
 .claude/skills/
+
+# le skill maison est versionne, contrairement a l outillage vendu
+!.claude/skills/anti-slop-fr/

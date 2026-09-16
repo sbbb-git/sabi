@@ -63,6 +63,21 @@ toute mention de l'ARS. Le site ne doit pas se lire comme un cabinet de santé.
 Aucun autre chiffre ne doit apparaître. Aucun nom de client. Aucun témoignage
 tant qu'il n'y en a pas de réel.
 
+## Relecture avant publication
+
+Tout texte rédactionnel passe par le skill maison `anti-slop-fr`, dans
+`.claude/skills/anti-slop-fr/`. Les skills anglais du même genre, `stop-slop` et
+`avoid-ai-writing`, attrapent les structures mais pas les phrases bateaux
+françaises : « véritable levier », « il est essentiel de », « au cœur de ».
+
+```bash
+node .claude/skills/anti-slop-fr/detecte.mjs <fichiers texte>
+```
+
+Le détecteur porte sur le **texte rendu**, pas sur le code : les commentaires
+de source ne sont pas du contenu. Deux passes, la seconde attrape ce que la
+réécriture a introduit.
+
 ## Interdits de rédaction
 
 - Aucun prix, aucun tarif, aucun modèle de rémunération. Ne jamais écrire

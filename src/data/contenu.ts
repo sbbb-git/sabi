@@ -102,7 +102,7 @@ export const REFERENCES: Reference[] = [
 ];
 
 /*
-  ————————————————————————————————————————————————————————————————————
+  ==================================================================
   CONTENU RÉDACTIONNEL ÉTENDU
 
   Le portfolio reste la seule source pour les données, les chiffres et les
@@ -112,7 +112,7 @@ export const REFERENCES: Reference[] = [
   Aucun chiffre nouveau, aucun nom de client, aucun tarif, aucun délai promis.
   Uniquement le vocabulaire réel du métier, qui est aussi le vocabulaire que
   les dirigeants tapent dans un moteur de recherche.
-  ————————————————————————————————————————————————————————————————————
+  ==================================================================
 */
 
 /** Développé de chaque expertise, pour la page Expertises. */
@@ -127,7 +127,7 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
     phrase:
       'Vos comptes sont suivis, votre trésorerie tenue et vos décisions chiffrées, sans recrutement.',
     developpe:
-      "Un directeur financier à temps partagé coûte une fraction d'un recrutement et arrive déjà formé. Nous tenons le prévisionnel de trésorerie, nous produisons le reporting mensuel, nous préparons les points banque et les conseils. Quand une décision engage l'entreprise, elle est chiffrée avant d'être prise, pas après. L'intervention se règle en jours par mois et se réduit dès que vos équipes reprennent la main.",
+      "Un directeur financier à temps partagé coûte une fraction d'un recrutement et arrive déjà formé. Nous tenons le prévisionnel de trésorerie, nous produisons le reporting mensuel, nous préparons les points banque et les conseils. Quand une décision engage l'entreprise, elle est chiffrée avant d'être prise. L'intervention se règle en jours par mois et se réduit dès que vos équipes reprennent la main.",
     couvre: [
       'Prévisionnel de trésorerie et suivi du besoin en fonds de roulement',
       'Reporting mensuel, tableau de bord et indicateurs de pilotage',
@@ -141,7 +141,7 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
     phrase:
       'Nous montons le dossier et mettons les financeurs en concurrence, quelle que soit la source.',
     developpe:
-      "La plupart des dirigeants ne sollicitent qu'une seule source et acceptent la première proposition. Nous construisons le business plan et le modèle financier, nous préparons le dossier tel qu'un comité de crédit l'attend, puis nous interrogeons plusieurs financeurs en parallèle. Dette bancaire, crédit-bail, affacturage, financement de stock, apport en fonds propres : chaque source a ses critères, et le dossier se prépare différemment pour chacune.",
+      "La plupart des dirigeants ne sollicitent qu'une seule source et acceptent la première proposition. Nous construisons le business plan et le modèle financier, nous préparons le dossier tel qu'un comité de crédit l'attend, puis nous interrogeons plusieurs financeurs en parallèle. Chaque source a ses propres critères d'analyse, et le dossier se prépare différemment selon celle que l'on vise.",
     couvre: [
       'Business plan et modèle financier tenus par les hypothèses',
       'Dossier bancaire, prévisionnel et plan de financement',
@@ -194,7 +194,7 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
     titre: 'Pilotage de la performance',
     phrase: 'Nous automatisons vos reportings et construisons les outils qui vous manquent.',
     developpe:
-      "Beaucoup d'équipes passent plusieurs jours par mois à refaire à la main un reporting qui pourrait se produire seul. Nous branchons les sources, nous automatisons la collecte et nous construisons le tableau de bord qui manque, avec les indicateurs qui comptent pour votre activité. Ce qui est automatisé n'est plus à refaire, et le temps récupéré retourne à l'analyse.",
+      "Beaucoup d'équipes passent plusieurs jours par mois à refaire à la main un reporting qui pourrait se produire seul. Nous branchons les sources, nous automatisons la collecte et nous construisons le tableau de bord qui manque, avec les indicateurs qui comptent pour votre activité. Le temps récupéré retourne à l'analyse.",
     couvre: [
       'Automatisation de la collecte et de la consolidation des données',
       'Tableaux de bord et indicateurs adaptés à l\'activité',
@@ -215,7 +215,7 @@ export const SITUATIONS = [
   {
     titre: 'Vous devez financer un projet et vous ne savez pas par où commencer',
     texte:
-      "Une ouverture, un rachat, du matériel, du stock. Le besoin est clair, le montage ne l'est pas. Une seule banque a été sollicitée, et la réponse conditionne tout le projet.",
+      "Une ouverture, un rachat, du matériel, du stock. Le besoin est identifié. Le montage financier reste à construire. Une seule banque a été sollicitée, et la réponse conditionne tout le projet.",
   },
   {
     titre: 'Votre groupe a grandi plus vite que son organisation',
@@ -237,11 +237,11 @@ export const QUESTIONS = [
   },
   {
     q: 'À partir de quelle taille est-ce pertinent ?',
-    r: "Le besoin apparaît quand les sujets financiers ne tiennent plus dans le temps du dirigeant, et avant qu'ils ne justifient un recrutement à plein temps. Ce n'est pas une question de taille mais de complexité : plusieurs entités, un projet de financement, une opération en vue.",
+    r: "Le besoin apparaît quand les sujets financiers ne tiennent plus dans le temps du dirigeant, et avant qu'ils ne justifient un recrutement à plein temps. La complexité du dossier décide, davantage que le chiffre d'affaires. Plusieurs entités à consolider, ou une opération de financement à monter.",
   },
   {
     q: 'En quoi est-ce différent de mon expert-comptable ?',
-    r: "L'expert-comptable produit et certifie les comptes passés. Nous travaillons sur les décisions à venir : prévisionnel, financement, structuration, pilotage. Les deux rôles sont complémentaires, et nous travaillons avec le vôtre plutôt qu'à sa place.",
+    r: "L'expert-comptable produit et certifie les comptes passés. Nous travaillons sur les décisions à venir, comme le prévisionnel de trésorerie ou le montage d'un financement. Les deux rôles sont complémentaires. Nous travaillons avec le vôtre.",
   },
   {
     q: 'Comment se déroule une intervention ?',
