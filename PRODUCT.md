@@ -91,8 +91,29 @@ Le lien LinkedIn reste dans le pied de page et dans les données structurées.
 - Le site doit rester lisible sans JavaScript.
 - Lighthouse mobile visé à 100 sur les 4 catégories, tenu aujourd'hui.
 
+## Contenu rédactionnel et contenu factuel
+
+Deux régimes, à ne pas confondre.
+
+**Le factuel** vient du portfolio `sabi-co_Portfolio.pptx`, et de lui seul :
+les sept missions conduites, leurs secteurs, leurs objets, leurs chiffres. Le
+portfolio contient exactement sept missions, pas une de plus. Toute mission
+supplémentaire doit venir du client.
+
+**Le rédactionnel** explique l'offre : le développé des six expertises, les
+quatre situations qui déclenchent un appel, les six questions de premier
+rendez-vous. Il a été écrit pour le lecteur et pour les moteurs, à la demande
+du client, sur le constat que le site tenait 337 mots quand 26advisory.com en
+tient 481 et smashgroup.fr 1 356.
+
+Ce contenu n'introduit **aucun chiffre, aucun nom de client, aucun tarif et
+aucun délai promis**. Il n'emploie que le vocabulaire réel du métier, qui est
+aussi celui que les dirigeants tapent dans un moteur.
+
 ## Ce qui manque encore
 
+- **D'autres missions.** Le portfolio n'en contient que sept, toutes déjà en
+  ligne. Le client en a évoqué d'autres : elles doivent être fournies.
 - Identifiant Formspree, `FORMSPREE_ID` dans `src/consts.ts`
 - Mentions légales : dénomination, forme juridique, capital, SIREN, RCS, TVA,
   adresse du siège
