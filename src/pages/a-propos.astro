@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Masthead from '../components/Masthead.astro';
-import DarkBand from '../components/DarkBand.astro';
+import EnTetePlanche from '../components/EnTetePlanche.astro';
 import { CONTACT } from '../consts';
 import { CHIFFRES, FONDATEUR } from '../data/contenu';
 ---
@@ -10,61 +9,46 @@ import { CHIFFRES, FONDATEUR } from '../data/contenu';
   titre="À propos"
   description="Un cabinet indépendant fondé sur cinq ans de direction financière et de développement dans un groupe de santé multi-sites."
 >
-  <Masthead
-    surtitre="Le cabinet"
+  <EnTetePlanche
+    rubrique="Rubrique 03 &middot; Le cabinet"
     titre="Un cabinet indépendant, fondé sur cinq ans de terrain"
-    phrase="Les méthodes proposées aux clients ont d'abord été éprouvées en interne, à la direction financière et au développement d'un groupe de santé multi-sites mené de 3 à 13 centres en 5 ans."
+    objet="Les méthodes proposées aux clients ont d'abord été éprouvées en interne, à la direction financière et au développement d'un groupe de santé multi-sites mené de 3 à 13 centres en 5 ans."
   />
 
-  {/* Chiffres */}
-  <section class="section">
-    <div class="conteneur">
-      <dl class="grid border-t border-bord sm:grid-cols-2 lg:grid-cols-4">
-        {
-          CHIFFRES.map((chiffre) => (
-            <div class="reveal border-b border-bord pt-10 pb-12 sm:pr-8">
-              <dt class="sr-only">{chiffre.libelle}</dt>
-              <dd>
-                <span class="chiffre block text-[3rem] text-nuit lg:text-[4rem]">
-                  {chiffre.valeur}
-                </span>
-                <span class="mt-4 block max-w-[22ch] text-corps text-texte">{chiffre.libelle}</span>
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
-    </div>
+  {/* Les quatre cotes de l'ouvrage. Chacune sous sa ligne de cote. */}
+  <section class="planche pb-16 lg:pb-24">
+    <dl class="grid border-t border-encre sm:grid-cols-2 lg:grid-cols-4">
+      {
+        CHIFFRES.map((c) => (
+          <div class="border-b border-tirage-pale py-8 sm:pr-8">
+            <span class="ligne-cote mb-6 block w-14" aria-hidden="true"></span>
+            <dt class="sr-only">{c.libelle}</dt>
+            <dd>
+              <span class="block text-[2.5rem] leading-none font-semibold tracking-[-0.035em] text-encre lg:text-[3.25rem]" style="font-stretch:84%">
+                {c.valeur}
+              </span>
+              <span class="mt-4 block max-w-[20ch] text-[0.9375rem] leading-[1.45] text-graphite">{c.libelle}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
   </section>
 
-  {/* Fondateur */}
-  <section class="section-serree bg-creme">
-    <div class="conteneur">
-      <div class="grid gap-10 lg:grid-cols-12 lg:gap-8">
-        <div class="lg:col-span-4">
-          <p class="surtitre reveal">Le fondateur</p>
-        </div>
-
-        <div class="reveal lg:col-span-8">
-          <h2 class="titre-section">{FONDATEUR.nom}, {FONDATEUR.role}</h2>
-
-          <ul class="mt-8 space-y-4">
-            {
-              FONDATEUR.formations.map((formation) => (
-                <li class="filet pt-4 text-corps text-texte">{formation}</li>
-              ))
-            }
+  <section class="bg-papier-clair">
+    <div class="planche py-14 lg:py-20">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+        <div class="lg:col-span-3"><p class="cote">Signataire</p></div>
+        <div class="lg:col-span-9">
+          <h2 class="titre-planche">{FONDATEUR.nom}, {FONDATEUR.role}</h2>
+          <ul class="mt-8 border-t border-tirage-pale">
+            {FONDATEUR.formations.map((f) => (
+              <li class="border-b border-tirage-pale py-4 text-[1rem] text-graphite">{f}</li>
+            ))}
           </ul>
-
-          <div class="mt-10">
-            <a
-              href={CONTACT.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="action action-accent"
-            >
-              LinkedIn
-              <span class="fleche" aria-hidden="true">&rarr;</span>
+          <div class="mt-9">
+            <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" class="renvoi">
+              LinkedIn <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </div>
@@ -72,7 +56,14 @@ import { CHIFFRES, FONDATEUR } from '../data/contenu';
     </div>
   </section>
 
-  <DarkBand
-    texte="Les dossiers ont été montés depuis l'intérieur d'une entreprise. sabi&co vous dit ce qui passe devant un comité de crédit et ce qui ne passe pas."
-  />
+  <section class="cartouche">
+    <div class="planche py-16 lg:py-24">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+        <div class="lg:col-span-3"><span class="ligne-cote mt-4 block w-20" aria-hidden="true"></span></div>
+        <p class="max-w-[32ch] text-[1.375rem] leading-[1.25] font-semibold tracking-[-0.02em] lg:col-span-9 lg:text-[2rem]" style="font-stretch:88%">
+          Les dossiers ont été montés depuis l'intérieur d'une entreprise. sabi&amp;co vous dit ce qui passe devant un comité de crédit et ce qui ne passe pas.
+        </p>
+      </div>
+    </div>
+  </section>
 </Base>

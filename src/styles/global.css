@@ -1,40 +1,35 @@
 @import 'tailwindcss';
 
-/* Polices servies en local. Pas de CDN Google Fonts. */
-@import '@fontsource-variable/inter/index.css';
-@import '@fontsource/instrument-serif/400.css';
+/*
+  Monde visuel : le plan de masse. Voir DESIGN.md et le contrat de direction
+  dans .impeccable/surfaces/. Un seul alphabet, Archivo, en largeurs variables,
+  comme une boîte de lettrage de dessinateur. Servi en local, aucun CDN.
+*/
+@import '@fontsource-variable/archivo/standard.css';
 
 @theme {
-  /* Fonds sombres. Le site est construit sur le bleu nuit, pas sur le blanc. */
-  --color-nuit: #0a2540;
-  --color-encre: #061a2e;
-  --color-bord-nuit: #1d3a58;
+  /* Papier. Jamais de blanc écran. */
+  --color-papier: #f2efe6;
+  --color-papier-clair: #f8f6f0;
+  --color-calque: #e8e4d8;
 
-  /* Accent unique : le sable. Lisible sur fond sombre uniquement. */
-  --color-sable: #e3c57e;
-  /* Déclinaison foncée du même accent, pour les fonds clairs. */
-  --color-bronze: #7e6127;
+  /* L'encre de tirage. Tout le trait sort d'ici. */
+  --color-encre: #14263d;
+  --color-tirage: #2f5d92;
+  --color-tirage-pale: #9db4cc;
 
-  /* Neutres chauds, accordés au sable plutôt qu'au bleu. */
-  --color-creme: #f4f1ea;
-  --color-ivoire: #fbf9f5;
-  --color-bord: #e2ddd2;
-  --color-texte: #131a22;
-  --color-gris: #5f6b78;
+  /* La sanguine du dessinateur : cotes actives, repères, action. */
+  --color-sanguine: #b23a1f;
+  /* La sanguine ne tient pas le contraste sur l'encre : elle s'y éclaircit. */
+  --color-sanguine-clair: #e8734f;
+
+  --color-graphite: #5a6472;
   --color-blanc: #ffffff;
 
-  /* Secondaires sur fond sombre, calés pour tenir le contraste. */
-  --color-sur-nuit: #b9c6d4;
+  /* Un seul alphabet, décliné en largeur. */
+  --font-plan: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif;
 
-  --font-sans:
-    'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-titre:
-    'Instrument Serif', ui-serif, Georgia, 'Times New Roman', Times, serif;
-
-  --text-surtitre: 0.75rem;
   --text-corps: 1.0625rem;
-  --text-sub: 1.25rem;
 
   --breakpoint-xs: 26rem;
 }
@@ -43,293 +38,245 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* Surfaces du navigateur : elles portent le design comme le reste. */
+    caret-color: var(--color-sanguine);
+    scrollbar-color: var(--color-tirage) var(--color-calque);
   }
 
   body {
-    background-color: var(--color-blanc);
-    color: var(--color-texte);
-    font-family: var(--font-sans);
+    background-color: var(--color-papier);
+    color: var(--color-encre);
+    font-family: var(--font-plan);
     font-size: var(--text-corps);
     line-height: 1.6;
+    font-variant-numeric: lining-nums tabular-nums;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
 
-  strong,
-  b {
-    font-weight: 600;
-    color: var(--color-nuit);
+  ::selection {
+    background-color: var(--color-sanguine);
+    color: var(--color-papier);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-bronze);
-    outline-offset: 3px;
-    border-radius: 2px;
-  }
-
-  ::selection {
-    background-color: var(--color-sable);
-    color: var(--color-nuit);
+    outline: 2px solid var(--color-sanguine);
+    outline-offset: 2px;
   }
 
   :target {
-    scroll-margin-top: 7rem;
+    scroll-margin-top: 6rem;
+  }
+
+  strong {
+    font-weight: 600;
   }
 }
 
 @layer components {
-  .conteneur {
+  /* La trame. Elle change d'échelle, elle ne se délite pas. */
+  .planche {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1320px;
     margin-inline: auto;
-    padding-inline: 1.5rem;
+    padding-inline: 1.25rem;
   }
 
   @media (min-width: 64rem) {
-    .conteneur {
-      padding-inline: 4rem;
+    .planche {
+      padding-inline: 3.5rem;
     }
   }
 
-  .section {
-    padding-block: 6rem;
+  /* Lettrage de cote : une seule fonte, resserrée et espacée. */
+  .cote {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    font-stretch: 78%;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    line-height: 1.3;
+    color: var(--color-tirage);
   }
 
-  @media (min-width: 64rem) {
-    .section {
-      padding-block: 9rem;
-    }
+  .cote-sanguine {
+    color: var(--color-sanguine);
   }
 
-  .section-serree {
-    padding-block: 4rem;
+  /* Sur l'encre uniquement. Le bleu pâle ne sert qu'aux filets sur le papier,
+     jamais à du texte : il y tombe à 1.9 pour 1. */
+  .cote-claire {
+    color: #a9c0d8;
   }
 
-  @media (min-width: 64rem) {
-    .section-serree {
-      padding-block: 6rem;
-    }
+  /* Titres : largeur resserrée, comme un nom d'ouvrage porté au plan. */
+  .nom-ouvrage {
+    font-weight: 600;
+    font-stretch: 86%;
+    letter-spacing: -0.025em;
+    line-height: 0.94;
+    color: var(--color-encre);
+    font-size: clamp(2.5rem, 7.2vw, 5.5rem);
+    text-wrap: balance;
+  }
+
+  .titre-planche {
+    font-weight: 600;
+    font-stretch: 86%;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--color-encre);
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    text-wrap: balance;
+  }
+
+  .titre-rubrique {
+    font-weight: 600;
+    font-stretch: 92%;
+    letter-spacing: -0.012em;
+    line-height: 1.15;
+    font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  }
+
+  /* Le trait. Un filet d'encre, jamais une bordure de carte. */
+  .trait {
+    border-top: 1px solid var(--color-tirage-pale);
+  }
+
+  .trait-encre {
+    border-top: 1px solid var(--color-encre);
+  }
+
+  /* Ligne de cote : un segment à empattements, terminé sur une arête réelle. */
+  .ligne-cote {
+    position: relative;
+    display: block;
+    height: 1px;
+    background-color: var(--color-tirage);
+  }
+
+  .ligne-cote::before,
+  .ligne-cote::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    width: 1px;
+    height: 9px;
+    background-color: var(--color-tirage);
+  }
+
+  .ligne-cote::before {
+    left: 0;
+  }
+
+  .ligne-cote::after {
+    right: 0;
+  }
+
+  /* Repère circulaire, la pastille d'implantation du plan. */
+  .repere {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid var(--color-tirage);
+    border-radius: 50%;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    font-stretch: 78%;
+    color: var(--color-tirage);
+    flex: none;
+  }
+
+  .repere-actif {
+    border-color: var(--color-sanguine);
+    background-color: var(--color-sanguine);
+    color: var(--color-papier);
+  }
+
+  /* Le cartouche. Le seul aplat de la planche, et il porte l'action. */
+  .cartouche {
+    background-color: var(--color-encre);
+    color: var(--color-papier);
+  }
+
+  .etiquette {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.875rem 1.5rem;
+    background-color: var(--color-sanguine);
+    color: var(--color-papier);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-stretch: 82%;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    transition: background-color 150ms ease;
+  }
+
+  .etiquette:hover,
+  .etiquette:focus-visible {
+    background-color: #963018;
+  }
+
+  .etiquette-encre {
+    background-color: transparent;
+    color: var(--color-encre);
+    border: 1px solid var(--color-encre);
+  }
+
+  .etiquette-encre:hover,
+  .etiquette-encre:focus-visible {
+    background-color: var(--color-encre);
+    color: var(--color-papier);
+  }
+
+  /* Renvoi annoté : le lien qui tire une ligne de rappel sous lui. */
+  .renvoi {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-stretch: 86%;
+    color: var(--color-sanguine);
+    padding-bottom: 0.25rem;
+  }
+
+  .renvoi::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-sanguine);
+    transform: scaleX(0.28);
+    transform-origin: left center;
+    transition: transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .renvoi:hover::after,
+  .renvoi:focus-visible::after {
+    transform: scaleX(1);
   }
 
   .mesure {
     max-width: 68ch;
   }
-
-  /* Surtitre : la seule majuscule du site. */
-  .surtitre {
-    font-size: var(--text-surtitre);
-    line-height: 1.2;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--color-bronze);
-  }
-
-  .surtitre-sombre {
-    color: var(--color-sable);
-  }
-
-  /* Les titres sont en serif. Le serif porte la voix, l'Inter porte l'information. */
-  .titre-display {
-    font-family: var(--font-titre);
-    font-weight: 400;
-    line-height: 1.02;
-    letter-spacing: -0.015em;
-    color: var(--color-nuit);
-    text-wrap: balance;
-    font-size: clamp(2.75rem, 7.5vw, 5.25rem);
-  }
-
-  .titre-page {
-    font-family: var(--font-titre);
-    font-weight: 400;
-    line-height: 1.06;
-    letter-spacing: -0.012em;
-    color: var(--color-nuit);
-    text-wrap: balance;
-    font-size: clamp(2.25rem, 5.5vw, 3.5rem);
-  }
-
-  .titre-section {
-    font-family: var(--font-titre);
-    font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -0.01em;
-    color: var(--color-nuit);
-    text-wrap: balance;
-    font-size: clamp(1.875rem, 3.4vw, 2.625rem);
-  }
-
-  .titre-clair {
-    color: var(--color-blanc);
-  }
-
-  /* Chiffres en serif : c'est là que le caractère se voit le plus. */
-  .chiffre {
-    font-family: var(--font-titre);
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    font-variant-numeric: lining-nums tabular-nums;
-  }
-
-  .accroche {
-    font-size: var(--text-sub);
-    line-height: 1.5;
-    color: var(--color-texte);
-    text-wrap: pretty;
-  }
-
-  .lien {
-    color: var(--color-bronze);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
-    transition: text-decoration-thickness 150ms ease;
-  }
-
-  .lien:hover {
-    text-decoration-thickness: 2px;
-  }
-
-  /* Lien d'action : soulignement qui se remplit. */
-  .action {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    font-size: var(--text-corps);
-    font-weight: 500;
-    color: var(--color-nuit);
-    padding-block: 0.5rem;
-    position: relative;
-  }
-
-  .action::after {
-    content: '';
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    height: 1px;
-    background-color: var(--color-bord);
-  }
-
-  .action::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 1px;
-    width: 100%;
-    background-color: var(--color-bronze);
-    /* scaleX plutôt que width : animer une propriété de layout fait
-       recalculer la mise en page à chaque image. */
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 200ms ease;
-    z-index: 1;
-  }
-
-  .action:hover::before,
-  .action:focus-visible::before {
-    transform: scaleX(1);
-  }
-
-  .action .fleche {
-    transition: transform 200ms ease;
-  }
-
-  .action:hover .fleche {
-    transform: translateX(3px);
-  }
-
-  .action-accent {
-    color: var(--color-bronze);
-  }
-
-  .action-sombre {
-    color: var(--color-blanc);
-  }
-
-  .action-sombre::after {
-    background-color: color-mix(in srgb, var(--color-sable) 32%, transparent);
-  }
-
-  .action-sombre::before {
-    background-color: var(--color-sable);
-  }
-
-  /* Bouton plein. Le seul élément coloré en aplat du site. */
-  .bouton {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.75rem;
-    font-size: var(--text-corps);
-    font-weight: 500;
-    background-color: var(--color-sable);
-    color: var(--color-nuit);
-    transition: background-color 150ms ease;
-  }
-
-  .bouton:hover,
-  .bouton:focus-visible {
-    background-color: #efd79c;
-  }
-
-  .bouton-sombre {
-    background-color: var(--color-nuit);
-    color: var(--color-blanc);
-  }
-
-  .bouton-sombre:hover,
-  .bouton-sombre:focus-visible {
-    background-color: var(--color-encre);
-  }
-
-  /* Bouton contour, sur fond sombre. */
-  .bouton-contour {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.75rem;
-    font-size: var(--text-corps);
-    font-weight: 500;
-    border: 1px solid color-mix(in srgb, var(--color-sable) 45%, transparent);
-    color: var(--color-blanc);
-    transition:
-      border-color 150ms ease,
-      background-color 150ms ease;
-  }
-
-  .bouton-contour:hover,
-  .bouton-contour:focus-visible {
-    border-color: var(--color-sable);
-    background-color: color-mix(in srgb, var(--color-sable) 10%, transparent);
-  }
-
-  .filet {
-    border-top: 1px solid var(--color-bord);
-  }
-
-  .filet-sombre {
-    border-top: 1px solid color-mix(in srgb, var(--color-sable) 22%, transparent);
-  }
 }
 
-/* Apparition en fondu, 200ms. Sans JavaScript, tout reste visible. */
 @layer utilities {
-  .js .reveal {
-    opacity: 0;
-    transform: translateY(8px);
-    transition:
-      opacity 200ms ease-out,
-      transform 200ms ease-out;
-  }
-
-  .js .reveal.vu {
-    opacity: 1;
-    transform: none;
+  /* Hachure de dessinateur, pour les zones bâties. Pas une texture de fond :
+     elle ne sert que sous un élément qui représente une emprise. */
+  .hachure {
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--color-tirage-pale) 0 1px,
+      transparent 1px 7px
+    );
   }
 }
 
@@ -344,22 +291,11 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .js .reveal {
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
 
 @media print {
   .sans-impression {
     display: none !important;
-  }
-
-  body {
-    background: #fff;
-    color: #000;
   }
 }

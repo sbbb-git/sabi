@@ -1,60 +1,45 @@
 ---
-import Wordmark from './Wordmark.astro';
 import { CONTACT, MARQUE, NAV, RDV } from '../consts';
 
 const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
-{/*
-  Le header est toujours en bleu nuit : il prolonge le bandeau sombre qui ouvre
-  chaque page. Au scroll il gagne un filet sable et se resserre.
-*/}
+{/* Le bandeau de planche : marque à gauche, rubriques cotées, action en étiquette. */}
 <header
-  id="entete"
-  class="fixed top-0 right-0 left-0 z-50 bg-nuit transition-[height,border-color] duration-200 sans-impression"
+  class="sticky top-0 z-50 border-b border-tirage-pale bg-papier/95 backdrop-blur-[2px] sans-impression"
 >
-  <div class="conteneur">
-    <div id="barre" class="flex h-20 items-center justify-between gap-8 transition-all duration-200">
-      <a
-        href="/"
-        class="text-[1.625rem] leading-none text-blanc"
-        aria-label={`${MARQUE}, accueil`}
-      >
-        <Wordmark />
+  <div class="planche">
+    <div class="flex h-16 items-center justify-between gap-6 lg:h-[72px]">
+      <a href="/" class="flex items-baseline gap-2.5" aria-label={`${MARQUE}, accueil`}>
+        <span
+          class="text-[1.375rem] leading-none font-semibold tracking-[-0.03em] text-encre lg:text-[1.5rem]"
+          style="font-stretch:86%"
+        >
+          sabi<span class="text-sanguine">&amp;</span>co
+        </span>
       </a>
 
-      <nav class="hidden items-center gap-9 lg:flex" aria-label="Navigation principale">
+      <nav class="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
         {
-          NAV.map((lien) => {
+          NAV.map((lien, i) => {
             const actif = ici === lien.href;
             return (
-              <a
-                href={lien.href}
-                aria-current={actif ? 'page' : undefined}
-                class:list={[
-                  'relative py-1 text-[0.9375rem] transition-colors duration-150',
-                  actif ? 'text-sable' : 'text-blanc hover:text-sable',
-                ]}
-              >
-                {lien.libelle}
+              <a href={lien.href} aria-current={actif ? 'page' : undefined} class="group flex items-baseline gap-2">
+                <span class="cote">{String(i + 1).padStart(2, '0')}</span>
                 <span
                   class:list={[
-                    'pointer-events-none absolute -bottom-0.5 left-0 h-px w-full origin-left bg-sable transition-transform duration-200',
-                    actif ? 'scale-x-100' : 'scale-x-0',
+                    'text-[0.9375rem] font-medium transition-colors duration-150',
+                    actif ? 'text-sanguine' : 'text-encre group-hover:text-sanguine',
                   ]}
-                  aria-hidden="true"
-                />
+                  style="font-stretch:90%"
+                >
+                  {lien.libelle}
+                </span>
               </a>
             );
           })
         }
-
-        <a
-          href={CONTACT.calendly}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="ml-1 inline-flex items-center gap-2 bg-sable px-5 py-2.5 text-[0.9375rem] font-medium text-nuit transition-colors duration-150 hover:bg-[#efd79c]"
-        >
+        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette ml-2">
           {RDV}
         </a>
       </nav>
@@ -62,108 +47,65 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
       <button
         type="button"
         id="bouton-menu"
-        class="-mr-2 flex h-11 w-11 items-center justify-center text-blanc lg:hidden"
+        class="-mr-1 flex h-11 w-11 items-center justify-center text-encre lg:hidden"
         aria-expanded="false"
         aria-controls="menu-mobile"
       >
         <span class="sr-only">Ouvrir le menu</span>
-        <span class="relative block h-3.5 w-6" aria-hidden="true">
-          <span
-            data-barre="haut"
-            class="absolute top-0 left-0 h-px w-6 bg-current transition-transform duration-200"
-          ></span>
-          <span
-            data-barre="bas"
-            class="absolute bottom-0 left-0 h-px w-6 bg-current transition-transform duration-200"
-          ></span>
+        <span class="relative block h-3 w-6" aria-hidden="true">
+          <span data-barre="haut" class="absolute top-0 left-0 h-px w-6 bg-current transition-transform duration-200"></span>
+          <span data-barre="bas" class="absolute bottom-0 left-0 h-px w-6 bg-current transition-transform duration-200"></span>
         </span>
       </button>
     </div>
   </div>
 </header>
 
-<!-- Menu plein écran, mobile -->
-<div id="menu-mobile" hidden class="fixed inset-0 z-40 bg-nuit lg:hidden sans-impression">
-  <div class="conteneur flex h-full flex-col pt-28 pb-10">
+<div id="menu-mobile" hidden class="fixed inset-0 z-40 bg-papier lg:hidden sans-impression">
+  <div class="planche flex h-full flex-col pt-24 pb-10">
     <nav class="flex flex-col" aria-label="Navigation mobile">
       {
-        NAV.map((lien) => (
-          <a
-            href={lien.href}
-            class="filet-sombre font-titre py-5 text-[2rem] leading-none text-blanc"
-          >
-            {lien.libelle}
+        NAV.map((lien, i) => (
+          <a href={lien.href} class="trait flex items-baseline gap-4 py-5">
+            <span class="cote">{String(i + 1).padStart(2, '0')}</span>
+            <span class="titre-planche" style="font-size:1.75rem">{lien.libelle}</span>
           </a>
         ))
       }
-      <span class="filet-sombre"></span>
+      <span class="trait"></span>
     </nav>
-
     <div class="mt-auto pt-10">
-      <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="bouton">
-        {RDV}
-        <span aria-hidden="true">&rarr;</span>
-      </a>
-      <p class="mt-8">
-        <a class="text-corps text-sur-nuit hover:text-sable" href={`mailto:${CONTACT.email}`}>
-          {CONTACT.email}
-        </a>
-      </p>
-      <p class="mt-2">
-        <a class="text-corps text-sur-nuit hover:text-sable" href={`tel:${CONTACT.telephoneLien}`}>
-          {CONTACT.telephone}
-        </a>
-      </p>
+      <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">{RDV}</a>
+      <p class="cote mt-8">{CONTACT.email}</p>
+      <p class="cote mt-2">{CONTACT.telephone}</p>
     </div>
   </div>
 </div>
 
 <script>
-  const entete = document.getElementById('entete');
-  const barre = document.getElementById('barre');
   const bouton = document.getElementById('bouton-menu');
   const menu = document.getElementById('menu-mobile');
 
-  if (entete && barre) {
-    // Au delà de 80px le header se resserre et pose un filet sable.
-    const majEntete = () => {
-      const passe = window.scrollY > 80;
-      barre.classList.toggle('h-20', !passe);
-      barre.classList.toggle('h-16', passe);
-      entete.style.borderBottom = passe
-        ? '1px solid color-mix(in srgb, var(--color-sable) 24%, transparent)'
-        : '1px solid transparent';
+  if (bouton && menu) {
+    const haut = bouton.querySelector<HTMLElement>('[data-barre="haut"]');
+    const bas = bouton.querySelector<HTMLElement>('[data-barre="bas"]');
+    const libelle = bouton.querySelector<HTMLElement>('.sr-only');
+
+    const basculer = (ouvrir: boolean) => {
+      menu.hidden = !ouvrir;
+      bouton.setAttribute('aria-expanded', String(ouvrir));
+      document.body.style.overflow = ouvrir ? 'hidden' : '';
+      if (libelle) libelle.textContent = ouvrir ? 'Fermer le menu' : 'Ouvrir le menu';
+      if (haut) haut.style.transform = ouvrir ? 'translateY(5px) rotate(45deg)' : '';
+      if (bas) bas.style.transform = ouvrir ? 'translateY(-6px) rotate(-45deg)' : '';
     };
 
-    majEntete();
-    window.addEventListener('scroll', majEntete, { passive: true });
-
-    if (bouton && menu) {
-      const barreHaut = bouton.querySelector<HTMLElement>('[data-barre="haut"]');
-      const barreBas = bouton.querySelector<HTMLElement>('[data-barre="bas"]');
-      const libelle = bouton.querySelector<HTMLElement>('.sr-only');
-
-      const basculer = (ouvrir: boolean) => {
-        menu.hidden = !ouvrir;
-        bouton.setAttribute('aria-expanded', String(ouvrir));
-        document.body.style.overflow = ouvrir ? 'hidden' : '';
-        if (libelle) libelle.textContent = ouvrir ? 'Fermer le menu' : 'Ouvrir le menu';
-        if (barreHaut) barreHaut.style.transform = ouvrir ? 'translateY(6px) rotate(45deg)' : '';
-        if (barreBas) barreBas.style.transform = ouvrir ? 'translateY(-6px) rotate(-45deg)' : '';
-      };
-
-      bouton.addEventListener('click', () => basculer(menu.hidden));
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !menu.hidden) {
-          basculer(false);
-          bouton.focus();
-        }
-      });
-
-      window.matchMedia('(min-width: 64rem)').addEventListener('change', (e) => {
-        if (e.matches && !menu.hidden) basculer(false);
-      });
-    }
+    bouton.addEventListener('click', () => basculer(menu.hidden));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hidden) { basculer(false); bouton.focus(); }
+    });
+    window.matchMedia('(min-width: 64rem)').addEventListener('change', (e) => {
+      if (e.matches && !menu.hidden) basculer(false);
+    });
   }
 </script>

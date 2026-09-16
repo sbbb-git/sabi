@@ -15,34 +15,34 @@ import { CONTACT, FORMSPREE_ID } from '../consts';
 const action = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : '';
 
 const champ =
-  'mt-2 block w-full border border-bord bg-blanc px-4 py-3 text-corps text-texte placeholder:text-gris transition-colors duration-150 focus:border-bronze focus:outline-none';
-const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
+  'mt-2 block w-full border border-tirage-pale bg-papier-clair px-4 py-3 text-corps text-encre transition-colors duration-150 focus:border-sanguine focus:outline-none';
+const etiquette = 'cote';
 ---
 
 {
   !action ? (
-    <div class="reveal border-l-2 border-bronze bg-creme p-8">
-      <p class="font-titre text-[1.5rem] leading-[1.25] text-nuit">
+    <div class="border border-tirage-pale bg-papier-clair p-8">
+      <p class="titre-rubrique">
         Le formulaire n'est pas encore actif.
       </p>
-      <p class="mt-4 max-w-[46ch] text-corps text-texte">
+      <p class="mt-4 max-w-[46ch] text-[0.9375rem] text-graphite">
         En attendant, écrivez directement ou réservez un créneau. La réponse est la même.
       </p>
       <ul class="mt-6 space-y-2">
         <li>
-          <a class="lien" href={`mailto:${CONTACT.email}`}>
+          <a class="text-sanguine underline underline-offset-[0.2em]" href={`mailto:${CONTACT.email}`}>
             {CONTACT.email}
           </a>
         </li>
         <li>
-          <a class="lien" href={`tel:${CONTACT.telephoneLien}`}>
+          <a class="text-sanguine underline underline-offset-[0.2em]" href={`tel:${CONTACT.telephoneLien}`}>
             {CONTACT.telephone}
           </a>
         </li>
       </ul>
     </div>
   ) : (
-    <div class="reveal">
+    <div>
       <form id="formulaire-contact" method="POST" action={action} class="grid gap-6 sm:grid-cols-2">
         <input type="hidden" name="_subject" value="Nouveau message depuis sabi-co.fr" />
 
@@ -97,9 +97,9 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
         </div>
 
         <div class="sm:col-span-2">
-          <label class="flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-[1.6] text-texte">
+          <label class="flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-[1.6] text-graphite">
             <input
-              class="mt-1 h-4 w-4 shrink-0 accent-[#7E6127]"
+              class="mt-1 h-4 w-4 shrink-0 accent-[#B23A1F]"
               id="consentement"
               name="consentement"
               type="checkbox"
@@ -107,14 +107,14 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
             />
             <span>
               J'accepte que les informations saisies soient utilisées pour répondre à ma demande.
-              Voir la <a class="lien" href="/politique-de-confidentialite">politique de
+              Voir la <a class="text-sanguine underline underline-offset-[0.2em]" href="/politique-de-confidentialite">politique de
               confidentialité</a>.
             </span>
           </label>
         </div>
 
         <div class="sm:col-span-2">
-          <button type="submit" class="bouton bouton-sombre">
+          <button type="submit" class="etiquette">
             Envoyer
             <span aria-hidden="true">&rarr;</span>
           </button>
@@ -125,7 +125,7 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
         id="message-confirmation"
         hidden
         role="status"
-        class="border-l-2 border-bronze bg-creme py-6 pr-6 pl-6 text-corps text-texte"
+        class="border border-sanguine bg-papier-clair p-6 text-corps text-encre"
       >
         Message envoyé. Nous revenons vers vous par email.
       </p>
@@ -134,10 +134,10 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
         id="message-erreur"
         hidden
         role="alert"
-        class="mt-6 border-l-2 border-nuit bg-creme py-4 pr-6 pl-6 text-corps text-texte"
+        class="mt-6 border border-encre bg-papier-clair p-5 text-corps text-encre"
       >
         L'envoi n'a pas abouti. Écrivez-nous directement à
-        <a class="lien" href={`mailto:${CONTACT.email}`}>
+        <a class="text-sanguine underline underline-offset-[0.2em]" href={`mailto:${CONTACT.email}`}>
           {CONTACT.email}
         </a>.
       </p>

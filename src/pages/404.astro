@@ -9,20 +9,20 @@ import { NAV } from '../consts';
   noindex
 >
   <section class="pt-36 pb-24 lg:pt-44 lg:pb-32">
-    <div class="conteneur">
-      <p class="surtitre">Erreur 404</p>
-      <h1 class="titre-page mt-6">Cette page n'existe pas.</h1>
-      <p class="accroche mesure mt-6">
+    <div class="planche">
+      <p class="cote cote-sanguine">Erreur 404</p>
+      <h1 class="titre-planche mt-6">Cette page n'existe pas.</h1>
+      <p class="mesure mt-6 text-[1.0625rem] text-graphite">
         Le lien est peut-être ancien, ou la page a été déplacée.
       </p>
 
-      <ul class="mt-14 grid gap-px border-t border-bord sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+      <ul class="mt-14 grid border-t border-encre sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
         {
           NAV.map((lien) => (
-            <li class="border-b border-bord">
+            <li class="border-b border-tirage-pale">
               <a
                 href={lien.href}
-                class="group flex items-center justify-between py-6 pr-2 text-[1.0625rem] font-medium text-nuit transition-colors duration-150 hover:text-bronze sm:pr-8"
+                class="group flex items-center justify-between py-6 pr-2 text-[1.0625rem] font-medium text-encre transition-colors duration-150 hover:text-sanguine sm:pr-8"
               >
                 {lien.libelle}
                 <span
@@ -38,9 +38,9 @@ import { NAV } from '../consts';
       </ul>
 
       <div class="mt-14">
-        <a href="/" class="action action-accent">
+        <a href="/" class="renvoi">
           Revenir à l'accueil
-          <span class="fleche" aria-hidden="true">&rarr;</span>
+          <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
     </div>

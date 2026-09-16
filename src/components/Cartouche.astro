@@ -1,0 +1,87 @@
+---
+/**
+ * Le cartouche. Sur une planche, c'est le bloc en pied qui porte l'identité de
+ * l'ouvrage, l'échelle, la date et le signataire. Ici il porte aussi l'action :
+ * le visiteur agit depuis le cartouche, pas depuis un bouton flottant.
+ */
+import { CONTACT, MARQUE, NAV, NAV_LEGAL, RDV } from '../consts';
+
+const annee = new Date().getFullYear();
+
+const cases = [
+  { cle: 'Ouvrage', valeur: 'Structurer et financer la croissance' },
+  { cle: 'Maître d\'œuvre', valeur: MARQUE },
+  { cle: 'Lieu', valeur: `${CONTACT.ville}, ${CONTACT.pays}` },
+  { cle: 'Indice', valeur: String(annee) },
+];
+---
+
+<footer class="cartouche">
+  <div class="planche">
+    {/* Les cases du cartouche, en grille, séparées par des filets. */}
+    <div class="grid border-b border-tirage/40 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        cases.map((c, i) => (
+          <div
+            class:list={[
+              'border-tirage/40 py-6 pr-6',
+              i > 0 && 'border-t sm:border-t-0 lg:border-l lg:pl-6',
+              i === 1 && 'sm:border-l sm:pl-6 lg:pl-6',
+              i === 2 && 'sm:border-t lg:border-t-0',
+              i === 3 && 'sm:border-t sm:border-l sm:pl-6 lg:border-t-0',
+            ]}
+          >
+            <p class="cote cote-claire">{c.cle}</p>
+            <p class="mt-2 text-[0.9375rem] text-papier" style="font-stretch:90%">{c.valeur}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="grid gap-10 py-12 lg:grid-cols-12 lg:gap-8 lg:py-16">
+      <div class="lg:col-span-5">
+        <p class="text-[1.75rem] leading-none font-semibold tracking-[-0.03em]" style="font-stretch:86%">
+          sabi<span class="text-sanguine-clair">&amp;</span>co
+        </p>
+        <div class="mt-7">
+          <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
+            {RDV}
+          </a>
+        </div>
+      </div>
+
+      <nav class="lg:col-span-3" aria-label="Navigation de pied de page">
+        <p class="cote cote-claire">Rubriques</p>
+        <ul class="mt-5 space-y-3">
+          {
+            NAV.map((lien) => (
+              <li>
+                <a href={lien.href} class="text-[0.9375rem] text-papier transition-colors duration-150 hover:text-sanguine">
+                  {lien.libelle}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="lg:col-span-4">
+        <p class="cote cote-claire">Contact</p>
+        <ul class="mt-5 space-y-3">
+          <li><a href={`mailto:${CONTACT.email}`} class="text-[0.9375rem] text-papier hover:text-sanguine">{CONTACT.email}</a></li>
+          <li><a href={`tel:${CONTACT.telephoneLien}`} class="text-[0.9375rem] text-papier hover:text-sanguine">{CONTACT.telephone}</a></li>
+          <li><a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" class="text-[0.9375rem] text-papier hover:text-sanguine">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3 border-t border-tirage/40 py-7 sm:flex-row sm:items-center sm:justify-between">
+      <p class="cote cote-claire">&copy; {annee} {MARQUE}</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {NAV_LEGAL.map((l) => (
+          <li><a href={l.href} class="cote cote-claire transition-colors hover:text-sanguine-clair">{l.libelle}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>

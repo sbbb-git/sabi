@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Masthead from '../components/Masthead.astro';
-import ReferenceRow from '../components/ReferenceRow.astro';
+import EnTetePlanche from '../components/EnTetePlanche.astro';
 import { REFERENCES } from '../data/contenu';
 ---
 
@@ -9,16 +8,26 @@ import { REFERENCES } from '../data/contenu';
   titre="Références"
   description="Les missions conduites par le cabinet, décrites par leur objet : structuration de groupe, financement, subventions, cession et dossier ARS."
 >
-  <Masthead surtitre="Missions conduites" titre="Des dossiers menés, décrits par leur objet" />
+  <EnTetePlanche rubrique="Rubrique 02 &middot; Missions conduites" titre="Des dossiers menés, décrits par leur objet" />
 
-  <section class="pt-16 pb-20 lg:pt-24 lg:pb-28">
-    <div class="conteneur">
-      {REFERENCES.map((ref) => <ReferenceRow {...ref} niveau={2} />)}
-      <div class="filet" aria-hidden="true"></div>
-
-      <p class="chiffre reveal mt-16 text-[2rem] text-bronze lg:mt-20 lg:text-[2.75rem]">
-        Prochaine réalisation : la vôtre.
-      </p>
+  <section class="planche pb-16 lg:pb-24">
+    <div class="border-t border-encre">
+      {
+        REFERENCES.map((ref) => (
+          <article class="grid gap-3 border-b border-tirage-pale py-8 lg:grid-cols-12 lg:items-baseline lg:gap-10">
+            <p class="cote lg:col-span-3">{ref.secteur}</p>
+            <div class="lg:col-span-6">
+              <h2 class="titre-rubrique">{ref.objet}</h2>
+              <p class="mt-3 max-w-[52ch] text-[0.9375rem] leading-[1.55] text-graphite">{ref.phrase}</p>
+            </div>
+            <p class="cote cote-sanguine lg:col-span-3 lg:text-right">{ref.chiffre ?? ''}</p>
+          </article>
+        ))
+      }
     </div>
+
+    <p class="mt-14 text-[1.5rem] leading-[1.15] font-semibold tracking-[-0.025em] text-sanguine lg:mt-20 lg:text-[2.25rem]" style="font-stretch:86%">
+      Prochaine réalisation : la vôtre.
+    </p>
   </section>
 </Base>

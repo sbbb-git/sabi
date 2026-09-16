@@ -1,10 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
-import SectionTitle from '../components/SectionTitle.astro';
-import DarkBand from '../components/DarkBand.astro';
-import ExpertiseCard from '../components/ExpertiseCard.astro';
-import ReferenceRow from '../components/ReferenceRow.astro';
+import PlanImplantation from '../components/PlanImplantation.astro';
 import { CONTACT, RDV } from '../consts';
 import { BANDE_ACCUEIL, EXPERTISES, PILIERS, REFERENCES } from '../data/contenu';
 
@@ -16,106 +12,130 @@ const apercuReferences = REFERENCES.slice(0, 3);
   description="Direction financière, financement et opérations, en temps partagé. Le cabinet prend en charge les sujets financiers que personne ne porte."
   donneesStructurees
 >
-  <Hero
-    titre="Structurer et financer la croissance."
-    phrase="Direction financière, financement et opérations, en temps partagé."
-  >
-    <a
-      slot="actions"
-      href={CONTACT.calendly}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="bouton"
-    >
-      {RDV}
-      <span aria-hidden="true">&rarr;</span>
-    </a>
-    <a slot="actions" href="/expertises" class="bouton-contour">
-      Découvrir nos expertises
-      <span aria-hidden="true">&rarr;</span>
-    </a>
-  </Hero>
+  {/* Premier écran : le titre posé sur la trame, le plan à droite, cotes en pied. */}
+  <section class="planche pt-14 pb-20 lg:pt-20 lg:pb-28">
+    <div class="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-10">
+      <div class="lg:col-span-5">
+        <p class="cote">Cabinet de direction financière &middot; Paris</p>
 
-  {/* Qui sommes-nous */}
-  <section class="section">
-    <div class="conteneur">
-      <SectionTitle
-        surtitre="Le cabinet"
-        titre="En grandissant, une entreprise crée des sujets que personne ne porte vraiment."
-        phrase="sabi&co les prend en charge, et reste jusqu'à ce qu'ils tournent seuls."
-      />
+        <h1 class="nom-ouvrage mt-6">Structurer et financer la croissance.</h1>
 
-      <ul class="mt-16 grid border-t border-bord sm:grid-cols-2 lg:mt-24 lg:grid-cols-5">
-        {
-          PILIERS.map((pilier) => (
-            <li class="reveal border-b border-bord pt-8 pb-10 sm:pr-8">
-              <h3 class="font-titre text-[1.375rem] leading-[1.2] text-nuit">{pilier.titre}</h3>
-              <p class="mt-3 text-corps text-texte">{pilier.phrase}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
+        {/* Preuve accolée : la phrase se termine sur sa cote, comme une ligne
+            de cote se termine toujours sur une arête réelle. */}
+        <p class="mt-8 max-w-[38ch] text-[1.0625rem] leading-[1.6] text-graphite lg:text-[1.1875rem]">
+          Direction financière, financement et opérations, en temps partagé.
+        </p>
 
-  <DarkBand texte={BANDE_ACCUEIL} />
-
-  {/* Aperçu des expertises */}
-  <section class="section bg-creme">
-    <div class="conteneur">
-      <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-        <SectionTitle
-          surtitre="L'offre"
-          titre="Six expertises, séparées ou combinées"
-          class="lg:max-w-[46ch]"
-        />
-        <a href="/expertises" class="action action-accent shrink-0 self-start lg:self-auto">
-          Voir le détail
-          <span class="fleche" aria-hidden="true">&rarr;</span>
-        </a>
+        <div class="mt-10 flex flex-wrap items-center gap-3">
+          <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
+            {RDV}
+          </a>
+          <a href="/expertises" class="etiquette etiquette-encre">Les expertises</a>
+        </div>
       </div>
 
-      <div class="mt-14 grid gap-px bg-bord md:grid-cols-2 lg:mt-20 lg:grid-cols-3">
-        {
-          EXPERTISES.map((expertise, i) => (
-            <ExpertiseCard titre={expertise.titre} phrase={expertise.phrase} rang={i + 1} />
-          ))
-        }
+      <div class="lg:col-span-7">
+        <PlanImplantation />
       </div>
     </div>
   </section>
 
-  {/* Aperçu des références */}
-  <section class="section-serree">
-    <div class="conteneur">
-      <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-        <SectionTitle
-          surtitre="Missions conduites"
-          titre="Des dossiers menés, décrits par leur objet"
-          class="lg:max-w-[46ch]"
-        />
-        <a href="/references" class="action action-accent shrink-0 self-start lg:self-auto">
-          Voir les références
-          <span class="fleche" aria-hidden="true">&rarr;</span>
-        </a>
+  {/* Le constat, une idée par planche. */}
+  <section class="planche border-t border-encre py-16 lg:py-24">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-3">
+        <p class="cote">Le cabinet</p>
       </div>
+      <div class="lg:col-span-9">
+        <h2 class="titre-planche max-w-[24ch]">
+          En grandissant, une entreprise crée des sujets que personne ne porte
+          vraiment.
+        </h2>
+        <p class="mt-6 max-w-[54ch] text-[1.0625rem] text-graphite">
+          sabi&amp;co les prend en charge, et reste jusqu'à ce qu'ils tournent seuls.
+        </p>
 
-      <div class="mt-12 lg:mt-16">
-        {apercuReferences.map((ref) => <ReferenceRow {...ref} />)}
-        <div class="filet" aria-hidden="true"></div>
+        {/* Les cinq piliers, cotés et reliés par une ligne de rappel. */}
+        <ul class="mt-12 grid gap-px border-t border-tirage-pale sm:grid-cols-2 lg:mt-16 lg:grid-cols-5">
+          {
+            PILIERS.map((pilier, i) => (
+              <li class="border-b border-tirage-pale pt-6 pb-8 sm:pr-6">
+                <span class="cote">{String(i + 1).padStart(2, '0')}</span>
+                <h3 class="titre-rubrique mt-4">{pilier.titre}</h3>
+                <p class="mt-3 text-[0.9375rem] leading-[1.55] text-graphite">{pilier.phrase}</p>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
   </section>
 
-  {/* Bloc de fin */}
-  <section class="section bg-nuit">
-    <div class="conteneur">
-      <h2 class="titre-display titre-clair reveal max-w-[16ch]">Parlons de votre projet.</h2>
-      <div class="reveal mt-12 lg:mt-16">
-        <a href="/contact" class="bouton">
-          Nous écrire
+  {/* Bande d'intervention, sur l'encre. */}
+  <section class="cartouche">
+    <div class="planche py-16 lg:py-24">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+        <div class="lg:col-span-3">
+          <span class="ligne-cote mt-4 block w-20" aria-hidden="true"></span>
+        </div>
+        <p class="max-w-[34ch] text-[1.375rem] leading-[1.25] font-semibold tracking-[-0.02em] lg:col-span-9 lg:text-[2rem]" style="font-stretch:88%">
+          {BANDE_ACCUEIL}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* Les six expertises. Le recouvrement : elles se prennent séparées ou
+      combinées, et la planche montre l'intersection. */}
+  <section class="planche py-16 lg:py-24">
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <h2 class="titre-planche max-w-[20ch]">Six expertises, séparées ou combinées</h2>
+      <a href="/expertises" class="renvoi shrink-0">
+        Le détail des six
+        <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+
+    <ol class="mt-12 border-t border-encre lg:mt-16">
+      {
+        EXPERTISES.map((expertise, i) => (
+          <li class="group grid gap-3 border-b border-tirage-pale py-6 lg:grid-cols-12 lg:items-baseline lg:gap-10 lg:py-7">
+            <div class="flex items-center gap-4 lg:col-span-1">
+              <span class="repere">{String(i + 1).padStart(2, '0')}</span>
+            </div>
+            <h3 class="titre-rubrique lg:col-span-5">{expertise.titre}</h3>
+            <p class="text-[0.9375rem] leading-[1.55] text-graphite lg:col-span-6">
+              {expertise.phrase}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  {/* Les références. Chaque objet se termine sur sa cote. */}
+  <section class="bg-papier-clair">
+    <div class="planche py-16 lg:py-24">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <h2 class="titre-planche max-w-[20ch]">Des dossiers menés, décrits par leur objet</h2>
+        <a href="/references" class="renvoi shrink-0">
+          Toutes les missions
           <span aria-hidden="true">&rarr;</span>
         </a>
+      </div>
+
+      <div class="mt-12 border-t border-encre lg:mt-16">
+        {
+          apercuReferences.map((ref) => (
+            <article class="grid gap-2 border-b border-tirage-pale py-7 lg:grid-cols-12 lg:items-baseline lg:gap-10">
+              <p class="cote lg:col-span-3">{ref.secteur}</p>
+              <h3 class="titre-rubrique lg:col-span-6">{ref.objet}</h3>
+              {ref.chiffre && (
+                <p class="cote cote-sanguine lg:col-span-3 lg:text-right">{ref.chiffre}</p>
+              )}
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>

@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Masthead from './Masthead.astro';
+import EnTetePlanche from './EnTetePlanche.astro';
 
 interface Props {
   titre: string;
@@ -12,11 +12,11 @@ const { titre, description, miseAJour } = Astro.props;
 ---
 
 <Base titre={titre} description={description} noindex>
-  <Masthead surtitre="Informations légales" titre={titre} />
+  <EnTetePlanche rubrique="Informations légales" titre={titre} />
 
   <section class="pt-14 pb-24 lg:pt-20 lg:pb-32">
-    <div class="conteneur">
-      <p class="mb-12 text-[0.9375rem] text-gris">Dernière mise à jour : {miseAJour}</p>
+    <div class="planche">
+      <p class="cote mb-12">Dernière mise à jour : {miseAJour}</p>
       <div class="legale mesure">
         <slot />
       </div>
@@ -26,15 +26,15 @@ const { titre, description, miseAJour } = Astro.props;
 
 <style is:global>
   .legale h2 {
-    font-family: var(--font-titre);
+    font-stretch: 90%;
     font-size: 1.5rem;
     line-height: 1.2;
     font-weight: 400;
     letter-spacing: -0.01em;
-    color: var(--color-nuit);
+    color: var(--color-encre);
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 1px solid var(--color-bord);
+    border-top: 1px solid var(--color-tirage-pale);
   }
 
   .legale h2:first-child {
@@ -44,7 +44,7 @@ const { titre, description, miseAJour } = Astro.props;
   .legale p,
   .legale ul {
     margin-top: 1rem;
-    color: var(--color-texte);
+    color: var(--color-graphite);
   }
 
   .legale ul {
@@ -65,21 +65,21 @@ const { titre, description, miseAJour } = Astro.props;
     top: 0.75em;
     width: 0.5rem;
     height: 1px;
-    background-color: var(--color-bronze);
+    background-color: var(--color-sanguine);
   }
 
   .legale a {
-    color: var(--color-bronze);
+    color: var(--color-sanguine);
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
 
   /* Marqueur des informations que Sacha doit fournir avant mise en ligne. */
   .a-completer {
-    background-color: var(--color-creme);
-    border-bottom: 1px solid var(--color-bronze);
+    background-color: var(--color-papier-clair);
+    border-bottom: 1px solid var(--color-sanguine);
     padding: 0 0.25rem;
     font-weight: 500;
-    color: var(--color-nuit);
+    color: var(--color-encre);
   }
 </style>

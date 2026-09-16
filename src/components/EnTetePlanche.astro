@@ -1,0 +1,27 @@
+---
+/**
+ * En-tête de planche. Sur un plan, chaque feuille porte en haut son numéro de
+ * rubrique, le nom de l'ouvrage et l'objet. C'est la même chose ici, et c'est
+ * ce qui remplace le bandeau sombre générique des pages internes.
+ */
+interface Props {
+  rubrique: string;
+  titre: string;
+  objet?: string;
+}
+
+const { rubrique, titre, objet } = Astro.props;
+---
+
+<section class="planche pt-12 pb-14 lg:pt-16 lg:pb-20">
+  <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+    <div class="lg:col-span-3">
+      <p class="cote">{rubrique}</p>
+      <span class="ligne-cote mt-5 block w-24" aria-hidden="true"></span>
+    </div>
+    <div class="lg:col-span-9">
+      <h1 class="titre-planche max-w-[22ch]" style="font-size:clamp(2.25rem,5vw,3.75rem)">{titre}</h1>
+      {objet && <p class="mt-7 max-w-[56ch] text-[1.0625rem] leading-[1.6] text-graphite lg:text-[1.125rem]">{objet}</p>}
+    </div>
+  </div>
+</section>

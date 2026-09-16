@@ -1,139 +1,109 @@
 # DESIGN.md — sabi&co
 
-Le monde visuel du site. Ce fichier a autorité sur toute décision esthétique.
-En cas de doute, il tranche. La vérité produit vit dans `PRODUCT.md`.
+Le monde visuel du site, décrit **depuis ce qui est construit**, pas depuis ce
+qui était prévu. Ce fichier a autorité sur toute décision esthétique. La vérité
+produit vit dans `PRODUCT.md`. Le contrat de direction de l'accueil vit dans
+`.impeccable/surfaces/src-pages-index-astro.md`, seed `e0ddb9ea`.
 
-## Le registre
+## Le monde : le plan de masse
 
-Boutique de conseil financier parisienne, version nette et contemporaine.
-Le texte fait le design. Aucune photo, aucune illustration.
+Le site est une planche de dessin technique. Ce n'est pas une métaphore
+décorative : sabi&co a réellement implanté treize centres en cinq ans, et le
+plan est le document que ce travail produit. Le monde dit « on trace et on fait
+construire » là où la catégorie dit « on conseille ».
 
-Références retenues, dans cet ordre :
+Directions rejetées, elles ne se rediscutent pas :
 
-- **Reggio Partners** pour l'aplomb : aplat sombre plein écran, une couleur
-  signature assumée, titre énorme.
-- **SATE Investment Partners** pour la structure : bandeau de données dense,
-  hiérarchie nette, graisses légères en grand.
-- **26 Advisory** pour la tenue : sobriété de cabinet, rien de tape-à-l'œil.
-
-Rejeté explicitement : le registre des cabinets de DAF externalisé français
-(Financyal, Acsio, Auvalie, Référence DAF). Contenu proche, exécution datée.
-
-## Ce que le site ne doit jamais être
-
-Rejets prononcés par le client, ils ne se rediscutent pas :
-
-- **Aucun serif.** Une direction serif a été construite puis rejetée. Les cinq
-  références sont toutes en sans-serif.
-- **Rien qui sente le gabarit.** Le mot employé est « vibe codé ».
-- **Le bleu corporate générique** du premier jet, `#1660C9` sur fond blanc.
+- **Aucun serif.** Une direction serif a été construite puis rejetée.
+- **Pas d'aplat marine plein écran** avec grosse grotesque centrée. Livré deux
+  fois, rejeté deux fois comme « fade et lisse ».
+- **Pas de bleu corporate générique**, ni son opposé prévisible, le noir avec
+  un néon.
 
 ## Typographie
 
-| Usage | Police | Détail |
-|---|---|---|
-| Titres et corps | **Schibsted Grotesk** | variable, servie en local |
-| Chiffres et mesures | **Geist Mono** | variable, servie en local |
+Un seul alphabet : **Archivo Variable**, servi en local, jamais de CDN. Il porte
+un axe de largeur de 62 à 125 %, ce qui en fait l'équivalent d'une boîte de
+lettrage de dessinateur : la même lettre, resserrée selon le rôle.
 
-Le monospace ne sert **que** là où il y a une mesure : montants, comptages,
-volumes. Jamais sur une étiquette ou un intitulé, ce serait un costume.
+| Rôle | Largeur | Graisse | Détail |
+|---|---|---|---|
+| `.nom-ouvrage` | 86 % | 600 | `clamp(2.5rem, 7.2vw, 5.5rem)`, interlignage 0.94 |
+| `.titre-planche` | 86 % | 600 | `clamp(1.875rem, 4vw, 3rem)` |
+| `.titre-rubrique` | 92 % | 600 | `clamp(1.125rem, 1.6vw, 1.375rem)` |
+| `.cote` | 78 % | 500 | 11px, capitales, interlettrage 0.18em |
+| Corps | 100 % | 400 | 17px, interlignage 1.6 |
 
-Échelle, desktop puis mobile :
+Interlettrage plafonné à -0.03em. Chiffres en `tabular-nums` sur tout le site.
 
-| Rôle | Desktop | Mobile | Graisse | Interlettrage |
-|---|---|---|---|---|
-| Titre de héros | 78px | 40px | 450 | -0.03em |
-| Titre de page | 56px | 32px | 450 | -0.03em |
-| Titre de section | 44px | 28px | 450 | -0.03em |
-| Titre de ligne | 21px | 17px | 600 | -0.02em |
-| Corps | 17px | 16px | 400 | 0 |
-
-Plafond d'interlettrage : -0.03em. Ne jamais descendre à -0.04em.
-Mesure du corps de texte : 65 à 75 caractères.
-Titre d'affichage plafonné à 6rem.
+La fonte est **préchargée** dans `Base.astro`. Sans ce préchargement, le
+basculement depuis la police système décale la mise en page : 0,083 de CLS
+mesuré avant correction.
 
 ## Palette
 
 ```
---nuit        #07111F   aplats sombres, héros, bandeaux
---bleu        #2563EB   accent unique, boutons, liens, icônes
---bleu-clair  #7FB0FF   accent sur fond sombre, contraste tenu
---doux        #8FA0B4   texte secondaire sur fond sombre, teinté bleu
---ardoise     #55636F   texte secondaire sur fond clair, teinté bleu
---texte       #0B1219   corps de texte
---bord        #E3E6EA   filets sur fond clair
---bord-nuit   rgba(143,160,180,.2)   filets sur fond sombre
---clair       #F5F6F8   fonds de section clairs
---blanc       #FFFFFF
+--papier        #F2EFE6   fond général, jamais de blanc écran
+--papier-clair  #F8F6F0   sections en retrait
+--calque        #E8E4D8   fond de barre de défilement
+--encre         #14263D   texte, cartouche, traits forts
+--tirage        #2F5D92   cotes, filets de cote, repères
+--tirage-pale   #9DB4CC   filets uniquement, jamais du texte
+--sanguine      #B23A1F   cotes actives, action, repères nommés
+--sanguine-clair #E8734F  la même, sur fond encre
+--graphite      #5A6472   texte secondaire sur papier
 ```
 
-Règle de contraste : le texte secondaire est **toujours teinté depuis la
-couleur du fond**, jamais un gris neutre. Corps et placeholders à 4.5:1
-minimum, grand texte à 3:1.
+Deux pièges vérifiés et corrigés :
 
-## Structure
+- `--tirage-pale` tombe à **1,9:1** sur le papier. Il ne sert qu'aux filets.
+  Pour du texte pâle sur papier, c'est `--tirage` qui sert, à 5,9:1.
+- `--sanguine` tombe à **2,6:1** sur l'encre. Sur le cartouche, c'est
+  `--sanguine-clair` qui sert, à 5,1:1.
 
-- Conteneur 1280px, marges 20px en mobile et 72px en desktop.
-- Le filet de 1px est le seul outil de structure. Pas de carte bordée.
-- Élévation déclarée une seule fois : bordure **ou** ombre, jamais les deux.
-- Rayon de bordure : 0. Les angles sont nets partout.
+## Le vocabulaire de la planche
 
-## Interdits de mise en page
+Aucune carte, aucun rayon de bordure, aucune ombre. La structure vient du trait.
 
-Tirés du socle de qualité d'Impeccable, vérifiés contre ce projet :
+| Élément | Rôle |
+|---|---|
+| `.planche` | le conteneur, 1320px, marges 20px puis 56px |
+| `.trait` | filet de séparation, 1px de `--tirage-pale` |
+| `.ligne-cote` | segment à empattements, se termine sur une arête réelle |
+| `.repere` | pastille circulaire d'implantation |
+| `.cartouche` | le bloc en pied, seul aplat de la planche, porte l'action |
+| `.etiquette` | l'action, en étiquette de cartouche, capitales resserrées |
+| `.renvoi` | lien annoté, sa ligne de rappel se déploie au survol |
+| `.hachure` | hachure d'emprise bâtie, jamais une texture de fond |
 
-- **Pas de surtitre au-dessus d'un titre.** Interdiction ferme, aucun brief ne
-  la rachète. Le titre porte son propre poids.
-- **Pas de numérotation 01 / 02 / 03** si la séquence ne porte pas
-  d'information. Nos six expertises sont un ensemble, pas une progression.
-- **Pas de grille de cartes identiques** icône plus titre plus texte. Les
-  expertises sont des lignes séparées par des filets.
-- **Pas de bandeau de chiffres collé sous le héros**, c'est le gabarit
-  « hero-metric ». Les chiffres vivent sur la page À propos.
-- **Pas de dégradé sur du texte.** L'emphase vient de la graisse ou de la taille.
-- **Pas de bordure gauche colorée** de plus de 1px.
-- **Pas de glyphe Unicode ni d'emoji** en guise d'icône.
+Le composant `PlanImplantation` dessine les treize implantations en géométrie
+fixe. Il porte un nom accessible et une légende. Le blanc de réserve derrière
+la cote suit la convention du dessin : la cote interrompt son trait.
 
-## Icônes
+## Interdits, vérifiés contre ce projet
 
-Jeu dessiné à la main, pas de bibliothèque, pas d'emoji.
+Issus du socle de qualité d'Impeccable :
 
-- Grille 24, trait 1.5, `stroke-linecap: square`, `stroke-linejoin: miter`.
-- Angles nets, cohérents avec le rayon 0 du reste.
-- Chaque icône désigne le dispositif concret dont parle l'expertise, pas une
-  idée vague. Un tableau de bord a une ligne de relevé, la mise en concurrence
-  a plusieurs sources de hauteurs différentes.
-- Couleur : `--bleu`. Taille 28px desktop, 26px mobile.
-
-## Mouvement
-
-Un seul moment animé sur la page, pas une entrée identique sur chaque section.
-Sortie exponentielle, depuis un état déjà visible. `prefers-reduced-motion`
-coupe tout. Ne jamais animer `width`, `height`, `padding` ou `margin` : passer
-par `transform` ou `opacity`.
-
-## Surfaces du navigateur
-
-Elles portent le design autant que le reste, et c'est le signal le moins cher
-qu'une page a été construite et non assemblée. À thématiser depuis la palette :
-
-- sélection de texte
-- couleur du caret
-- anneau de focus
-- barres de défilement
-- décalage des soulignements
-- chiffres tabulaires dans les données
+- Pas de surtitre au-dessus d'un titre. Les `.cote` de rubrique sont des
+  **repères de planche numérotés**, placés en colonne latérale, jamais en
+  étiquette posée sur un titre.
+- Pas de grille de cartes identiques. Les expertises sont des lignes cotées.
+- Pas de bandeau de chiffres collé sous le héros. Les quatre cotes de l'ouvrage
+  vivent sur la page À propos.
+- Pas de monospace en costume technique. Il n'y a pas de monospace sur ce site.
+- **Pas d'apparition en fondu au scroll.** Une entrée identique sur chaque
+  section est le réglage par défaut. Elle a été retirée.
+- Ne jamais animer `width`, `height`, `padding` ou `margin`.
 
 ## Vérification avant de livrer
 
 ```bash
-npm run build                                   # 0 erreur, 0 avertissement
-sh .agents/skills/impeccable/scripts/impeccable detect --json <cibles>
+npm run build                                          # 0 erreur, 0 avertissement
+sh .claude/skills/impeccable/scripts/impeccable detect --json <cibles>
 ```
 
-Plus les contrôles maison : rendu à 390, 768, 1280 et 1920, aucun débordement
-horizontal, contraste mesuré sur chaque nœud de texte, canonicals conformes,
-Lighthouse mobile à 100.
+Plus le contrôle maison, qui compose les fonds sur un canvas plutôt que de lire
+la chaîne CSS : Tailwind 4 émet de l'`oklab()` dès qu'une opacité entre en jeu,
+et un parseur naïf y lit n'importe quoi.
 
-Le skill Impeccable n'est pas versionné. Pour le réinstaller :
-`npx skills add pbakaus/impeccable`
+Outillage non versionné, réinstallable : `npx skills add pbakaus/impeccable`

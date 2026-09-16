@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Masthead from '../components/Masthead.astro';
+import EnTetePlanche from '../components/EnTetePlanche.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { CONTACT } from '../consts';
 
@@ -30,23 +30,24 @@ const moyens = [
   titre="Contact"
   description="Dites-nous où vous en êtes. Par email, par téléphone ou en réservant 30 minutes directement dans l'agenda du cabinet."
 >
-  <Masthead
+  <EnTetePlanche
+    rubrique="Rubrique 04 &middot; Contact"
     titre="Parlons de votre projet."
-    phrase="Dites-nous où vous en êtes. Nous vous dirons où nous pouvons intervenir."
+    objet="Dites-nous où vous en êtes. Nous vous dirons où nous pouvons intervenir."
   />
 
   <section class="pt-16 pb-20 lg:pt-24 lg:pb-24">
-    <div class="conteneur">
-      <ul class="grid gap-px border-t border-bord md:grid-cols-3">
+    <div class="planche">
+      <ul class="grid border-t border-encre md:grid-cols-3">
         {
           moyens.map((moyen) => (
-            <li class="reveal border-b border-bord pt-8 pb-10 md:pr-8">
-              <p class="surtitre">{moyen.surtitre}</p>
+            <li class="border-b border-tirage-pale pt-7 pb-9 md:pr-8">
+              <p class="cote">{moyen.surtitre}</p>
               <a
                 href={moyen.href}
                 target={moyen.externe ? '_blank' : undefined}
                 rel={moyen.externe ? 'noopener noreferrer' : undefined}
-                class="font-titre mt-4 inline-block text-[1.375rem] leading-[1.3] text-nuit underline decoration-bord decoration-1 underline-offset-[0.3em] transition-colors duration-150 hover:text-bronze hover:decoration-bronze"
+                class="titre-rubrique mt-4 inline-block underline decoration-tirage-pale decoration-1 underline-offset-[0.3em] transition-colors duration-150 hover:text-sanguine hover:decoration-sanguine"
               >
                 {moyen.valeur}
               </a>
@@ -58,10 +59,10 @@ const moyens = [
   </section>
 
   <section class="pb-24 lg:pb-32">
-    <div class="conteneur">
+    <div class="planche">
       <div class="grid gap-10 lg:grid-cols-12 lg:gap-8">
         <div class="lg:col-span-4">
-          <p class="surtitre reveal">Formulaire</p>
+          <p class="cote">Formulaire</p>
         </div>
         <div class="lg:col-span-8">
           <ContactForm />

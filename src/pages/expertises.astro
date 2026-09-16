@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Masthead from '../components/Masthead.astro';
-import ExpertiseCard from '../components/ExpertiseCard.astro';
+import EnTetePlanche from '../components/EnTetePlanche.astro';
 import { EXPERTISES } from '../data/contenu';
 ---
 
@@ -9,23 +8,25 @@ import { EXPERTISES } from '../data/contenu';
   titre="Expertises"
   description="Direction financière à temps partagé, financement, subventions, M&A, structuration du développement et pilotage de la performance."
 >
-  <Masthead
-    surtitre="L'offre"
+  <EnTetePlanche
+    rubrique="Rubrique 01 &middot; L'offre"
     titre="Six expertises, séparées ou combinées"
-    phrase="Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin."
+    objet="Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin."
   />
 
-  <section class="py-px">
-    <div class="conteneur">
-      <div class="grid gap-px bg-bord md:grid-cols-2">
-        {
-          EXPERTISES.map((expertise, i) => (
-            <ExpertiseCard titre={expertise.titre} phrase={expertise.phrase} rang={i + 1} niveau={2} />
-          ))
-        }
-      </div>
-    </div>
+  <section class="planche pb-20 lg:pb-28">
+    <ol class="border-t border-encre">
+      {
+        EXPERTISES.map((expertise, i) => (
+          <li class="grid gap-4 border-b border-tirage-pale py-8 lg:grid-cols-12 lg:items-baseline lg:gap-10 lg:py-10">
+            <div class="lg:col-span-1"><span class="repere">{String(i + 1).padStart(2, '0')}</span></div>
+            <h2 class="titre-rubrique lg:col-span-5" style="font-size:clamp(1.25rem,1.9vw,1.625rem)">
+              {expertise.titre}
+            </h2>
+            <p class="text-[1rem] leading-[1.55] text-graphite lg:col-span-6">{expertise.phrase}</p>
+          </li>
+        ))
+      }
+    </ol>
   </section>
-
-  <div class="h-24 lg:h-32"></div>
 </Base>

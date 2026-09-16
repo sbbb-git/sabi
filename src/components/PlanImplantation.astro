@@ -1,0 +1,155 @@
+---
+/**
+ * Plan d'implantation. Le dessin qui domine le premier écran.
+ *
+ * Ce n'est pas une décoration : il représente la seule chose que ce cabinet
+ * peut prouver mieux que quiconque, treize centres ouverts en cinq ans. Le
+ * troisième et le treizième sont nommés, la cote qui les relie porte la durée.
+ *
+ * Géométrie fixe, dessinée à la main dans le viewBox. Aucune génération
+ * aléatoire : un plan se lit deux fois pareil.
+ */
+
+/* Implantations : x, y sur une grille de 600 x 380, et l'emprise bâtie. */
+const SITES = [
+  { x: 52, y: 250, w: 46, h: 34, rang: 1 },
+  { x: 116, y: 236, w: 38, h: 30, rang: 2 },
+  { x: 172, y: 258, w: 52, h: 38, rang: 3, nomme: true },
+  { x: 244, y: 214, w: 34, h: 28, rang: 4 },
+  { x: 296, y: 246, w: 44, h: 32, rang: 5 },
+  { x: 358, y: 206, w: 36, h: 30, rang: 6 },
+  { x: 412, y: 240, w: 40, h: 30, rang: 7 },
+  { x: 150, y: 168, w: 32, h: 26, rang: 8 },
+  { x: 214, y: 150, w: 42, h: 32, rang: 9 },
+  { x: 286, y: 158, w: 34, h: 28, rang: 10 },
+  { x: 348, y: 130, w: 38, h: 28, rang: 11 },
+  { x: 418, y: 156, w: 36, h: 30, rang: 12 },
+  { x: 480, y: 188, w: 56, h: 42, rang: 13, nomme: true },
+];
+
+const premier = SITES[2];
+const dernier = SITES[12];
+---
+
+<figure class="relative m-0" aria-labelledby="legende-plan">
+  <svg
+    viewBox="0 0 600 380"
+    class="block h-auto w-full"
+    role="img"
+    aria-label="Plan d'implantation de 13 centres ouverts en 5 ans, le 3e et le 13e repérés"
+    aria-describedby="legende-plan"
+    fill="none"
+  >
+    <defs>
+      <pattern id="bati" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="var(--color-tirage-pale)" stroke-width="1" />
+      </pattern>
+    </defs>
+
+    {/* Trame de fond du plan, au pas de 40. Elle situe, elle ne décore pas. */}
+    <g stroke="var(--color-tirage-pale)" stroke-width="0.5" opacity="0.5">
+      {Array.from({ length: 15 }, (_, i) => (
+        <line x1={i * 40} y1="0" x2={i * 40} y2="380" />
+      ))}
+      {Array.from({ length: 10 }, (_, i) => (
+        <line x1="0" y1={i * 40} x2="600" y2={i * 40} />
+      ))}
+    </g>
+
+    {/* Emprises bâties, hachurées. */}
+    {
+      SITES.map((s) => (
+        <g>
+          <rect
+            x={s.x}
+            y={s.y}
+            width={s.w}
+            height={s.h}
+            fill="url(#bati)"
+            stroke={s.nomme ? 'var(--color-sanguine)' : 'var(--color-tirage)'}
+            stroke-width={s.nomme ? 1.6 : 1}
+          />
+        </g>
+      ))
+    }
+
+    {/* Ligne de cote reliant la troisième implantation à la treizième. */}
+    <g stroke="var(--color-sanguine)" stroke-width="1">
+      <line x1={premier.x} y1={premier.y - 26} x2={premier.x} y2={premier.y - 6} />
+      <line x1={dernier.x + dernier.w} y1={dernier.y - 58} x2={dernier.x + dernier.w} y2={dernier.y - 6} />
+      <line x1={premier.x} y1={premier.y - 22} x2={dernier.x + dernier.w} y2={premier.y - 22} />
+      <path d={`M${premier.x + 7} ${premier.y - 26} L${premier.x} ${premier.y - 22} L${premier.x + 7} ${premier.y - 18}`} />
+      <path
+        d={`M${dernier.x + dernier.w - 7} ${premier.y - 26} L${dernier.x + dernier.w} ${premier.y - 22} L${dernier.x + dernier.w - 7} ${premier.y - 18}`}
+      />
+    </g>
+
+    {/* Blanc de réserve : en dessin technique, la cote interrompt son trait. */}
+    <rect
+      x={(premier.x + dernier.x + dernier.w) / 2 - 34}
+      y={premier.y - 46}
+      width="68"
+      height="20"
+      fill="var(--color-papier)"
+    />
+    <text
+      x={(premier.x + dernier.x + dernier.w) / 2}
+      y={premier.y - 30}
+      text-anchor="middle"
+      fill="var(--color-sanguine)"
+      style="font-family:var(--font-plan);font-size:15px;font-weight:600;font-stretch:78%;letter-spacing:.1em"
+    >
+      5 ANS
+    </text>
+
+    {/* Repères des deux implantations nommées. */}
+    {
+      [premier, dernier].map((s) => (
+        <g>
+          <circle
+            cx={s.x + s.w / 2}
+            cy={s.y + s.h + 22}
+            r="11"
+            fill="var(--color-sanguine)"
+          />
+          <text
+            x={s.x + s.w / 2}
+            y={s.y + s.h + 26}
+            text-anchor="middle"
+            fill="var(--color-papier)"
+            style="font-family:var(--font-plan);font-size:11px;font-weight:600;font-stretch:78%"
+          >
+            {s.rang}
+          </text>
+          <line
+            x1={s.x + s.w / 2}
+            y1={s.y + s.h}
+            x2={s.x + s.w / 2}
+            y2={s.y + s.h + 11}
+            stroke="var(--color-sanguine)"
+            stroke-width="1"
+          />
+        </g>
+      ))
+    }
+
+    {/* Orientation. Un plan porte toujours son nord. */}
+    <g transform="translate(556, 46)">
+      <line x1="0" y1="14" x2="0" y2="-14" stroke="var(--color-encre)" stroke-width="1" />
+      <path d="M-5 -6 L0 -16 L5 -6 Z" fill="var(--color-encre)" />
+      <text
+        x="0"
+        y="28"
+        text-anchor="middle"
+        fill="var(--color-encre)"
+        style="font-family:var(--font-plan);font-size:11px;font-weight:600;font-stretch:78%;letter-spacing:.12em"
+      >
+        N
+      </text>
+    </g>
+  </svg>
+
+  <figcaption id="legende-plan" class="cote mt-5">
+    Plan d'implantation, 3 à 13 centres en 5 ans
+  </figcaption>
+</figure>
