@@ -81,31 +81,42 @@ sitemap.
 
 ## Déploiement, Cloudflare Pages
 
-Le site est hébergé sur **Cloudflare Pages**, le domaine est géré dans le même
-compte Cloudflare.
+Le déploiement est automatique. `.github/workflows/deploiement.yml` construit le
+site et le publie sur Cloudflare Pages à chaque poussée sur la branche par
+défaut, `claude/sabi-site-dev-95r6po`. Le workflow se lance aussi à la main
+depuis l'onglet Actions, bouton Run workflow.
 
-Le dépôt n'a qu'une seule branche, `claude/sabi-site-dev-95r6po`, qui est aussi
-la branche par défaut. C'est donc elle que Cloudflare doit construire en
-production. Rien à fusionner.
+Le jeton Cloudflare ne vit que dans les secrets GitHub. Il n'apparaît nulle part
+dans le dépôt.
 
-Réglages du projet Pages :
+### Les deux secrets à créer
 
-| Réglage | Valeur |
+Dans le dépôt GitHub, Settings puis Secrets and variables puis Actions,
+bouton New repository secret :
+
+| Nom du secret | Où le trouver |
 |---|---|
-| Framework preset | Astro, ou aucun |
-| Commande de build | `npm run build` |
-| Dossier de sortie | `dist` |
-| Branche de production | `claude/sabi-site-dev-95r6po` |
-| Variable `NODE_VERSION` | `22` |
+| `CLOUDFLARE_API_TOKEN` | dash.cloudflare.com/profile/api-tokens, Create Token, Custom token, permission **Account > Cloudflare Pages > Edit** |
+| `CLOUDFLARE_ACCOUNT_ID` | dans l'URL du dashboard Cloudflare, ou en bas de la page Workers & Pages |
 
-Aucune variable secrète n'est nécessaire.
+Le workflow vérifie leur présence avant de construire quoi que ce soit, et
+s'arrête avec un message explicite s'il en manque un.
+
+### Ce que fait le workflow
+
+1. installe Node 22 et les dépendances avec `npm ci`
+2. construit le site avec `npm run build`, qui inclut la vérification de types
+3. crée le projet Pages `sabi-co` s'il n'existe pas encore, sans échouer s'il
+   existe déjà
+4. publie le contenu de `dist` sur la branche de production `production`
+
+Le site sort alors sur `https://sabi-co.pages.dev`. Pour le servir sur
+`sabi-co.fr`, ajouter le domaine une fois dans Workers & Pages, projet `sabi-co`,
+onglet Custom domains. Cloudflare pose les enregistrements DNS tout seul
+puisque la zone est dans le même compte.
 
 Les en-têtes de sécurité et de cache sont dans `public/_headers`, que Cloudflare
 Pages lit au déploiement. Rien à configurer dans l'interface.
-
-Pousser sur GitHub ne met pas le site en ligne par soi-même : il faut d'abord
-créer le projet Pages et le brancher sur ce dépôt. Chaque poussée déclenche
-ensuite un déploiement automatique.
 
 ### Le formulaire de contact
 
@@ -155,18 +166,23 @@ fixe l'objet des emails reçus.
 
 ## TODO avant mise en ligne
 
-1. **Identifiant Formspree.** Créer le formulaire sur Formspree et coller son
+1. **Les deux secrets GitHub.** `CLOUDFLARE_API_TOKEN` et
+   `CLOUDFLARE_ACCOUNT_ID`, voir la section Déploiement. Sans eux le workflow
+   s'arrête et le site n'est pas publié.
+2. **Domaine sur le projet Pages.** Après le premier déploiement réussi,
+   ajouter `sabi-co.fr` dans Custom domains.
+3. **Identifiant Formspree.** Créer le formulaire sur Formspree et coller son
    identifiant dans `FORMSPREE_ID`, `src/consts.ts`. Tant qu'il est vide, la
    page Contact affiche les coordonnées directes au lieu du formulaire.
-2. **Mentions légales.** Dans `src/pages/mentions-legales.astro`, les champs
+4. **Mentions légales.** Dans `src/pages/mentions-legales.astro`, les champs
    marqués « à compléter » : dénomination sociale, forme juridique, capital
    social, adresse du siège, SIREN, RCS, TVA intracommunautaire, puis raison
    sociale, adresse et téléphone de l'hébergeur retenu, ici Cloudflare.
-3. **Politique de confidentialité.** Identité du responsable de traitement et
+5. **Politique de confidentialité.** Identité du responsable de traitement et
    adresse du siège, dans `src/pages/politique-de-confidentialite.astro`.
-4. **Données structurées.** `streetAddress` et `postalCode` dans le JSON-LD de
+6. **Données structurées.** `streetAddress` et `postalCode` dans le JSON-LD de
    `src/layouts/Base.astro`, une fois l'adresse arrêtée.
-5. **Analytics.** Cloudflare Web Analytics est le plus simple ici, il ne dépose
+7. **Analytics.** Cloudflare Web Analytics est le plus simple ici, il ne dépose
    aucun cookie, donc pas de bandeau de consentement. Plausible ou Umami font
    aussi l'affaire, à brancher dans `src/layouts/Base.astro`.
 
