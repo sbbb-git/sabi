@@ -16,6 +16,21 @@ export const CONTACT = {
 export const NAV = [
   { libelle: 'Expertises', href: '/expertises' },
   { libelle: 'Financement', href: '/financement' },
+  { libelle: 'Lexique', href: '/lexique' },
+  { libelle: 'Références', href: '/references' },
+  { libelle: 'À propos', href: '/a-propos' },
+  { libelle: 'Contact', href: '/contact' },
+] as const;
+
+/*
+  Le sommaire du pied de page. Plus large que le bandeau, qui doit rester court.
+  Le lexique y entre : c'est ce qui permet à un moteur d'atteindre les seize
+  fiches depuis n'importe quelle page du site.
+*/
+export const NAV_PIED = [
+  { libelle: 'Expertises', href: '/expertises' },
+  { libelle: 'Financement', href: '/financement' },
+  { libelle: 'Lexique', href: '/lexique' },
   { libelle: 'Références', href: '/references' },
   { libelle: 'À propos', href: '/a-propos' },
   { libelle: 'Contact', href: '/contact' },

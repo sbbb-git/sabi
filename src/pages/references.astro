@@ -1,15 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
 import EnTetePlanche from '../components/EnTetePlanche.astro';
+import FilAriane from '../components/FilAriane.astro';
+import { filAriane } from '../lib/schema';
 import BandePhoto from '../components/BandePhoto.astro';
 import ciel from '../assets/ciel.webp';
 import { REFERENCES } from '../data/contenu';
+
+const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Références' }];
 ---
 
 <Base
   titre="Références"
   description="Missions conduites par le cabinet : structuration de groupe multi-entités, financement bancaire, crédit-bail, subventions et cession de société."
+
+  schemas={[filAriane(maillons)]}
 >
+  <FilAriane maillons={maillons} />
+
   <EnTetePlanche rubrique="Rubrique 02 · Missions conduites" titre="Des dossiers menés, décrits par leur objet" />
 
   <section class="planche pb-16 lg:pb-24">

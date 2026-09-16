@@ -65,8 +65,9 @@ La seconde ferme l'accueil et la page Financement.
 Le détecteur maison signale d'ordinaire l'adverbe d'insistance dans « pour
 enfin ». Ici la formulation du client prime, et elle est conservée.
 
-Le titre d'accueil, « Structurer et financer la croissance », ne bouge pas : il
-a été validé, et la ligne d'ambition vient à côté de lui, pas à sa place.
+Le titre d'accueil porte depuis le mot demandé par le client : « Structurer,
+financer et accompagner la croissance. » La ligne d'ambition vient à côté de
+lui, sur la section Financement, pas à sa place.
 
 ## Objectif du site
 
@@ -115,6 +116,47 @@ toute mention de l'ARS. Le site ne doit pas se lire comme un cabinet de santé.
 Aucun autre chiffre ne doit apparaître. Aucun nom de client. Aucun témoignage
 tant qu'il n'y en a pas de réel.
 
+## L'architecture du site
+
+Trente pages, en quatre niveaux.
+
+| Niveau | Pages | Ce qu'il répond |
+|---|---|---|
+| Accueil | 1 | « Que fait ce cabinet » en dix secondes |
+| Rubriques | 5 | Expertises, Financement, Lexique, Références, À propos |
+| Expertises | 6 | « Savez-vous faire ceci » |
+| Lexique | 16 | « C'est quoi ceci » |
+
+**Les six expertises ont chacune leur page.** Cinq sous `/expertises/<slug>`, la
+sixième est `/financement`, plus large que les autres parce qu'elle couvre les
+deux voies, l'amorçage et le financement public. Elle n'est pas dupliquée.
+
+**Le lexique existe pour une raison précise.** Un dirigeant qui cherche « c'est
+quoi une avance remboursable » ne cherche pas un cabinet. Il cherche à
+comprendre. La fiche répond, et lui montre qui sait en parler. C'est la seule
+façon d'exister sur des recherches réelles sans écrire de la publicité.
+
+Chaque fiche renvoie à l'expertise qui la met en œuvre, et à ses voisines. Une
+fiche isolée ne sert ni le lecteur ni le moteur.
+
+### Ce que porte chaque page
+
+- Un fil d'ariane, visible et déclaré en `BreadcrumbList`.
+- Un titre d'onglet sous 60 caractères et une description sous 160.
+- Une URL canonique sans extension.
+- Les données structurées de ce que la page montre vraiment : `Service` sur une
+  expertise, `FAQPage` là où une FAQ est affichée, `DefinedTerm` sur une fiche.
+
+Une FAQ déclarée mais absente de la page est une fausse déclaration. Les
+fabriques de `src/lib/schema.ts` prennent donc les mêmes données que le rendu.
+
+### Les cinq piliers ont été retirés
+
+« Les chiffres / La structure / Les projets / Les financements / Les outils »
+redisaient les six expertises, placées juste au-dessus, en plus vague. C'est
+exactement le texte creux que le client désigne comme ce qui fait échouer un
+site de cabinet. Récupérables dans l'historique.
+
 ## Relecture avant publication
 
 Tout texte rédactionnel passe par le skill maison `anti-slop-fr`, dans
@@ -147,8 +189,8 @@ La règle qui en sort :
 - Une page de texte se coupe par une **planche photo** ou par une bande
   d'encre, pas par un titre de plus.
 
-Repères après dégraissage : accueil 1 117 mots, expertises 742, financement
-558. C'est le volume de 26advisory.com et de smashgroup.fr, sans leur gris.
+Repères : 10 070 mots rédigés sur 28 pages indexables. Aucune phrase de plus de
+seize mots. Aucun signalement du détecteur.
 
 ## Interdits de rédaction
 

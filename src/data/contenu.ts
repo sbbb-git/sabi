@@ -6,10 +6,15 @@
 
 import type { NomIcone } from '../components/Icone.astro';
 
-export type Pilier = { titre: string; phrase: string; icone: NomIcone };
 /** Un bloc coté : un picto, un titre, un texte court. */
 export type Bloc = { titre: string; icone: NomIcone; texte: string };
-export type Expertise = { titre: string; phrase: string; icone: NomIcone };
+export type Expertise = {
+  titre: string;
+  phrase: string;
+  icone: NomIcone;
+  /** La page qui développe l'expertise. Chaque expertise en a une. */
+  href: string;
+};
 export type Reference = {
   secteur: string;
   objet: string;
@@ -17,14 +22,6 @@ export type Reference = {
   chiffre?: string;
 };
 
-/** Accueil, section « Qui sommes-nous ». */
-export const PILIERS: Pilier[] = [
-  { titre: 'Les chiffres', phrase: "Savoir où l'entreprise en est, chaque mois.", icone: 'donnee' },
-  { titre: 'La structure', phrase: 'Des sociétés et des comptes qui suivent la croissance.', icone: 'groupe' },
-  { titre: 'Les projets', phrase: 'Ouvrir, acquérir ou céder sans improviser.', icone: 'operation' },
-  { titre: 'Les financements', phrase: "Aller chercher l'argent au moment où il en faut.", icone: 'financement' },
-  { titre: 'Les outils', phrase: "Automatiser ce qui n'a pas à être refait à la main.", icone: 'pilotage' },
-];
 
 
 /*
@@ -64,34 +61,40 @@ export const BANDE_ACCUEIL =
 export const EXPERTISES: Expertise[] = [
   {
     titre: 'Direction financière à temps partagé',
+    href: '/expertises/direction-financiere-a-temps-partage',
     icone: 'direction',
     phrase:
       'Vos comptes sont suivis et votre trésorerie tenue, sans recrutement.',
   },
   {
     titre: 'Financement',
+    href: '/financement',
     icone: 'financement',
     phrase:
       'Nous montons le dossier et mettons les financeurs en concurrence.',
   },
   {
     titre: 'Subventions et aides publiques',
+    href: '/expertises/subventions-et-aides-publiques',
     icone: 'subvention',
     phrase:
       'Nous trouvons les dispositifs ouverts et déposons avant la dépense.',
   },
   {
     titre: 'M&A et transmission',
+    href: '/expertises/m-a-et-transmission',
     icone: 'transmission',
     phrase: "Nous préparons la cession ou l'acquisition, jusqu'au closing.",
   },
   {
     titre: 'Structuration du développement',
+    href: '/expertises/structuration-du-developpement',
     icone: 'structuration',
     phrase: "Nous organisons les entités et consolidons les comptes du groupe.",
   },
   {
     titre: 'Pilotage de la performance',
+    href: '/expertises/pilotage-de-la-performance',
     icone: 'pilotage',
     phrase: 'Nous automatisons vos reportings et construisons les outils manquants.',
   },
@@ -159,13 +162,12 @@ export const REFERENCES: Reference[] = [
 export type ExpertiseDetail = Expertise & {
   developpe: string;
   couvre: string[];
-  /** Renvoi vers une page qui développe l'expertise, quand elle existe. */
-  renvoi?: { libelle: string; href: string };
 };
 
 export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
   {
     titre: 'Direction financière à temps partagé',
+    href: '/expertises/direction-financiere-a-temps-partage',
     icone: 'direction',
     phrase:
       'Vos comptes sont suivis et votre trésorerie tenue, sans recrutement.',
@@ -181,6 +183,7 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
   },
   {
     titre: 'Financement',
+    href: '/financement',
     icone: 'financement',
     phrase:
       'Nous montons le dossier et mettons les financeurs en concurrence.',
@@ -195,10 +198,10 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
       'Crédit-bail mobilier et immobilier pour le matériel',
       'Financement du besoin en fonds de roulement et du stock',
     ],
-    renvoi: { libelle: 'Financer votre ambition', href: '/financement' },
   },
   {
     titre: 'Subventions et aides publiques',
+    href: '/expertises/subventions-et-aides-publiques',
     icone: 'subvention',
     phrase:
       'Nous trouvons les dispositifs ouverts et déposons avant la dépense.',
@@ -214,6 +217,7 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
   },
   {
     titre: 'M&A et transmission',
+    href: '/expertises/m-a-et-transmission',
     icone: 'transmission',
     phrase: "Nous préparons la cession ou l'acquisition, jusqu'au closing.",
     developpe:
@@ -228,6 +232,7 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
   },
   {
     titre: 'Structuration du développement',
+    href: '/expertises/structuration-du-developpement',
     icone: 'structuration',
     phrase: "Nous organisons les entités et consolidons les comptes du groupe.",
     developpe:
@@ -242,6 +247,7 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
   },
   {
     titre: 'Pilotage de la performance',
+    href: '/expertises/pilotage-de-la-performance',
     icone: 'pilotage',
     phrase: 'Nous automatisons vos reportings et construisons les outils manquants.',
     developpe:

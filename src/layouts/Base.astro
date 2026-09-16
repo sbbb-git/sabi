@@ -18,6 +18,13 @@ interface Props {
   donneesStructurees?: boolean;
   /** Retire la page des moteurs. Pages légales. */
   noindex?: boolean;
+  /**
+   * Données structurées supplémentaires, propres à la page. Le bloc
+   * `ProfessionalService` du cabinet reste sur l'accueil ; ici on ajoute ce
+   * que la page décrit vraiment : un service, une FAQ, un terme défini, un
+   * fil d'ariane. Chaque objet est émis dans son propre script.
+   */
+  schemas?: Record<string, unknown>[];
 }
 
 const {
@@ -25,6 +32,7 @@ const {
   description,
   donneesStructurees = false,
   noindex = false,
+  schemas = [],
 } = Astro.props;
 
 const titreComplet = `${titre} | ${MARQUE}`;
@@ -94,6 +102,12 @@ const jsonLd = {
       donneesStructurees && (
         <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
       )
+    }
+
+    {
+      schemas.map((s) => (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />
+      ))
     }
 
     {/*

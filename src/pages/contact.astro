@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import EnTetePlanche from '../components/EnTetePlanche.astro';
+import FilAriane from '../components/FilAriane.astro';
+import { filAriane } from '../lib/schema';
 import ContactForm from '../components/ContactForm.astro';
 import { CONTACT } from '../consts';
 
@@ -18,12 +20,18 @@ const moyens = [
     externe: true,
   },
 ];
+
+const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Contact' }];
 ---
 
 <Base
   titre="Contact"
   description="Parlons de votre projet. Écrivez au cabinet ou réservez 30 minutes en ligne pour exposer votre situation financière et vos besoins de financement."
+
+  schemas={[filAriane(maillons)]}
 >
+  <FilAriane maillons={maillons} />
+
   <EnTetePlanche
     rubrique="Rubrique 04 · Contact"
     titre="Parlons de votre projet."

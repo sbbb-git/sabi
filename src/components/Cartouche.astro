@@ -4,7 +4,7 @@
  * l'ouvrage, l'échelle, la date et le signataire. Ici il porte aussi l'action :
  * le visiteur agit depuis le cartouche, pas depuis un bouton flottant.
  */
-import { CONTACT, MARQUE, NAV, NAV_LEGAL, RDV } from '../consts';
+import { CONTACT, MARQUE, NAV_LEGAL, NAV_PIED, RDV } from '../consts';
 
 const annee = new Date().getFullYear();
 
@@ -28,7 +28,7 @@ const annee = new Date().getFullYear();
         <p class="cote cote-claire">Rubriques</p>
         <ul class="mt-5 space-y-3">
           {
-            NAV.map((lien) => (
+            NAV_PIED.map((lien) => (
               <li>
                 <a href={lien.href} class="text-[0.9375rem] text-papier transition-colors duration-150 hover:text-tirage">
                   {lien.libelle}

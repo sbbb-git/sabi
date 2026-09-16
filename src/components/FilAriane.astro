@@ -1,0 +1,45 @@
+---
+/**
+ * Le fil d'ariane. Sur une planche, le cartouche dit toujours de quel dossier
+ * la feuille fait partie. C'est la même fonction : dire où l'on est dans
+ * l'ouvrage, en haut de page, avant le titre.
+ *
+ * Il sert deux publics. Le visiteur, qui remonte d'un niveau sans passer par
+ * le sommaire. Et le moteur, qui affiche ce chemin sous le lien de résultat
+ * plutôt que l'URL brute, à condition qu'il soit aussi déclaré en
+ * `BreadcrumbList`. Le composant rend le visuel ; le tableau `fil` se passe
+ * en parallèle à `Base` pour les données structurées.
+ */
+export type Maillon = { libelle: string; href?: string };
+
+interface Props {
+  maillons: Maillon[];
+}
+
+const { maillons } = Astro.props;
+---
+
+<nav aria-label="Fil d'ariane" class="planche pt-8 lg:pt-10">
+  <ol class="flex flex-wrap items-center gap-x-3 gap-y-1">
+    {
+      maillons.map((m, i) => (
+        <li class="flex items-center gap-3">
+          {i > 0 && (
+            <span class="text-tirage-pale" aria-hidden="true">
+              /
+            </span>
+          )}
+          {m.href ? (
+            <a href={m.href} class="cote transition-colors duration-150 hover:text-encre">
+              {m.libelle}
+            </a>
+          ) : (
+            <span class="cote text-encre" aria-current="page">
+              {m.libelle}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

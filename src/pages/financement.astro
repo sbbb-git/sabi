@@ -4,14 +4,43 @@ import Base from '../layouts/Base.astro';
 import EnTetePlanche from '../components/EnTetePlanche.astro';
 import Icone from '../components/Icone.astro';
 import avenue from '../assets/avenue.jpg';
+import FilAriane from '../components/FilAriane.astro';
 import { CONTACT } from '../consts';
+import { filAriane, service } from '../lib/schema';
 import { AMORCAGE, ETAPES_FINANCEMENT, VOIES_FINANCEMENT } from '../data/contenu';
+
+const maillons = [
+  { libelle: 'Accueil', href: '/' },
+  { libelle: 'Expertises', href: '/expertises' },
+  { libelle: 'Financement' },
+];
+
+const schemas = [
+  filAriane(maillons),
+  service({
+    nom: 'Financement',
+    description:
+      "Financement dilutif et non dilutif : amorçage, dette bancaire, dispositifs Bpifrance, subventions, crédit-bail et levée de fonds.",
+    chemin: '/financement',
+    couvre: [
+      "Financement de l'amorçage et du lancement",
+      'Levée de fonds en capital',
+      "Dispositifs Bpifrance, prêts d'honneur et avances remboursables",
+      'Dossier bancaire et plan de financement',
+      'Crédit-bail mobilier et immobilier',
+    ],
+  }),
+];
 ---
 
 <Base
   titre="Financer votre ambition"
-  description="Financement dilutif et non dilutif : amorçage, dette bancaire, Bpifrance, subventions, crédit-bail et levée de fonds. Le cabinet construit le dossier et mène la recherche."
+  description="Financement dilutif et non dilutif : amorçage, dette bancaire, Bpifrance, subventions et levée de fonds. Nous montons le dossier et menons la recherche."
+
+  schemas={schemas}
 >
+  <FilAriane maillons={maillons} />
+
   <EnTetePlanche
     rubrique="Financement"
     titre="Financer votre ambition"

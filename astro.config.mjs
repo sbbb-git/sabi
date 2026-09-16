@@ -19,6 +19,21 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/mentions-legales') &&
         !page.includes('/politique-de-confidentialite'),
+      /*
+        Une priorité déclarée ne force rien : elle dit au robot dans quel ordre
+        explorer quand il ne peut pas tout prendre. L'accueil et les pages qui
+        décrivent une prestation passent devant les fiches du lexique.
+      */
+      serialize(item) {
+        const chemin = new URL(item.url).pathname.replace(/\/$/, '') || '/';
+        const priorite =
+          chemin === '/' ? 1
+          : chemin === '/financement' || chemin.startsWith('/expertises') ? 0.9
+          : chemin === '/lexique' || chemin === '/references' ? 0.8
+          : chemin.startsWith('/lexique/') ? 0.6
+          : 0.7;
+        return { ...item, priority: priorite, changefreq: 'monthly', lastmod: new Date().toISOString() };
+      },
     }),
   ],
   vite: {

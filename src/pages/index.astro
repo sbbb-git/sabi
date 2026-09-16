@@ -7,7 +7,8 @@ import toits from '../assets/toits.jpg';
 import avenue from '../assets/avenue.jpg';
 import viaduc from '../assets/viaduc.jpg';
 import { CONTACT, RDV } from '../consts';
-import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, PILIERS, QUESTIONS, REFERENCES, SITUATIONS, VOIES_FINANCEMENT } from '../data/contenu';
+import { faq } from '../lib/schema';
+import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUATIONS, VOIES_FINANCEMENT } from '../data/contenu';
 
 ---
 
@@ -15,6 +16,7 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, PILIERS, QUESTIONS, REFERENCE
   titre="Structurer, financer et accompagner la croissance"
   description="Cabinet de direction financière à temps partagé à Paris. Nous accompagnons les dirigeants sur le financement, les subventions publiques et le M&A."
   donneesStructurees
+  schemas={[faq(QUESTIONS)]}
 >
   {/* Premier écran. Aplat bleu nuit pleine largeur, la ville dedans.
       C'est la composition de sateip.fr, relevée puis traduite. */}
@@ -109,19 +111,26 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, PILIERS, QUESTIONS, REFERENCE
       <ol class="mt-12 border-t border-encre lg:mt-16">
         {
           EXPERTISES.map((expertise, i) => (
-            <li data-rangee class="group grid gap-3 border-b border-tirage-pale py-6 lg:grid-cols-[5rem_minmax(0,1fr)_minmax(0,1.25fr)] lg:items-baseline lg:gap-10 lg:py-7">
-              <div class="flex items-center gap-4">
-                <span class="repere">{String(i + 1).padStart(2, '0')}</span>
-                <Icone
-                  nom={expertise.icone}
-                  taille={32}
-                  class="text-tirage transition-transform duration-200 group-hover:-translate-y-0.5"
-                />
-              </div>
-              <h3 class="titre-rubrique">{expertise.titre}</h3>
-              <p class="text-[0.9375rem] leading-[1.55] text-graphite">
-                {expertise.phrase}
-              </p>
+            <li data-rangee class="border-b border-tirage-pale">
+              <a
+                href={expertise.href}
+                class="group grid gap-3 py-6 lg:grid-cols-[5rem_minmax(0,1fr)_minmax(0,1.25fr)] lg:items-baseline lg:gap-10 lg:py-7"
+              >
+                <div class="flex items-center gap-4">
+                  <span class="repere">{String(i + 1).padStart(2, '0')}</span>
+                  <Icone
+                    nom={expertise.icone}
+                    taille={32}
+                    class="text-tirage transition-transform duration-200 group-hover:-translate-y-0.5"
+                  />
+                </div>
+                <h3 class="titre-rubrique transition-colors duration-150 group-hover:text-tirage">
+                  {expertise.titre}
+                </h3>
+                <p class="text-[0.9375rem] leading-[1.55] text-graphite">
+                  {expertise.phrase}
+                </p>
+              </a>
             </li>
           ))
         }
@@ -144,21 +153,12 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, PILIERS, QUESTIONS, REFERENCE
           sabi&amp;co les prend en charge, et reste jusqu'à ce qu'ils tournent seuls.
         </p>
 
-        {/* Les cinq piliers, cotés et reliés par une ligne de rappel. */}
-        <ul class="mt-12 grid gap-px border-t border-tirage-pale sm:grid-cols-2 lg:mt-16 lg:grid-cols-5">
-          {
-            PILIERS.map((pilier, i) => (
-              <li data-rangee class="border-b border-tirage-pale pt-6 pb-8 sm:pr-6">
-                <div class="flex items-center gap-3">
-                  <Icone nom={pilier.icone} taille={28} class="text-tirage" />
-                  <span class="cote">{String(i + 1).padStart(2, '0')}</span>
-                </div>
-                <h3 class="titre-rubrique mt-4">{pilier.titre}</h3>
-                <p class="mt-3 text-[0.9375rem] leading-[1.55] text-graphite">{pilier.phrase}</p>
-              </li>
-            ))
-          }
-        </ul>
+        {/* Les cinq piliers ont été retirés : ils redisaient les six expertises,
+            placées juste au-dessus, en plus vague. Récupérables dans l'historique. */}
+        <div class="mt-10 flex flex-wrap items-center gap-3">
+          <a href="/expertises" class="etiquette etiquette-encre">Les six expertises</a>
+          <a href="/lexique" class="etiquette etiquette-encre">Le lexique</a>
+        </div>
       </div>
     </div>
   </section>

@@ -1,0 +1,102 @@
+---
+/**
+ * Le sommaire du lexique.
+ *
+ * Il n'existe pas pour être joli : c'est la page qui distribue l'autorité vers
+ * les seize fiches, et qui permet à un moteur de toutes les trouver en un saut
+ * depuis le sommaire du site.
+ */
+import Base from '../../layouts/Base.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import { FAMILLES, FICHES } from '../../data/lexique';
+import { filAriane, listePages } from '../../lib/schema';
+import { CONTACT } from '../../consts';
+
+const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Lexique' }];
+
+const schemas = [
+  filAriane(maillons),
+  listePages(FICHES.map((f) => ({ nom: f.terme, chemin: `/lexique/${f.slug}` }))),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTermSet',
+    name: 'Lexique du financement et de la direction financière',
+    description:
+      "Les notions de financement, de structuration et de pilotage que le cabinet pratique, définies une par une.",
+    url: 'https://sabi-co.fr/lexique',
+    hasDefinedTerm: FICHES.map((f) => ({
+      '@type': 'DefinedTerm',
+      name: f.terme,
+      description: f.definition,
+      url: `https://sabi-co.fr/lexique/${f.slug}`,
+    })),
+  },
+];
+---
+
+<Base
+  titre="Lexique du financement"
+  description="Business plan, BFR, crédit-bail, Bpifrance, levée de fonds, due diligence. Les notions du métier, définies simplement."
+  schemas={schemas}
+>
+  <FilAriane maillons={maillons} />
+
+  <section class="planche pt-8 pb-12 lg:pt-10 lg:pb-16">
+    <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-3">
+        <p class="cote">Lexique</p>
+        <span class="ligne-cote mt-5 block w-24" aria-hidden="true"></span>
+      </div>
+      <div class="lg:col-span-9">
+        <h1 class="titre-planche max-w-[20ch]" style="font-size:clamp(2.25rem,5vw,3.75rem)">
+          Les mots du dossier
+        </h1>
+        <p class="mt-7 max-w-[58ch] text-[1.0625rem] leading-[1.7] text-graphite lg:text-[1.125rem]">
+          Seize notions que nous employons tous les jours. Chacune expliquée en une
+          page, sans jargon inutile et sans raccourci faux.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {
+    FAMILLES.map((famille) => {
+      const groupe = FICHES.filter((f) => f.famille === famille);
+      if (!groupe.length) return null;
+      return (
+        <section class="planche pb-12 lg:pb-16">
+          <h2 class="cote">{famille}</h2>
+          <ul class="mt-6 border-t border-encre">
+            {groupe.map((f) => (
+              <li data-rangee class="border-b border-tirage-pale">
+                <a
+                  href={`/lexique/${f.slug}`}
+                  class="group grid gap-2 py-6 lg:grid-cols-12 lg:items-baseline lg:gap-10"
+                >
+                  <h3 class="titre-rubrique transition-colors duration-150 group-hover:text-tirage lg:col-span-4">
+                    {f.terme}
+                  </h3>
+                  <p class="max-w-[68ch] text-[0.9375rem] leading-[1.6] text-graphite lg:col-span-8">
+                    {f.definition}
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      );
+    })
+  }
+
+  <section class="planche pb-16 lg:pb-24">
+    <div class="border-t border-encre pt-10">
+      <p class="titre-planche max-w-[24ch]">Une notion qui manque, un cas qui ne rentre pas ?</p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
+          Prendre rendez-vous
+        </a>
+        <a href="/expertises" class="etiquette etiquette-encre">Les six expertises</a>
+      </div>
+    </div>
+  </section>
+</Base>
