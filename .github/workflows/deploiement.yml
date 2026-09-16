@@ -19,6 +19,7 @@ permissions:
 env:
   NOM_PROJET: sabi-co
   BRANCHE_PRODUCTION: production
+  DOMAINE: sabi-co.fr
 
 jobs:
   deployer:
@@ -66,10 +67,7 @@ jobs:
           # La création échoue si le projet existe déjà, ce qui est le cas
           # normal à partir du deuxième déploiement. On laisse passer.
           npx --yes wrangler@4 pages project create "$NOM_PROJET" \
-            --production-branch="$BRANCHE_PRODUCTION" 2>&1 | tee sortie.txt || true
-          if grep -qi "already exists\|existe" sortie.txt; then
-            echo "Le projet existe déjà, rien à créer."
-          fi
+            --production-branch="$BRANCHE_PRODUCTION" || true
 
       - name: Déployer
         env:
@@ -81,11 +79,17 @@ jobs:
             --branch="$BRANCHE_PRODUCTION" \
             --commit-dirty=true
 
-      - name: Rappeler l'adresse du site
+      - name: Rattacher le domaine
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: bash .github/scripts/domaine.sh
+
+      - name: Rappeler les adresses
         run: |
-          echo "### Site déployé" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "URL Cloudflare : https://$NOM_PROJET.pages.dev" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Pour servir le site sur sabi-co.fr, ajouter le domaine dans" >> $GITHUB_STEP_SUMMARY
-          echo "Workers & Pages > $NOM_PROJET > Custom domains." >> $GITHUB_STEP_SUMMARY
+          {
+            echo "### Site déployé"
+            echo ""
+            echo "- https://$NOM_PROJET.pages.dev"
+            echo "- https://$DOMAINE"
+          } >> "$GITHUB_STEP_SUMMARY"
