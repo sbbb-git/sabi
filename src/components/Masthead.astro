@@ -1,0 +1,28 @@
+---
+/** Bandeau d'ouverture des pages internes. Même aplat nuit que le héros. */
+interface Props {
+  surtitre?: string;
+  titre: string;
+  phrase?: string;
+}
+
+const { surtitre, titre, phrase } = Astro.props;
+---
+
+<section class="bg-nuit pt-36 pb-20 lg:pt-44 lg:pb-28">
+  <div class="conteneur">
+    {surtitre && <p class="surtitre surtitre-sombre reveal">{surtitre}</p>}
+
+    <h1 class:list={['titre-page titre-clair reveal max-w-[20ch]', surtitre && 'mt-6']}>
+      {titre}
+    </h1>
+
+    {
+      phrase && (
+        <p class="reveal mt-7 max-w-[56ch] text-[1.1875rem] leading-[1.55] text-sur-nuit lg:text-[1.25rem]">
+          {phrase}
+        </p>
+      )
+    }
+  </div>
+</section>

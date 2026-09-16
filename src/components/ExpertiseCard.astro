@@ -2,10 +2,8 @@
 interface Props {
   titre: string;
   phrase: string;
-  /** Numéro d'ordre, affiché en surtitre. Pas d'icône décorative. */
   rang?: number;
   href?: string;
-  /** Niveau de titre. 2 quand la carte suit directement le h1 de la page. */
   niveau?: 2 | 3;
 }
 
@@ -17,23 +15,23 @@ const Titre = `h${niveau}` as 'h2' | 'h3';
 <Balise
   href={href}
   class:list={[
-    'reveal group flex h-full flex-col border border-bord bg-tres-pale p-8 transition-colors duration-200 lg:p-10',
-    href && 'hover:border-bleu',
+    'reveal group relative flex h-full flex-col bg-ivoire p-8 lg:p-10',
+    href && 'transition-colors duration-200 hover:bg-creme',
   ]}
 >
   {
     rang !== undefined && (
-      <p class="surtitre">{String(rang).padStart(2, '0')}</p>
+      <span class="chiffre text-[1.75rem] text-bronze">{String(rang).padStart(2, '0')}</span>
     )
   }
   <Titre
     class:list={[
-      'text-[1.25rem] leading-[1.35] font-semibold tracking-[-0.01em] text-nuit',
-      rang !== undefined && 'mt-5',
+      'font-titre text-[1.5rem] leading-[1.2] tracking-[-0.01em] text-nuit lg:text-[1.75rem]',
+      rang !== undefined && 'mt-6',
     ]}
   >
     {titre}
   </Titre>
-  <p class="mt-4 text-corps text-texte">{phrase}</p>
+  <p class="mt-4 max-w-[38ch] text-corps text-texte">{phrase}</p>
   <slot />
 </Balise>

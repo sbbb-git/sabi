@@ -7,7 +7,7 @@
  * l'attribut data-netlify par une action Formspree. Le reste du balisage ne change pas.
  */
 const champ =
-  'mt-2 block w-full border border-bord bg-blanc px-4 py-3 text-corps text-texte placeholder:text-gris transition-colors duration-150 focus:border-bleu focus:outline-none';
+  'mt-2 block w-full border border-bord bg-blanc px-4 py-3 text-corps text-texte placeholder:text-gris transition-colors duration-150 focus:border-bronze focus:outline-none';
 const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
 ---
 
@@ -67,7 +67,7 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
     <div class="sm:col-span-2">
       <label class="flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-[1.6] text-texte">
         <input
-          class="mt-1 h-4 w-4 shrink-0 accent-[#1660C9]"
+          class="mt-1 h-4 w-4 shrink-0 accent-[#7E6127]"
           id="consentement"
           name="consentement"
           type="checkbox"
@@ -84,7 +84,7 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
     <div class="sm:col-span-2">
       <button
         type="submit"
-        class="inline-flex items-center gap-3 bg-nuit px-8 py-4 text-corps font-medium text-blanc transition-colors duration-150 hover:bg-bleu focus-visible:bg-bleu"
+        class="bouton bouton-sombre"
       >
         Envoyer
         <span aria-hidden="true">&rarr;</span>
@@ -96,7 +96,7 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
     id="message-confirmation"
     hidden
     role="status"
-    class="border-l-2 border-bleu bg-pale py-6 pr-6 pl-6 text-corps text-texte"
+    class="border-l-2 border-bronze bg-creme py-6 pr-6 pl-6 text-corps text-texte"
   >
     Message envoyé. Nous revenons vers vous par email.
   </p>
@@ -105,7 +105,7 @@ const etiquette = 'block text-[0.9375rem] font-medium text-nuit';
     id="message-erreur"
     hidden
     role="alert"
-    class="mt-6 border-l-2 border-nuit bg-pale py-4 pr-6 pl-6 text-corps text-texte"
+    class="mt-6 border-l-2 border-nuit bg-creme py-4 pr-6 pl-6 text-corps text-texte"
   >
     L'envoi n'a pas abouti. Écrivez-nous directement à
     <a class="lien" href="mailto:sacha.bitoun@essec.edu">sacha.bitoun@essec.edu</a>.

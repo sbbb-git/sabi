@@ -1,44 +1,44 @@
 @import 'tailwindcss';
 
-/* Inter variable, servie en local. Pas de CDN Google Fonts. */
+/* Polices servies en local. Pas de CDN Google Fonts. */
 @import '@fontsource-variable/inter/index.css';
+@import '@fontsource/instrument-serif/400.css';
 
 @theme {
-  /* Couleurs. Une seule couleur d'accent : --color-bleu. */
+  /* Fonds sombres. Le site est construit sur le bleu nuit, pas sur le blanc. */
   --color-nuit: #0a2540;
-  --color-bleu: #1660c9;
-  --color-pale: #eef4fc;
-  --color-tres-pale: #f7fafe;
-  --color-bord: #d5e0ee;
-  --color-texte: #101c29;
-  --color-gris: #5b6b7d;
+  --color-encre: #061a2e;
+  --color-bord-nuit: #1d3a58;
+
+  /* Accent unique : le sable. Lisible sur fond sombre uniquement. */
+  --color-sable: #e3c57e;
+  /* Déclinaison foncée du même accent, pour les fonds clairs. */
+  --color-bronze: #7e6127;
+
+  /* Neutres chauds, accordés au sable plutôt qu'au bleu. */
+  --color-creme: #f4f1ea;
+  --color-ivoire: #fbf9f5;
+  --color-bord: #e2ddd2;
+  --color-texte: #131a22;
+  --color-gris: #5f6b78;
   --color-blanc: #ffffff;
 
-  /* Déclinaisons réservées aux aplats sombres, pour tenir le contraste. */
-  --color-sur-nuit: #b8c9dc;
-  --color-bord-nuit: #23415e;
-  --color-bleu-clair: #8fb8f0;
+  /* Secondaires sur fond sombre, calés pour tenir le contraste. */
+  --color-sur-nuit: #b9c6d4;
 
   --font-sans:
     'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-titre:
+    'Instrument Serif', ui-serif, Georgia, 'Times New Roman', Times, serif;
 
-  /* Échelle typographique du cahier des charges. */
-  --text-surtitre: 0.75rem; /* 12px */
-  --text-surtitre--line-height: 1.2;
-  --text-corps: 1.0625rem; /* 17px */
-  --text-corps--line-height: 1.6;
-  --text-sub: 1.25rem; /* 20px */
-  --text-sub--line-height: 1.5;
-  --text-h2-m: 1.5rem; /* 32px section, 24px mobile */
-  --text-h2: 2rem;
-  --text-h1-m: 2rem; /* 48px page, 32px mobile */
-  --text-h1: 3rem;
+  --text-surtitre: 0.75rem;
+  --text-corps: 1.0625rem;
+  --text-sub: 1.25rem;
 
   --breakpoint-xs: 26rem;
 }
 
-/* Réglages de base */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -51,13 +51,11 @@
     font-family: var(--font-sans);
     font-size: var(--text-corps);
     line-height: 1.6;
-    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
 
-  /* Le gras porte un chiffre ou un nom de dispositif, jamais une phrase. */
   strong,
   b {
     font-weight: 600;
@@ -65,24 +63,22 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-bleu);
+    outline: 2px solid var(--color-bronze);
     outline-offset: 3px;
     border-radius: 2px;
   }
 
   ::selection {
-    background-color: var(--color-nuit);
-    color: var(--color-blanc);
+    background-color: var(--color-sable);
+    color: var(--color-nuit);
   }
 
-  /* Ancres sous le header fixe */
   :target {
     scroll-margin-top: 7rem;
   }
 }
 
 @layer components {
-  /* Conteneur : 1200px, 24px de marge en mobile, 64px en desktop. */
   .conteneur {
     width: 100%;
     max-width: 1200px;
@@ -96,7 +92,6 @@
     }
   }
 
-  /* Rythme vertical : 96px mobile, 144px desktop. */
   .section {
     padding-block: 6rem;
   }
@@ -117,56 +112,66 @@
     }
   }
 
-  /* Largeur de ligne maximale : 68 caractères. */
   .mesure {
     max-width: 68ch;
   }
 
-  .mesure-courte {
-    max-width: 52ch;
-  }
-
+  /* Surtitre : la seule majuscule du site. */
   .surtitre {
     font-size: var(--text-surtitre);
     line-height: 1.2;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--color-bleu);
+    letter-spacing: 0.14em;
+    color: var(--color-bronze);
   }
 
   .surtitre-sombre {
-    color: var(--color-bleu-clair);
+    color: var(--color-sable);
   }
 
-  .titre-page {
-    font-size: var(--text-h1-m);
-    line-height: 1.12;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--color-nuit);
-    text-wrap: balance;
-  }
-
-  @media (min-width: 48rem) {
-    .titre-page {
-      font-size: var(--text-h1);
-    }
-  }
-
-  .titre-section {
-    font-size: var(--text-h2-m);
-    line-height: 1.2;
-    font-weight: 600;
+  /* Les titres sont en serif. Le serif porte la voix, l'Inter porte l'information. */
+  .titre-display {
+    font-family: var(--font-titre);
+    font-weight: 400;
+    line-height: 1.02;
     letter-spacing: -0.015em;
     color: var(--color-nuit);
     text-wrap: balance;
+    font-size: clamp(2.75rem, 7.5vw, 5.25rem);
   }
 
-  @media (min-width: 48rem) {
-    .titre-section {
-      font-size: var(--text-h2);
-    }
+  .titre-page {
+    font-family: var(--font-titre);
+    font-weight: 400;
+    line-height: 1.06;
+    letter-spacing: -0.012em;
+    color: var(--color-nuit);
+    text-wrap: balance;
+    font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+  }
+
+  .titre-section {
+    font-family: var(--font-titre);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--color-nuit);
+    text-wrap: balance;
+    font-size: clamp(1.875rem, 3.4vw, 2.625rem);
+  }
+
+  .titre-clair {
+    color: var(--color-blanc);
+  }
+
+  /* Chiffres en serif : c'est là que le caractère se voit le plus. */
+  .chiffre {
+    font-family: var(--font-titre);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: lining-nums tabular-nums;
   }
 
   .accroche {
@@ -176,9 +181,8 @@
     text-wrap: pretty;
   }
 
-  /* Liens de contenu : soulignement fin qui s'épaissit. */
   .lien {
-    color: var(--color-bleu);
+    color: var(--color-bronze);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
@@ -189,7 +193,7 @@
     text-decoration-thickness: 2px;
   }
 
-  /* Lien d'action : soulignement animé. */
+  /* Lien d'action : soulignement qui se remplit. */
   .action {
     display: inline-flex;
     align-items: center;
@@ -197,15 +201,14 @@
     font-size: var(--text-corps);
     font-weight: 500;
     color: var(--color-nuit);
-    padding-block: 0.375rem;
+    padding-block: 0.5rem;
     position: relative;
   }
 
   .action::after {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     bottom: 0;
     height: 1px;
     background-color: var(--color-bord);
@@ -218,7 +221,7 @@
     bottom: 0;
     height: 1px;
     width: 0;
-    background-color: var(--color-bleu);
+    background-color: var(--color-bronze);
     transition: width 200ms ease;
     z-index: 1;
   }
@@ -237,7 +240,7 @@
   }
 
   .action-accent {
-    color: var(--color-bleu);
+    color: var(--color-bronze);
   }
 
   .action-sombre {
@@ -245,24 +248,72 @@
   }
 
   .action-sombre::after {
-    background-color: var(--color-bord-nuit);
+    background-color: color-mix(in srgb, var(--color-sable) 32%, transparent);
   }
 
   .action-sombre::before {
-    background-color: var(--color-bleu-clair);
+    background-color: var(--color-sable);
   }
 
-  /* Filet de séparation fin, jeu de structure principal du site. */
+  /* Bouton plein. Le seul élément coloré en aplat du site. */
+  .bouton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.75rem;
+    font-size: var(--text-corps);
+    font-weight: 500;
+    background-color: var(--color-sable);
+    color: var(--color-nuit);
+    transition: background-color 150ms ease;
+  }
+
+  .bouton:hover,
+  .bouton:focus-visible {
+    background-color: #efd79c;
+  }
+
+  .bouton-sombre {
+    background-color: var(--color-nuit);
+    color: var(--color-blanc);
+  }
+
+  .bouton-sombre:hover,
+  .bouton-sombre:focus-visible {
+    background-color: var(--color-encre);
+  }
+
+  /* Bouton contour, sur fond sombre. */
+  .bouton-contour {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.75rem;
+    font-size: var(--text-corps);
+    font-weight: 500;
+    border: 1px solid color-mix(in srgb, var(--color-sable) 45%, transparent);
+    color: var(--color-blanc);
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease;
+  }
+
+  .bouton-contour:hover,
+  .bouton-contour:focus-visible {
+    border-color: var(--color-sable);
+    background-color: color-mix(in srgb, var(--color-sable) 10%, transparent);
+  }
+
   .filet {
     border-top: 1px solid var(--color-bord);
   }
 
   .filet-sombre {
-    border-top: 1px solid var(--color-bord-nuit);
+    border-top: 1px solid color-mix(in srgb, var(--color-sable) 22%, transparent);
   }
 }
 
-/* Apparition en fondu au scroll, 200ms. Sans JavaScript, tout reste visible. */
+/* Apparition en fondu, 200ms. Sans JavaScript, tout reste visible. */
 @layer utilities {
   .js .reveal {
     opacity: 0;

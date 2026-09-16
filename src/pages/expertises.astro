@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import SectionTitle from '../components/SectionTitle.astro';
+import Masthead from '../components/Masthead.astro';
 import ExpertiseCard from '../components/ExpertiseCard.astro';
 import { EXPERTISES } from '../data/contenu';
 ---
@@ -9,20 +9,15 @@ import { EXPERTISES } from '../data/contenu';
   titre="Expertises"
   description="Direction financière à temps partagé, financement, subventions, M&A, structuration du développement et pilotage de la performance."
 >
-  <section class="pt-24 pb-16 lg:pt-32 lg:pb-24">
-    <div class="conteneur">
-      <SectionTitle
-        surtitre="L'offre"
-        titre="Six expertises, séparées ou combinées"
-        phrase="Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin."
-        principal
-      />
-    </div>
-  </section>
+  <Masthead
+    surtitre="L'offre"
+    titre="Six expertises, séparées ou combinées"
+    phrase="Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin."
+  />
 
-  <section class="pb-24 lg:pb-32">
+  <section class="py-px">
     <div class="conteneur">
-      <div class="grid gap-px bg-bord border-t border-bord md:grid-cols-2">
+      <div class="grid gap-px bg-bord md:grid-cols-2">
         {
           EXPERTISES.map((expertise, i) => (
             <ExpertiseCard titre={expertise.titre} phrase={expertise.phrase} rang={i + 1} niveau={2} />
@@ -31,4 +26,6 @@ import { EXPERTISES } from '../data/contenu';
       </div>
     </div>
   </section>
+
+  <div class="h-24 lg:h-32"></div>
 </Base>

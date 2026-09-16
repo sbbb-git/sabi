@@ -9,8 +9,6 @@ interface Props {
   titre: string;
   /** 155 caractères maximum. Unique pour chaque page. */
   description: string;
-  /** Header transparent au chargement, utilisé sur les pages qui ouvrent sur un héros clair. */
-  headerTransparent?: boolean;
   /** Ajoute les données structurées ProfessionalService. Accueil uniquement. */
   donneesStructurees?: boolean;
   /** Retire la page des moteurs. Pages légales. */
@@ -20,7 +18,6 @@ interface Props {
 const {
   titre,
   description,
-  headerTransparent = false,
   donneesStructurees = false,
   noindex = false,
 } = Astro.props;
@@ -73,7 +70,7 @@ const jsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="sabi, le bras droit financier des dirigeants" />
+    <meta property="og:image:alt" content="sabi, structurer et financer la croissance" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={titreComplet} />
@@ -109,7 +106,7 @@ const jsonLd = {
       Aller au contenu
     </a>
 
-    <Header transparent={headerTransparent} />
+    <Header />
 
     <main id="contenu">
       <slot />

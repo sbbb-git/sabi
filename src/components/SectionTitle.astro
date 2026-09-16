@@ -3,31 +3,17 @@ interface Props {
   surtitre?: string;
   titre: string;
   phrase?: string;
-  /** Rend le titre en h1 plutôt qu'en h2. Un seul par page. */
-  principal?: boolean;
   sombre?: boolean;
   class?: string;
 }
 
-const { surtitre, titre, phrase, principal = false, sombre = false, class: classe = '' } = Astro.props;
-const Titre = principal ? 'h1' : 'h2';
+const { surtitre, titre, phrase, sombre = false, class: classe = '' } = Astro.props;
 ---
 
 <div class:list={['reveal', classe]}>
   {surtitre && <p class:list={['surtitre', sombre && 'surtitre-sombre']}>{surtitre}</p>}
-  <Titre
-    class:list={[
-      principal ? 'titre-page' : 'titre-section',
-      surtitre && 'mt-5',
-      sombre && 'text-blanc',
-      'mesure',
-    ]}
-  >
+  <h2 class:list={['titre-section mesure', surtitre && 'mt-5', sombre && 'titre-clair']}>
     {titre}
-  </Titre>
-  {
-    phrase && (
-      <p class:list={['accroche mesure mt-6', sombre && 'text-sur-nuit']}>{phrase}</p>
-    )
-  }
+  </h2>
+  {phrase && <p class:list={['accroche mesure mt-6', sombre && 'text-sur-nuit']}>{phrase}</p>}
 </div>

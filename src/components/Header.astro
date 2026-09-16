@@ -1,33 +1,28 @@
 ---
 import { CONTACT, MARQUE, NAV, RDV } from '../consts';
 
-interface Props {
-  transparent?: boolean;
-}
-
-const { transparent = false } = Astro.props;
 const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
+{/*
+  Le header est toujours en bleu nuit : il prolonge le bandeau sombre qui ouvre
+  chaque page. Au scroll il gagne un filet sable et se resserre.
+*/}
 <header
   id="entete"
-  data-transparent={transparent ? 'true' : 'false'}
-  class:list={[
-    'fixed top-0 left-0 right-0 z-50 sans-impression transition-colors duration-200',
-    transparent ? 'bg-transparent' : 'bg-blanc border-b border-bord',
-  ]}
+  class="fixed top-0 right-0 left-0 z-50 bg-nuit transition-[height,border-color] duration-200 sans-impression"
 >
   <div class="conteneur">
-    <div class="flex h-20 items-center justify-between gap-8">
+    <div id="barre" class="flex h-20 items-center justify-between gap-8 transition-all duration-200">
       <a
         href="/"
-        class="text-[1.375rem] font-semibold lowercase tracking-[-0.02em] text-nuit"
+        class="font-titre text-[1.625rem] leading-none lowercase text-blanc"
         aria-label={`${MARQUE}, accueil`}
       >
         {MARQUE}
       </a>
 
-      <nav class="hidden lg:flex items-center gap-10" aria-label="Navigation principale">
+      <nav class="hidden items-center gap-9 lg:flex" aria-label="Navigation principale">
         {
           NAV.map((lien) => {
             const actif = ici === lien.href;
@@ -36,18 +31,17 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
                 href={lien.href}
                 aria-current={actif ? 'page' : undefined}
                 class:list={[
-                  'relative py-1 text-corps transition-colors duration-150',
-                  actif ? 'text-bleu' : 'text-texte hover:text-bleu',
+                  'relative py-1 text-[0.9375rem] transition-colors duration-150',
+                  actif ? 'text-sable' : 'text-blanc hover:text-sable',
                 ]}
               >
                 {lien.libelle}
                 <span
                   class:list={[
-                    'pointer-events-none absolute -bottom-0.5 left-0 h-px bg-bleu transition-[width] duration-200',
+                    'pointer-events-none absolute -bottom-0.5 left-0 h-px bg-sable transition-[width] duration-200',
                     actif ? 'w-full' : 'w-0',
                   ]}
                   aria-hidden="true"
-                  data-souligne
                 />
               </a>
             );
@@ -58,17 +52,16 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
           href={CONTACT.calendly}
           target="_blank"
           rel="noopener noreferrer"
-          class="action action-accent"
+          class="ml-1 inline-flex items-center gap-2 bg-sable px-5 py-2.5 text-[0.9375rem] font-medium text-nuit transition-colors duration-150 hover:bg-[#efd79c]"
         >
           {RDV}
-          <span class="fleche" aria-hidden="true">&rarr;</span>
         </a>
       </nav>
 
       <button
         type="button"
         id="bouton-menu"
-        class="lg:hidden -mr-2 flex h-11 w-11 items-center justify-center text-nuit"
+        class="-mr-2 flex h-11 w-11 items-center justify-center text-blanc lg:hidden"
         aria-expanded="false"
         aria-controls="menu-mobile"
       >
@@ -76,11 +69,11 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
         <span class="relative block h-3.5 w-6" aria-hidden="true">
           <span
             data-barre="haut"
-            class="absolute left-0 top-0 h-px w-6 bg-current transition-transform duration-200"
+            class="absolute top-0 left-0 h-px w-6 bg-current transition-transform duration-200"
           ></span>
           <span
             data-barre="bas"
-            class="absolute left-0 bottom-0 h-px w-6 bg-current transition-transform duration-200"
+            class="absolute bottom-0 left-0 h-px w-6 bg-current transition-transform duration-200"
           ></span>
         </span>
       </button>
@@ -89,71 +82,61 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
 </header>
 
 <!-- Menu plein écran, mobile -->
-<div
-  id="menu-mobile"
-  hidden
-  class="fixed inset-0 z-40 bg-blanc lg:hidden sans-impression"
->
+<div id="menu-mobile" hidden class="fixed inset-0 z-40 bg-nuit lg:hidden sans-impression">
   <div class="conteneur flex h-full flex-col pt-28 pb-10">
     <nav class="flex flex-col" aria-label="Navigation mobile">
       {
         NAV.map((lien) => (
           <a
             href={lien.href}
-            class="border-t border-bord py-5 text-[1.75rem] font-medium tracking-[-0.015em] text-nuit"
+            class="filet-sombre font-titre py-5 text-[2rem] leading-none text-blanc"
           >
             {lien.libelle}
           </a>
         ))
       }
-      <span class="border-t border-bord"></span>
+      <span class="filet-sombre"></span>
     </nav>
 
     <div class="mt-auto pt-10">
-      <a
-        href={CONTACT.calendly}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="action action-accent"
-      >
+      <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="bouton">
         {RDV}
-        <span class="fleche" aria-hidden="true">&rarr;</span>
+        <span aria-hidden="true">&rarr;</span>
       </a>
-      <p class="mt-8 text-corps text-gris">
-        <a class="lien" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+      <p class="mt-8">
+        <a class="text-corps text-sur-nuit hover:text-sable" href={`mailto:${CONTACT.email}`}>
+          {CONTACT.email}
+        </a>
       </p>
-      <p class="mt-2 text-corps text-gris">
-        <a class="lien" href={`tel:${CONTACT.telephoneLien}`}>{CONTACT.telephone}</a>
+      <p class="mt-2">
+        <a class="text-corps text-sur-nuit hover:text-sable" href={`tel:${CONTACT.telephoneLien}`}>
+          {CONTACT.telephone}
+        </a>
       </p>
     </div>
   </div>
 </div>
 
-<!-- Compense la hauteur du header fixe quand il n'est pas transparent. -->
-{!transparent && <div class="h-20" aria-hidden="true"></div>}
-
 <script>
   const entete = document.getElementById('entete');
+  const barre = document.getElementById('barre');
   const bouton = document.getElementById('bouton-menu');
   const menu = document.getElementById('menu-mobile');
 
-  // État du header au scroll : transparent sur le héros, blanc avec filet dès 80px.
-  if (entete) {
-    const demarreTransparent = entete.dataset.transparent === 'true';
-
+  if (entete && barre) {
+    // Au delà de 80px le header se resserre et pose un filet sable.
     const majEntete = () => {
       const passe = window.scrollY > 80;
-      const opaque = passe || !demarreTransparent || menu?.hidden === false;
-      entete.classList.toggle('bg-blanc', opaque);
-      entete.classList.toggle('border-b', opaque);
-      entete.classList.toggle('border-bord', opaque);
-      entete.classList.toggle('bg-transparent', !opaque);
+      barre.classList.toggle('h-20', !passe);
+      barre.classList.toggle('h-16', passe);
+      entete.style.borderBottom = passe
+        ? '1px solid color-mix(in srgb, var(--color-sable) 24%, transparent)'
+        : '1px solid transparent';
     };
 
     majEntete();
     window.addEventListener('scroll', majEntete, { passive: true });
 
-    // Menu plein écran
     if (bouton && menu) {
       const barreHaut = bouton.querySelector<HTMLElement>('[data-barre="haut"]');
       const barreBas = bouton.querySelector<HTMLElement>('[data-barre="bas"]');
@@ -166,7 +149,6 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
         if (libelle) libelle.textContent = ouvrir ? 'Fermer le menu' : 'Ouvrir le menu';
         if (barreHaut) barreHaut.style.transform = ouvrir ? 'translateY(6px) rotate(45deg)' : '';
         if (barreBas) barreBas.style.transform = ouvrir ? 'translateY(-6px) rotate(-45deg)' : '';
-        majEntete();
       };
 
       bouton.addEventListener('click', () => basculer(menu.hidden));
@@ -178,7 +160,6 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
         }
       });
 
-      // Repasse en mode desktop si la fenêtre s'élargit menu ouvert.
       window.matchMedia('(min-width: 64rem)').addEventListener('change', (e) => {
         if (e.matches && !menu.hidden) basculer(false);
       });

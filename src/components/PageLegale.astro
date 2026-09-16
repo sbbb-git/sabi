@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import SectionTitle from './SectionTitle.astro';
+import Masthead from './Masthead.astro';
 
 interface Props {
   titre: string;
@@ -12,15 +12,11 @@ const { titre, description, miseAJour } = Astro.props;
 ---
 
 <Base titre={titre} description={description} noindex>
-  <section class="pt-24 pb-12 lg:pt-32 lg:pb-16">
-    <div class="conteneur">
-      <SectionTitle surtitre="Informations légales" titre={titre} principal />
-      <p class="mt-6 text-[0.9375rem] text-gris">Dernière mise à jour : {miseAJour}</p>
-    </div>
-  </section>
+  <Masthead surtitre="Informations légales" titre={titre} />
 
-  <section class="pb-24 lg:pb-32">
+  <section class="pt-14 pb-24 lg:pt-20 lg:pb-32">
     <div class="conteneur">
+      <p class="mb-12 text-[0.9375rem] text-gris">Dernière mise à jour : {miseAJour}</p>
       <div class="legale mesure">
         <slot />
       </div>
@@ -30,9 +26,10 @@ const { titre, description, miseAJour } = Astro.props;
 
 <style is:global>
   .legale h2 {
-    font-size: 1.25rem;
-    line-height: 1.35;
-    font-weight: 600;
+    font-family: var(--font-titre);
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: 400;
     letter-spacing: -0.01em;
     color: var(--color-nuit);
     margin-top: 3rem;
@@ -68,19 +65,19 @@ const { titre, description, miseAJour } = Astro.props;
     top: 0.75em;
     width: 0.5rem;
     height: 1px;
-    background-color: var(--color-bleu);
+    background-color: var(--color-bronze);
   }
 
   .legale a {
-    color: var(--color-bleu);
+    color: var(--color-bronze);
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
 
   /* Marqueur des informations que Sacha doit fournir avant mise en ligne. */
   .a-completer {
-    background-color: var(--color-pale);
-    border-bottom: 1px solid var(--color-bleu);
+    background-color: var(--color-creme);
+    border-bottom: 1px solid var(--color-bronze);
     padding: 0 0.25rem;
     font-weight: 500;
     color: var(--color-nuit);

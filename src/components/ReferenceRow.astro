@@ -4,7 +4,6 @@ interface Props {
   objet: string;
   phrase: string;
   chiffre?: string;
-  /** Niveau de titre. 2 quand la ligne suit directement le h1 de la page. */
   niveau?: 2 | 3;
 }
 
@@ -12,14 +11,14 @@ const { secteur, objet, phrase, chiffre, niveau = 3 } = Astro.props;
 const Titre = `h${niveau}` as 'h2' | 'h3';
 ---
 
-<article class="reveal filet py-10 lg:py-12">
+<article class="reveal filet group py-10 lg:py-14">
   <div class="grid gap-6 lg:grid-cols-12 lg:gap-8">
     <div class="lg:col-span-3">
       <p class="surtitre">{secteur}</p>
     </div>
 
     <div class="lg:col-span-6">
-      <Titre class="text-[1.1875rem] leading-[1.4] font-semibold tracking-[-0.01em] text-nuit">
+      <Titre class="font-titre text-[1.375rem] leading-[1.25] tracking-[-0.01em] text-nuit lg:text-[1.625rem]">
         {objet}
       </Titre>
       <p class="mesure mt-3 text-corps text-texte">{phrase}</p>
@@ -28,9 +27,7 @@ const Titre = `h${niveau}` as 'h2' | 'h3';
     <div class="lg:col-span-3 lg:text-right">
       {
         chiffre && (
-          <p class="text-[1.375rem] leading-[1.3] font-semibold tracking-[-0.015em] text-bleu">
-            {chiffre}
-          </p>
+          <p class="chiffre text-[1.75rem] text-bronze lg:text-[2rem]">{chiffre}</p>
         )
       }
     </div>

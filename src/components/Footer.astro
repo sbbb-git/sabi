@@ -4,14 +4,13 @@ import { CONTACT, MARQUE, NAV, NAV_LEGAL } from '../consts';
 const annee = new Date().getFullYear();
 ---
 
-{/* Le filet sépare le pied de page d'une bande sombre qui le précède. */}
-<footer class="border-t border-bord-nuit bg-nuit text-blanc">
+<footer class="filet-sombre bg-nuit text-blanc">
   <div class="conteneur">
     <div class="grid gap-12 py-16 lg:grid-cols-12 lg:gap-8 lg:py-24">
       <div class="lg:col-span-5">
-        <p class="text-[1.375rem] font-semibold lowercase tracking-[-0.02em]">{MARQUE}</p>
-        <p class="mt-4 max-w-[34ch] text-corps text-sur-nuit">
-          Le bras droit financier des dirigeants.
+        <p class="font-titre text-[2rem] leading-none lowercase">{MARQUE}</p>
+        <p class="mt-5 max-w-[32ch] text-corps text-sur-nuit">
+          Structurer et financer la croissance.
         </p>
       </div>
 
@@ -23,7 +22,7 @@ const annee = new Date().getFullYear();
               <li>
                 <a
                   href={lien.href}
-                  class="text-corps text-blanc transition-colors duration-150 hover:text-bleu-clair"
+                  class="text-corps text-blanc transition-colors duration-150 hover:text-sable"
                 >
                   {lien.libelle}
                 </a>
@@ -39,7 +38,7 @@ const annee = new Date().getFullYear();
           <li>
             <a
               href={`mailto:${CONTACT.email}`}
-              class="text-corps text-blanc transition-colors duration-150 hover:text-bleu-clair"
+              class="text-corps text-blanc transition-colors duration-150 hover:text-sable"
             >
               {CONTACT.email}
             </a>
@@ -47,7 +46,7 @@ const annee = new Date().getFullYear();
           <li>
             <a
               href={`tel:${CONTACT.telephoneLien}`}
-              class="text-corps text-blanc transition-colors duration-150 hover:text-bleu-clair"
+              class="text-corps text-blanc transition-colors duration-150 hover:text-sable"
             >
               {CONTACT.telephone}
             </a>
@@ -57,7 +56,7 @@ const annee = new Date().getFullYear();
               href={CONTACT.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-corps text-blanc transition-colors duration-150 hover:text-bleu-clair"
+              class="text-corps text-blanc transition-colors duration-150 hover:text-sable"
             >
               LinkedIn
             </a>
@@ -74,10 +73,7 @@ const annee = new Date().getFullYear();
         {
           NAV_LEGAL.map((lien) => (
             <li>
-              <a
-                href={lien.href}
-                class="transition-colors duration-150 hover:text-bleu-clair"
-              >
+              <a href={lien.href} class="transition-colors duration-150 hover:text-sable">
                 {lien.libelle}
               </a>
             </li>

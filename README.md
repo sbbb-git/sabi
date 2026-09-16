@@ -22,8 +22,9 @@ src/
   consts.ts              coordonnées, navigation, marque
   data/contenu.ts        tout le texte éditorial, source unique
   layouts/Base.astro     head, SEO, JSON-LD, apparition au scroll
-  components/            Header, Footer, Hero, SectionTitle, ExpertiseCard,
-                         ReferenceRow, DarkBand, ContactForm, PageLegale
+  components/            Header, Footer, Hero, Masthead, SectionTitle,
+                         ExpertiseCard, ReferenceRow, DarkBand, ContactForm,
+                         PageLegale
   pages/                 accueil, expertises, references, a-propos, contact,
                          mentions-legales, politique-de-confidentialite, 404
 public/                  robots.txt, favicon.svg, og-image.png, apple-touch-icon.png
@@ -36,25 +37,32 @@ changer un texte d'expertise ou une référence, c'est le seul fichier à ouvrir
 
 Défini une seule fois dans `src/styles/global.css`, bloc `@theme`.
 
+Le site est construit sur le bleu nuit, pas sur le blanc. Chaque page ouvre sur
+un aplat sombre, header compris, puis alterne nuit, blanc et crème.
+
 | Jeton | Valeur | Usage |
 |---|---|---|
-| `--color-nuit` | `#0A2540` | aplats forts, titres |
-| `--color-bleu` | `#1660C9` | accent unique, liens, filets |
-| `--color-pale` | `#EEF4FC` | fonds de section clairs |
-| `--color-tres-pale` | `#F7FAFE` | fonds de carte |
-| `--color-bord` | `#D5E0EE` | filets et bordures |
-| `--color-texte` | `#101C29` | corps de texte |
-| `--color-gris` | `#5B6B7D` | surtitres, légendes, mentions |
+| `--color-nuit` | `#0A2540` | aplats forts, header, titres sur fond clair |
+| `--color-sable` | `#E3C57E` | accent, sur fond sombre uniquement |
+| `--color-bronze` | `#7E6127` | le même accent, pour les fonds clairs |
+| `--color-creme` | `#F4F1EA` | fonds de section clairs |
+| `--color-ivoire` | `#FBF9F5` | fonds de carte |
+| `--color-bord` | `#E2DDD2` | filets et bordures |
+| `--color-texte` | `#131A22` | corps de texte |
+| `--color-gris` | `#5F6B78` | légendes et mentions |
+| `--color-sur-nuit` | `#B9C6D4` | texte secondaire sur aplat sombre |
 
-`--color-sur-nuit`, `--color-bord-nuit` et `--color-bleu-clair` sont les
-déclinaisons réservées aux aplats sombres, ajoutées pour tenir le contraste sur
-fond marine. Le corps de texte est toujours en `--color-texte`, jamais en gris.
+Le sable ne passe pas le contraste sur fond clair : partout où l'accent doit
+être lisible sur du blanc ou du crème, c'est `--color-bronze` qui sert. Le corps
+de texte est toujours en `--color-texte`, jamais en gris.
 
 Classes utilitaires maison : `.conteneur`, `.section`, `.mesure`, `.surtitre`,
-`.titre-page`, `.titre-section`, `.accroche`, `.action`, `.filet`.
+`.titre-display`, `.titre-page`, `.titre-section`, `.chiffre`, `.accroche`,
+`.action`, `.bouton`, `.bouton-contour`, `.filet`.
 
-Police Inter servie en local via `@fontsource-variable/inter`. Aucun appel à un
-CDN de polices.
+Deux polices, servies en local, aucun CDN. **Instrument Serif** porte les titres
+et les chiffres, c'est elle qui donne la voix. **Inter** porte tout le reste,
+corps de texte, navigation, formulaire.
 
 ## Déploiement
 
@@ -78,12 +86,13 @@ le reste du balisage ne change pas.
 | Lien Calendly | 200 |
 | Lien LinkedIn | URL provisoire, à confirmer, voir TODO 2 |
 | Formulaire, envoi et confirmation | vérifié, envoi simulé |
-| Texte gris clair sur fond clair | aucun, contraste minimal mesuré 4.9:1 |
+| Texte gris clair sur fond clair | aucun, contraste minimal mesuré 5.1:1 |
 | Tiret cadratin ou double tiret | aucun |
 | Chiffres hors cahier des charges | aucun, hors numérotation 01 à 06 des cartes |
 | `npm run build` | 0 erreur, 0 avertissement |
 | Lighthouse mobile, accueil | 100 / 100 / 100 / 100 |
 | Lighthouse mobile, expertises | 100 / 100 / 100 / 100 |
+| Lighthouse mobile, à propos | 100 / 100 / 100 / 100 |
 | Lighthouse mobile, contact | 100 / 100 / 100 / 100 |
 | Site lisible sans JavaScript | vérifié, tous les blocs visibles |
 | `prefers-reduced-motion` | animations désactivées |
@@ -112,13 +121,30 @@ Aucune de ces informations n'a été inventée.
 
 ## Écarts assumés par rapport au cahier des charges
 
+Le cahier des charges décrivait un site clair, en Inter seule, avec un accent
+bleu. Après examen des cinq références citées (26 Advisory, Reggio Partners,
+SATE, Smash, DAF Nation), toutes ouvrent sur un aplat sombre et portent une
+couleur signature qui n'est pas du bleu corporate. La direction a été rebasculée
+en conséquence, et validée : nuit et sable, titres en serif.
+
+- **Accroche.** « Le bras droit financier des dirigeants » a été retiré : la
+  formule parle d'une personne, pas d'un cabinet. Le titre est désormais
+  « Structurer et financer la croissance. », qui figurait déjà au cahier des
+  charges comme phrase d'accompagnement.
+- **Fond sombre plutôt que clair.** Header, héros et bandeau d'ouverture de
+  chaque page sont en `--color-nuit`. Les sections de contenu restent claires.
+- **Deux familles au lieu d'une.** Instrument Serif pour les titres et les
+  chiffres, Inter pour le reste. C'est le levier principal contre l'effet
+  gabarit.
+- **Accent sable plutôt que bleu.** Une seule couleur d'accent, déclinée en
+  `--color-sable` sur fond sombre et `--color-bronze` sur fond clair, pour des
+  raisons de contraste.
 - **Astro 7 au lieu d'Astro 5.** Astro 5 traîne des vulnérabilités critiques non
   corrigées, dont plusieurs XSS et une exécution de code à distance. Astro 7
   passe `npm audit` à 0 vulnérabilité, avec le même code et la même
   configuration. Aucun autre point du cahier des charges n'est touché.
 - **Taille du titre du héros.** L'échelle prévoit 48 px pour un titre de page.
-  Le héros de l'accueil monte à 80 px en desktop, via `clamp()`. C'est le
-  registre des références citées, Reggio Partners et 26 Advisory. Les titres des
-  autres pages restent à 48 px.
+  Le héros de l'accueil monte à 84 px en desktop, via `clamp()`. C'est le
+  registre des références citées. Les titres des autres pages plafonnent à 56 px.
 - **Numérotation 01 à 06 des cartes d'expertise.** Repère de lecture, pas une
   donnée chiffrée. À retirer si la règle doit se lire au pied de la lettre.

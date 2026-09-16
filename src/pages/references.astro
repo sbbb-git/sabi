@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import SectionTitle from '../components/SectionTitle.astro';
+import Masthead from '../components/Masthead.astro';
 import ReferenceRow from '../components/ReferenceRow.astro';
 import { REFERENCES } from '../data/contenu';
 ---
@@ -9,22 +9,14 @@ import { REFERENCES } from '../data/contenu';
   titre="Références"
   description="Les missions conduites par le cabinet, décrites par leur objet : structuration de groupe, financement, subventions, cession et dossier ARS."
 >
-  <section class="pt-24 pb-16 lg:pt-32 lg:pb-24">
-    <div class="conteneur">
-      <SectionTitle
-        surtitre="Missions conduites"
-        titre="Des dossiers menés, décrits par leur objet"
-        principal
-      />
-    </div>
-  </section>
+  <Masthead surtitre="Missions conduites" titre="Des dossiers menés, décrits par leur objet" />
 
-  <section class="pb-20 lg:pb-28">
+  <section class="pt-16 pb-20 lg:pt-24 lg:pb-28">
     <div class="conteneur">
       {REFERENCES.map((ref) => <ReferenceRow {...ref} niveau={2} />)}
       <div class="filet" aria-hidden="true"></div>
 
-      <p class="reveal mt-16 text-[1.5rem] leading-[1.3] font-semibold tracking-[-0.015em] text-bleu lg:mt-20 lg:text-[2rem]">
+      <p class="chiffre reveal mt-16 text-[2rem] text-bronze lg:mt-20 lg:text-[2.75rem]">
         Prochaine réalisation : la vôtre.
       </p>
     </div>
