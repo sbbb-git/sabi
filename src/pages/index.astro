@@ -12,8 +12,8 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, PILIERS, QUESTIONS, REFERENCE
 ---
 
 <Base
-  titre="Structurer et financer la croissance"
-  description="DAF à temps partagé à Paris. Financement bancaire, subventions publiques, M&A et structuration de groupe. Le cabinet porte vos sujets financiers."
+  titre="Structurer, financer et accompagner la croissance"
+  description="Cabinet de direction financière à temps partagé à Paris. Nous accompagnons les dirigeants sur le financement, les subventions publiques et le M&A."
   donneesStructurees
 >
   {/* Premier écran. Aplat bleu nuit pleine largeur, la ville dedans.
@@ -37,12 +37,13 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, PILIERS, QUESTIONS, REFERENCE
     <div class="planche pt-20 pb-24 lg:pt-28 lg:pb-32">
       <p class="cote cote-claire">Finance · Développement · Pilotage &amp; data</p>
 
-      <h1 class="nom-ouvrage mt-7 max-w-[15ch] text-blanc">
-        Structurer et financer la croissance.
+      <h1 class="nom-ouvrage mt-7 max-w-[17ch] text-blanc">
+        Structurer, financer et accompagner la croissance.
       </h1>
 
       <p class="mt-8 max-w-[42ch] text-[1.0625rem] leading-[1.6] text-tirage-clair lg:text-[1.1875rem]">
-        Direction financière, financement et opérations, en temps partagé.
+        Un cabinet de direction financière à temps partagé. Nous accompagnons les
+        dirigeants sur leurs sujets financiers, jusqu'à ce qu'ils tournent seuls.
       </p>
 
       <div class="mt-11 flex flex-wrap items-center gap-3">
@@ -84,6 +85,47 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, PILIERS, QUESTIONS, REFERENCE
           ))
         }
       </dl>
+    </div>
+  </section>
+
+  {/* Les six expertises. Le recouvrement : elles se prennent séparées ou
+      combinées, et la planche montre l'intersection. */}
+  <section class="bg-papier-clair">
+    <div class="planche py-16 lg:py-24">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <h2 class="titre-planche max-w-[20ch]">Six expertises, séparées ou combinées</h2>
+          <p class="mt-6 max-w-[62ch] text-[1.0625rem] leading-[1.65] text-graphite">
+            Chacune se prend seule ou avec les autres. Une direction financière
+            complète, ou une seule expertise sur un projet précis.
+          </p>
+        </div>
+        <a href="/expertises" class="renvoi shrink-0">
+          Le détail des six
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <ol class="mt-12 border-t border-encre lg:mt-16">
+        {
+          EXPERTISES.map((expertise, i) => (
+            <li data-rangee class="group grid gap-3 border-b border-tirage-pale py-6 lg:grid-cols-[5rem_minmax(0,1fr)_minmax(0,1.25fr)] lg:items-baseline lg:gap-10 lg:py-7">
+              <div class="flex items-center gap-4">
+                <span class="repere">{String(i + 1).padStart(2, '0')}</span>
+                <Icone
+                  nom={expertise.icone}
+                  taille={32}
+                  class="text-tirage transition-transform duration-200 group-hover:-translate-y-0.5"
+                />
+              </div>
+              <h3 class="titre-rubrique">{expertise.titre}</h3>
+              <p class="text-[0.9375rem] leading-[1.55] text-graphite">
+                {expertise.phrase}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 
@@ -224,45 +266,6 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, PILIERS, QUESTIONS, REFERENCE
         </p>
       </div>
     </div>
-  </section>
-
-  {/* Les six expertises. Le recouvrement : elles se prennent séparées ou
-      combinées, et la planche montre l'intersection. */}
-  <section class="planche py-16 lg:py-24">
-    <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-      <div>
-        <h2 class="titre-planche max-w-[20ch]">Six expertises, séparées ou combinées</h2>
-        <p class="mt-6 max-w-[62ch] text-[1.0625rem] leading-[1.65] text-graphite">
-          Chacune se prend seule ou avec les autres. Une direction financière
-          complète, ou une seule expertise sur un projet précis.
-        </p>
-      </div>
-      <a href="/expertises" class="renvoi shrink-0">
-        Le détail des six
-        <span aria-hidden="true">&rarr;</span>
-      </a>
-    </div>
-
-    <ol class="mt-12 border-t border-encre lg:mt-16">
-      {
-        EXPERTISES.map((expertise, i) => (
-          <li data-rangee class="group grid gap-3 border-b border-tirage-pale py-6 lg:grid-cols-[5rem_minmax(0,1fr)_minmax(0,1.25fr)] lg:items-baseline lg:gap-10 lg:py-7">
-            <div class="flex items-center gap-4">
-              <span class="repere">{String(i + 1).padStart(2, '0')}</span>
-              <Icone
-                nom={expertise.icone}
-                taille={32}
-                class="text-tirage transition-transform duration-200 group-hover:-translate-y-0.5"
-              />
-            </div>
-            <h3 class="titre-rubrique">{expertise.titre}</h3>
-            <p class="text-[0.9375rem] leading-[1.55] text-graphite">
-              {expertise.phrase}
-            </p>
-          </li>
-        ))
-      }
-    </ol>
   </section>
 
   {/* Les références. Chaque objet se termine sur sa cote. */}
