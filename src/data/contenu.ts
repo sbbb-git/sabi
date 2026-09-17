@@ -48,6 +48,40 @@ export const CHIFFRES_CLES: ChiffreCle[] = [
   { valeur: '100 %', libelle: "d'entrepreneurs satisfaits", source: 'client, 17/09/2026' },
 ];
 
+/*
+  L'angle du cabinet, en quatre mots. Donné par le client le 17 septembre 2026 :
+  « mon angle c'est accompagnement structuration développement finance ».
+
+  Ce n'est pas une niche technique, c'est un périmètre. Ces quatre sujets se
+  répondent, et le marché les traite séparément : l'expert-comptable tient les
+  comptes, l'avocat les statuts, la banque le financement, le consultant le
+  plan. Personne ne tient l'ensemble.
+
+  Ces quatre mots ouvrent l'accueil, au-dessus du titre.
+*/
+export const ANGLE = [
+  {
+    mot: 'Accompagnement',
+    icone: 'direction' as const,
+    texte: "Un interlocuteur qui reste, aux côtés du dirigeant et de ses équipes.",
+  },
+  {
+    mot: 'Structuration',
+    icone: 'groupe' as const,
+    texte: "Les sociétés, les statuts et les comptes qui suivent enfin l'activité.",
+  },
+  {
+    mot: 'Développement',
+    icone: 'croissance' as const,
+    texte: "Ouvrir, racheter, croître. Le plan chiffré et les moyens qu'il suppose.",
+  },
+  {
+    mot: 'Finance',
+    icone: 'financement' as const,
+    texte: 'La trésorerie, le pilotage et le financement, sous toutes ses formes.',
+  },
+];
+
 /** Accueil, bande sombre. */
 export const BANDE_ACCUEIL =
   "Intervention au plus proche des dirigeants en place. Un réseau d'experts mobilisés.";

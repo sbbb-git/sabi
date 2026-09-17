@@ -40,9 +40,23 @@ Six expertises :
 5. Stratégie et développement
 6. Pilotage de la performance
 
-L'angle qui n'appartient qu'à nous : personne sur le marché ne couvre à la fois
-le financement public et la direction financière à temps partagé. Les cabinets
-de subventions font le public, les réseaux de DAF font le temps partagé.
+## L'angle, en quatre mots
+
+> **Accompagnement · Structuration · Développement · Finance**
+
+Donné par le client le 17 septembre 2026, sur ses mots : « mon angle c'est
+accompagnement structuration développement finance ».
+
+**Ce n'est pas une niche technique, c'est un périmètre.** L'erreur à ne pas
+refaire : j'avais proposé comme angle « le seul à couvrir le financement public
+et la direction financière ». Il a corrigé. Ce n'est pas ça.
+
+Ces quatre sujets se répondent, et le marché les traite séparément.
+L'expert-comptable tient les comptes. L'avocat tient les statuts. La banque
+tient le financement. Chacun fait son métier, et personne ne tient l'ensemble.
+
+Les quatre mots ouvrent l'accueil, au-dessus du titre, et ont leur bloc juste
+sous les cotes. Ils vivent dans `ANGLE`, dans `src/data/contenu.ts`.
 
 ### Le financement, dans toute son étendue
 

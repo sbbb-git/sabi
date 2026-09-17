@@ -5,7 +5,7 @@ import Icone from '../components/Icone.astro';
 import avenue from '../assets/avenue.jpg';
 import { CONTACT, RDV, RDV_HREF } from '../consts';
 import { faq } from '../lib/schema';
-import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUATIONS, VOIES_FINANCEMENT } from '../data/contenu';
+import { ANGLE, BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUATIONS, VOIES_FINANCEMENT } from '../data/contenu';
 
 ---
 
@@ -46,7 +46,7 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
     }
 
     <div class="planche pt-20 pb-24 lg:pt-28 lg:pb-32">
-      <p class="cote cote-claire">Stratégie &middot; Finance &middot; Développement</p>
+      <p class="cote cote-claire">Accompagnement &middot; Structuration &middot; Développement &middot; Finance</p>
       <span class="ligne-cote mt-6 block w-28" aria-hidden="true"></span>
 
       <h1 class="nom-ouvrage mt-8 max-w-[17ch] text-blanc">
@@ -96,6 +96,49 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
         }
       </dl>
     </div>
+  </section>
+
+  {/* L'angle du cabinet, en quatre mots. Ils disent un périmètre, pas une
+      spécialité : ces quatre sujets se répondent et le marché les traite
+      séparément. C'est la première chose à comprendre, avant les six
+      expertises qui suivent. */}
+  <section class="planche py-16 lg:py-24">
+    <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-4">
+        <h2 class="titre-planche max-w-[13ch]">Quatre sujets, un seul interlocuteur</h2>
+      </div>
+      <p class="max-w-[54ch] self-end text-[1.0625rem] leading-[1.7] text-graphite lg:col-span-8">
+        L'expert-comptable tient les comptes. L'avocat tient les statuts. La banque
+        tient le financement. Chacun fait son métier, et personne ne tient
+        l'ensemble.
+      </p>
+    </div>
+
+    <ul class="mt-12 grid gap-px border-t border-encre sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+      {
+        ANGLE.map((a, i) => (
+          <li
+            data-rangee
+            class:list={[
+              'border-b border-tirage-pale py-8 pr-6',
+              i > 0 ? 'sm:border-l sm:pl-6 lg:pl-8' : '',
+              i === 2 ? 'sm:border-l-0 sm:pl-0 lg:border-l lg:pl-8' : '',
+            ]}
+          >
+            <Icone nom={a.icone} taille={32} class="text-tirage" />
+            <h3
+              class="mt-6 text-[1.125rem] leading-[1.2] font-semibold tracking-[-0.02em] text-encre lg:text-[1.3125rem]"
+              style="font-stretch:88%"
+            >
+              {a.mot}
+            </h3>
+            <p class="mt-3 max-w-[32ch] text-[0.9375rem] leading-[1.6] text-graphite">
+              {a.texte}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   {/* Six expertises, en deux lignes de trois. La grille demandée par le
