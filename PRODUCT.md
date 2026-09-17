@@ -51,12 +51,17 @@ accompagnement structuration développement finance ».
 refaire : j'avais proposé comme angle « le seul à couvrir le financement public
 et la direction financière ». Il a corrigé. Ce n'est pas ça.
 
-Ces quatre sujets se répondent, et le marché les traite séparément.
-L'expert-comptable tient les comptes. L'avocat tient les statuts. La banque
-tient le financement. Chacun fait son métier, et personne ne tient l'ensemble.
+Ces quatre sujets se répondent, et le marché les traite séparément. Cette
+lecture explique pourquoi le cabinet existe, mais **elle ne s'écrit pas sur le
+site**. Le client a coupé, le 17 septembre 2026, le titre « Quatre sujets, un
+seul interlocuteur » et le paragraphe qui détaillait ce que tient
+l'expert-comptable, l'avocat, la banque : « nul ça, pas besoin de dire un seul
+interlocuteur, inutile de détailler les trucs ». Les quatre mots se suffisent.
+Ne pas réintroduire de commentaire qui les explique.
 
 Les quatre mots ouvrent l'accueil, au-dessus du titre, et ont leur bloc juste
-sous les cotes. Ils vivent dans `ANGLE`, dans `src/data/contenu.ts`.
+sous les cotes, sous un titre nu : « Quatre sujets ». Ils vivent dans `ANGLE`,
+dans `src/data/contenu.ts`.
 
 ### Le financement, dans toute son étendue
 

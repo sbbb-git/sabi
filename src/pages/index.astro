@@ -99,22 +99,12 @@ import { ANGLE, BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES,
   </section>
 
   {/* L'angle du cabinet, en quatre mots. Ils disent un périmètre, pas une
-      spécialité : ces quatre sujets se répondent et le marché les traite
-      séparément. C'est la première chose à comprendre, avant les six
-      expertises qui suivent. */}
+      spécialité. Le client a tranché : les quatre mots se suffisent, sans
+      titre qui les commente ni paragraphe qui explique le marché. */}
   <section class="planche py-16 lg:py-24">
-    <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
-      <div class="lg:col-span-4">
-        <h2 class="titre-planche max-w-[13ch]">Quatre sujets, un seul interlocuteur</h2>
-      </div>
-      <p class="max-w-[54ch] self-end text-[1.0625rem] leading-[1.7] text-graphite lg:col-span-8">
-        L'expert-comptable tient les comptes. L'avocat tient les statuts. La banque
-        tient le financement. Chacun fait son métier, et personne ne tient
-        l'ensemble.
-      </p>
-    </div>
+    <h2 class="titre-planche">Quatre sujets</h2>
 
-    <ul class="mt-12 grid gap-px border-t border-encre sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+    <ul class="mt-10 grid gap-px border-t border-encre sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
       {
         ANGLE.map((a, i) => (
           <li
