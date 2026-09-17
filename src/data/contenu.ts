@@ -323,7 +323,7 @@ export const QUESTIONS = [
   },
   {
     q: 'Peut-on ne prendre qu\'une seule expertise ?',
-    r: "Oui. Les six expertises se prennent séparées ou combinées.",
+    r: "Oui. Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin.",
   },
   {
     q: 'Accompagnez-vous les créations et les amorçages ?',
