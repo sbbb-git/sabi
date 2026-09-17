@@ -372,7 +372,7 @@ export const PAGES_EXPERTISE: PageExpertise[] = [
       },
       {
         q: 'Combien de temps pour un premier tableau de bord ?',
-        r: "Quelques semaines pour une première version utile. Elle se corrige ensuite à l'usage.",
+        r: "Cela dépend de l'état des données. Une première version sort vite, puis elle se corrige à l'usage.",
       },
       {
         q: "Qui maintient l'outil ensuite ?",

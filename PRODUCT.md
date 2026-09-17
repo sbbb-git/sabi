@@ -72,9 +72,12 @@ La seconde ferme l'accueil et la page Financement.
 Le détecteur maison signale d'ordinaire l'adverbe d'insistance dans « pour
 enfin ». Ici la formulation du client prime, et elle est conservée.
 
-Le titre d'accueil porte depuis le mot demandé par le client : « Structurer,
-financer et accompagner la croissance. » La ligne d'ambition vient à côté de
-lui, sur la section Financement, pas à sa place.
+Le titre d'accueil, arrêté par le client le 17 septembre 2026 :
+
+> **« Accompagner, structurer et financer la croissance. »**
+
+L'ordre des trois verbes est le sien, et il compte : l'accompagnement passe
+devant le financement, parce que le cabinet ne fait pas que financer.
 
 ## Objectif du site
 
@@ -150,6 +153,21 @@ toute mention de l'ARS. Le site ne doit pas se lire comme un cabinet de santé.
 
 Aucun autre chiffre ne doit apparaître. Aucun nom de client. Aucun témoignage
 tant qu'il n'y en a pas de réel.
+
+## La foire aux questions
+
+Six questions sur l'accueil, pas davantage. Deux règles.
+
+1. Elle dit que le cabinet couvre la stratégie et le développement autant que
+   le financement. Deux questions y sont consacrées, dont « Ne faites-vous que
+   du financement ? », qui répond non.
+2. **Aucune question qui engage sur un format, un volume ou un délai.** Une
+   réponse trop précise peut contredire une mission réelle. Retirées pour ce
+   motif : la taille d'entreprise à partir de laquelle intervenir, le déroulé
+   type d'une intervention, et le délai d'instruction d'un dossier.
+
+Les questions de définition vivent dans le lexique. Les questions propres à une
+prestation vivent sur sa page.
 
 ## L'architecture du site
 

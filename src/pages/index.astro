@@ -2,9 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icone from '../components/Icone.astro';
-import BandePhoto from '../components/BandePhoto.astro';
 import avenue from '../assets/avenue.jpg';
-import pont from '../assets/pont.jpg';
 import { CONTACT, RDV, RDV_HREF } from '../consts';
 import { faq } from '../lib/schema';
 import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUATIONS, VOIES_FINANCEMENT } from '../data/contenu';
@@ -52,7 +50,7 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
       <span class="ligne-cote mt-6 block w-28" aria-hidden="true"></span>
 
       <h1 class="nom-ouvrage mt-8 max-w-[17ch] text-blanc">
-        Structurer, financer et accompagner la croissance.
+        Accompagner, structurer et financer la croissance.
       </h1>
 
       <p class="mt-8 max-w-[44ch] text-[1.0625rem] leading-[1.6] text-tirage-clair lg:text-[1.1875rem]">
@@ -195,14 +193,20 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
   </section>
 
 
-  <BandePhoto
-    src={pont}
-    legende="Ouvrage de franchissement sur la Seine"
-    hauteur="haute"
-    fige
-    titre="Nos réalisations"
-    lien={{ libelle: 'Voir les missions conduites', href: '/references' }}
-  />
+  {/* Les réalisations, en bande courte. La photographie qui la portait a été
+      retirée : posée juste sous la bande d'encre, elle faisait deux surfaces
+      sombres qui se télescopaient, et l'ensemble se lisait comme un défaut. */}
+  <section class="planche">
+    <div class="flex flex-col gap-5 border-b border-tirage-pale py-12 sm:flex-row sm:items-center sm:justify-between lg:py-14">
+      <h2 class="titre-planche max-w-[16ch]" style="font-size:clamp(1.75rem,3vw,2.5rem)">
+        Nos réalisations
+      </h2>
+      <a href="/references" class="renvoi shrink-0">
+        Voir les missions conduites
+        <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </section>
 
   {/* Les questions posées en premier rendez-vous. Elles servent au lecteur
       comme aux moteurs, qui piochent dedans pour répondre directement. */}

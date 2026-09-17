@@ -102,6 +102,12 @@ Trois images sous licence CC BY ou CC0, créditées dans les mentions légales,
 servies en local, converties en WebP par Astro, et désaturées par
 `.tirage-photo` pour n'introduire aucune couleur parasite.
 
+**L'accueil n'a plus aucune photographie.** Le premier écran d'abord, puis la
+planche photo qui portait les réalisations : posée juste sous la bande d'encre,
+elle faisait deux surfaces sombres qui se télescopaient, et l'ensemble se
+lisait comme un défaut d'affichage. Les réalisations tiennent maintenant en une
+bande courte, un titre et son renvoi.
+
 **Le premier écran n'a plus de photographie.** Les vues disponibles faisaient
 carte postale, et le client les a rejetées. Aucune source libre atteignable ne
 rend mieux : Unsplash refuse, Pexels refuse, Wikimedia limite le débit, et les

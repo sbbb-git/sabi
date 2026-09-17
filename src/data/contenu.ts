@@ -303,35 +303,44 @@ export const SITUATIONS: Bloc[] = [
   },
 ];
 
-/** Questions posées en premier rendez-vous. Page d'accueil. */
+/**
+ * La foire aux questions de l'accueil.
+ *
+ * Six questions, pas davantage. Deux règles derrière cette liste, posées par
+ * le client le 17 septembre 2026.
+ *
+ * 1. Elle doit dire que le cabinet couvre la stratégie et le développement
+ *    autant que le financement. « Je fais stratégie développement financement,
+ *    pas que financement. »
+ * 2. Aucune question qui engage sur un format, un volume ou un délai. Une
+ *    réponse trop précise ici peut contredire une mission réelle. Les
+ *    questions retirées pour ce motif : la taille d'entreprise à partir de
+ *    laquelle intervenir, le déroulé type d'une intervention, et le délai
+ *    d'un dossier.
+ *
+ * Les questions de définition vivent dans le lexique, pas ici. Les questions
+ * propres à une prestation vivent sur sa page.
+ */
 export const QUESTIONS = [
   {
-    q: "Qu'est-ce qu'une direction financière à temps partagé ?",
-    r: "Un directeur financier expérimenté intervient quelques jours par mois. Vous avez le même niveau d'expertise. Sans le coût d'un plein temps, ni le délai d'un recrutement.",
+    q: 'Que fait sabi&co ?',
+    r: "Nous couvrons la stratégie, le développement et la finance. Un dirigeant nous appelle pour l'un de ces sujets, souvent pour plusieurs.",
   },
   {
-    q: 'À partir de quelle taille est-ce pertinent ?',
-    r: "Le besoin apparaît quand les sujets financiers débordent du temps du dirigeant. C'est souvent avant qu'un plein temps se justifie. La complexité du dossier décide, davantage que le chiffre d'affaires.",
+    q: 'Ne faites-vous que du financement ?',
+    r: "Non. Le financement est une expertise parmi six. Il arrive souvent en bout de chaîne, une fois la stratégie posée.",
+  },
+  {
+    q: 'Faites-vous du conseil en stratégie et en développement ?',
+    r: "Oui, dès lors qu'il se chiffre. Le plan, ses hypothèses, son calendrier et les moyens qu'il suppose. Puis l'organisation et la structure juridique qui le portent.",
+  },
+  {
+    q: "Qu'est-ce qu'une direction financière à temps partagé ?",
+    r: "Un directeur financier expérimenté intervient quelques jours par mois. Vous avez le même niveau d'expertise, sans le coût d'un plein temps.",
   },
   {
     q: 'En quoi est-ce différent de mon expert-comptable ?',
     r: "L'expert-comptable produit et certifie les comptes passés. Nous travaillons sur les décisions à venir. Et avec le vôtre.",
-  },
-  {
-    q: 'Comment se déroule une intervention ?',
-    r: "Elle se fait en temps partagé, aux côtés des équipes en place. Un réseau d'experts-comptables et d'avocats vient en appui. Elle se réduit dès que le sujet tourne seul.",
-  },
-  {
-    q: 'Peut-on ne prendre qu\'une seule expertise ?',
-    r: "Oui. Vous prenez ce dont vous avez besoin, au moment où vous en avez besoin.",
-  },
-  {
-    q: 'Accompagnez-vous les créations et les amorçages ?',
-    r: "Oui, au même titre qu'une entreprise installée. Un projet qui démarre a besoin d'un business plan tenu. Et d'un plan de financement crédible, avant la première rencontre.",
-  },
-  {
-    q: 'Quelle différence entre financement dilutif et non dilutif ?',
-    r: "Le dilutif apporte de l'argent contre une part du capital. Le non dilutif le laisse intact : dette bancaire, crédit-bail, dispositifs Bpifrance. L'ordre dans lequel on les sollicite change le résultat.",
   },
   {
     q: 'Intervenez-vous en dehors de Paris ?',

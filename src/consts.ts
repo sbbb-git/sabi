@@ -61,12 +61,14 @@ export const RDV_HREF = '/contact';
 export const AHREFS_CLE = 'HLcj3ovruUDoXZUpzayq6g';
 
 /*
-  TODO formulaire : coller ici l'identifiant du formulaire Formspree.
-  Il se lit dans l'URL de l'endpoint, https://formspree.io/f/<identifiant>,
-  c'est la suite de lettres à la fin.
+  Formulaire de contact, chez Formspree. Identifiant fourni par le client le
+  17 septembre 2026.
 
-  Tant que cette valeur est vide, la page Contact affiche les coordonnées
-  directes au lieu d'un formulaire qui n'aboutirait pas. Aucun visiteur ne
-  se retrouve devant un envoi qui échoue en silence.
+  Il est public par nature : il figure dans l'attribut `action` du formulaire,
+  donc dans le HTML de la page Contact. Il n'ouvre aucun accès au compte et
+  n'a rien à faire dans les secrets GitHub.
+
+  Vider cette valeur retire le formulaire et affiche les coordonnées directes
+  à la place. Mieux vaut cela qu'un envoi qui échoue en silence.
 */
-export const FORMSPREE_ID = '';
+export const FORMSPREE_ID = 'xljdeboa';
