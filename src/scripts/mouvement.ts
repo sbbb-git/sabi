@@ -50,7 +50,11 @@ const racine = document.documentElement;
   attributs semés page par page. Un titre nouveau est animé sans qu'on ait à y
   penser, et le balisage reste lisible.
 */
-const TITRES = '.nom-ouvrage, .titre-planche';
+/*
+  Le titre du premier écran est absent de cette liste : il se lève par la
+  feuille de style, pour que la mesure de peinture ne dépende pas de GSAP.
+*/
+const TITRES = '.titre-planche';
 const FILETS = '.ligne-cote, .trait';
 
 /* ------------------------------------------------------------------ *
@@ -86,9 +90,21 @@ function defilementFluide() {
  * Titres : le mot se pose, il ne se fond pas
  * ------------------------------------------------------------------ */
 
+/** Vrai si l'élément est déjà à l'écran au moment du démarrage. */
+function dejaVu(el: Element) {
+  const r = el.getBoundingClientRect();
+  return r.top < window.innerHeight && r.bottom > 0;
+}
+
 function titres() {
   document.querySelectorAll<HTMLElement>(TITRES).forEach((titre) => {
-    const auChargement = titre.classList.contains('nom-ouvrage');
+    /*
+      Un titre déjà lu par le visiteur ne se rejoue pas. L'animer ici le
+      ferait disparaître puis revenir, ce qui se voit et n'apporte rien.
+    */
+    if (dejaVu(titre)) return;
+
+    const auChargement = false;
     const repere = auChargement
       ? undefined
       : ({ trigger: titre, start: 'top 94%', once: true } as const);
@@ -161,6 +177,9 @@ function pictogrammes() {
       svg.querySelectorAll<SVGGeometryElement>('path, circle, rect')
     );
     if (!traces.length) return;
+    // Un picto déjà à l'écran reste tel quel : l'effacer pour le redessiner
+    // se verrait, et retarderait la première peinture.
+    if (dejaVu(svg)) return;
 
     ScrollTrigger.create({
       trigger: svg,
@@ -180,15 +199,11 @@ function pictogrammes() {
             return 0;
           }
         });
-        if (longueurs.every((l) => l === 0)) {
-          svg.style.opacity = '1';
-          return;
-        }
+        if (longueurs.every((l) => l === 0)) return;
         traces.forEach((t, i) => {
           if (!longueurs[i]) return;
           gsap.set(t, { strokeDasharray: longueurs[i], strokeDashoffset: longueurs[i] });
         });
-        svg.style.opacity = '1';
 
         gsap.to(traces, {
           strokeDashoffset: 0,
@@ -208,7 +223,18 @@ function pictogrammes() {
  * ------------------------------------------------------------------ */
 
 function rangees() {
-  ScrollTrigger.batch('[data-rangee]', {
+  // Les rangées déjà à l'écran sont posées telles quelles, sans animation.
+  const visibles = gsap.utils.toArray<HTMLElement>('[data-rangee]').filter(dejaVu);
+  if (visibles.length) gsap.set(visibles, { opacity: 1, y: 0 });
+
+  const aVenir = gsap.utils.toArray<HTMLElement>('[data-rangee]').filter((e) => !dejaVu(e));
+  if (!aVenir.length) return;
+
+  // L'état de départ se pose ici, sur ce qui est hors écran. La feuille de
+  // style ne cache plus rien : elle retardait la mesure d'affichage.
+  gsap.set(aVenir, { opacity: 0, y: 14 });
+
+  ScrollTrigger.batch(aVenir, {
     start: 'top 96%',
     once: true,
     interval: 0.06,

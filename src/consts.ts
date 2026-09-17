@@ -61,6 +61,19 @@ export const RDV_HREF = '/contact';
 export const AHREFS_CLE = 'HLcj3ovruUDoXZUpzayq6g';
 
 /*
+  Google Analytics 4. Identifiant fourni par le client le 17 septembre 2026.
+
+  ATTENTION, ce n'est pas le même régime qu'Ahrefs. GA4 dépose des cookies
+  (`_ga`, `_ga_*`) et transmet des données à Google. En France, la CNIL ne le
+  range pas parmi les outils exemptés de consentement : un bandeau est
+  légalement requis pour le charger. Le site n'en a pas à ce jour.
+
+  La politique de confidentialité dit la vérité sur ce point. Vider cette
+  valeur retire la balise du site entier.
+*/
+export const GA_MESURE = 'G-G19LHMWVFN';
+
+/*
   Formulaire de contact, chez Formspree. Identifiant fourni par le client le
   17 septembre 2026.
 

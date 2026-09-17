@@ -106,8 +106,27 @@ construction, puisqu'elle est lue dans le HTML de chaque page : elle n'a rien à
 faire dans les secrets GitHub. La vider retire le script du site entier.
 
 La politique de confidentialité nomme l'outil, son éditeur et le lien vers sa
-propre politique. Si un outil déposant un cookie le remplace un jour, le
-bandeau de consentement devient obligatoire et cette page doit être réécrite.
+propre politique.
+
+### Google Analytics 4, et le point de droit qui va avec
+
+Ajouté le 17 septembre 2026 à la demande du client, identifiant
+`G-G19LHMWVFN`, balise posée telle qu'il l'a fournie.
+
+**Ce n'est pas le même régime qu'Ahrefs.** GA4 dépose des cookies et transmet
+des données à Google. La CNIL ne le range pas parmi les outils exemptés de
+consentement, et l'a même jugé problématique dans plusieurs décisions.
+
+**Un bandeau de consentement est donc légalement requis pour le charger, et le
+site n'en a pas.** Le point a été signalé au client. C'est sa décision, il est
+responsable de traitement.
+
+La politique de confidentialité dit la vérité : elle nomme les deux outils,
+distingue leurs régimes, et explique comment refuser les cookies de Google.
+Elle ne prétend plus que le site ne dépose aucun cookie.
+
+Le jour où un bandeau est ajouté, la balise Google doit passer derrière le
+consentement. La constante `GA_MESURE` la retire du site entier si on la vide.
 
 ## Ce qui est vrai, et rien d'autre
 

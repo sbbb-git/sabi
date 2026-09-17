@@ -4,19 +4,30 @@
  * rubrique, le nom de l'ouvrage et l'objet. C'est la même chose ici, et c'est
  * ce qui remplace le bandeau sombre générique des pages internes.
  */
+import { NAV } from '../consts';
+
 interface Props {
+  /**
+   * L'objet de la feuille, sans son numéro. Le numéro se calcule depuis le
+   * sommaire : il suivait la main jusqu'ici, et il avait fini par mentir.
+   * Références portait « Rubrique 02 » alors que le sommaire la donnait en 04.
+   */
   rubrique: string;
   titre: string;
   objet?: string;
 }
 
 const { rubrique, titre, objet } = Astro.props;
+
+const ici = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const rang = NAV.findIndex((l) => l.href === ici);
+const cote = rang >= 0 ? `Rubrique ${String(rang + 1).padStart(2, '0')} · ${rubrique}` : rubrique;
 ---
 
 <section class="planche pt-12 pb-14 lg:pt-16 lg:pb-20">
   <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
     <div class="lg:col-span-3">
-      <p class="cote">{rubrique}</p>
+      <p class="cote">{cote}</p>
       <span class="ligne-cote mt-5 block w-24" aria-hidden="true"></span>
     </div>
     <div class="lg:col-span-9">

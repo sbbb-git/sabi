@@ -6,10 +6,14 @@ import { CONTACT } from '../consts';
   TODO confidentialité : confirmer l'identité du responsable de traitement,
   dénomination sociale et adresse du siège.
 
-  La mesure d'audience est branchée : Ahrefs Web Analytics, sans cookie et sans
-  donnée personnelle. Aucun bandeau de consentement n'est requis dans cette
-  configuration. Si un outil déposant un cookie le remplace un jour, ce bandeau
-  devient obligatoire et cette page doit être réécrite.
+  ATTENTION. Deux outils de mesure cohabitent depuis le 17 septembre 2026.
+  Ahrefs ne dépose aucun cookie. Google Analytics 4 en dépose, et la CNIL ne le
+  range pas parmi les outils exemptés de consentement.
+
+  En l'état, un bandeau de consentement est légalement requis pour charger GA4.
+  Le site n'en a pas. Le point a été signalé au client, qui décide. Le jour où
+  le bandeau arrive, la balise Google doit passer derrière le consentement, et
+  cette page doit le dire.
 */
 const AC = 'à compléter';
 ---
@@ -62,27 +66,38 @@ const AC = 'à compléter';
 
   <h2>Cookies et mesure d'audience</h2>
   <p>
-    Ce site ne dépose aucun cookie. Ni cookie publicitaire, ni cookie de suivi, ni cookie
-    de mesure.
+    Deux outils mesurent la fréquentation de ce site. Ils ne fonctionnent pas de la
+    même façon, et il faut le dire précisément.
   </p>
+
+  <h3>Ahrefs Web Analytics, sans cookie</h3>
   <p>
-    La fréquentation est mesurée par <strong>Ahrefs Web Analytics</strong>, éditée par
-    Ahrefs Pte. Ltd. L'outil compte les pages vues sans déposer de cookie, sans identifiant
-    de navigateur persistant et sans collecter de donnée permettant de vous identifier.
-    Aucun profil n'est constitué, et aucune donnée n'est revendue.
-  </p>
-  <p>
-    Cette absence de cookie et de donnée personnelle dispense le site de bandeau de
-    consentement, conformément aux lignes directrices de la CNIL sur la mesure d'audience.
-    Les informations de fréquentation sont hébergées par Ahrefs. Leur politique de
-    confidentialité est consultable sur{' '}
+    Édité par Ahrefs Pte. Ltd. Il compte les pages vues sans déposer de cookie, sans
+    identifiant de navigateur persistant et sans collecter de donnée permettant de vous
+    identifier. Sa politique est consultable sur{' '}
     <a href="https://ahrefs.com/privacy" target="_blank" rel="noopener noreferrer">
       ahrefs.com/privacy
     </a>.
   </p>
+
+  <h3>Google Analytics 4, avec cookies</h3>
   <p>
-    Vous pouvez bloquer cette mesure par une extension de navigateur ou par le réglage
-    « Do Not Track ». Le site reste entièrement utilisable dans ce cas.
+    Édité par Google Ireland Limited. Il dépose des cookies sur votre navigateur, dont
+    <code>_ga</code>, afin de distinguer les visiteurs et de mesurer l'audience. Des
+    données de navigation sont transmises à Google, qui agit comme sous-traitant.
+  </p>
+  <p>
+    Ces cookies sont conservés au maximum treize mois. La politique de Google est
+    consultable sur{' '}
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+      policies.google.com/privacy
+    </a>.
+  </p>
+  <p>
+    Vous pouvez refuser ces cookies en bloquant le domaine
+    <code>googletagmanager.com</code> par une extension de navigateur, ou en installant
+    le module de désactivation publié par Google. Le site reste entièrement utilisable
+    dans ce cas. Ahrefs, qui ne dépose rien, continue de fonctionner.
   </p>
 
   <h2>Vos droits</h2>

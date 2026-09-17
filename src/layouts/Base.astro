@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Cartouche from '../components/Cartouche.astro';
-import { AHREFS_CLE, CONTACT, MARQUE } from '../consts';
+import { AHREFS_CLE, CONTACT, GA_MESURE, MARQUE } from '../consts';
 /*
   Préchargement de la fonte. Sans lui, le basculement depuis la police système
   décale la mise en page au chargement : 0,083 de CLS mesuré sur /expertises.
@@ -110,6 +110,63 @@ const jsonLd = {
       ))
     }
 
+    {/* Les deux domaines de mesure sont contactés dès la première peinture.
+        Ouvrir la connexion en avance économise la résolution et la poignée
+        de main sur le chemin critique. */}
+    <link rel="preconnect" href="https://analytics.ahrefs.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+
+    {/*
+      Google Analytics 4.
+
+      La balise fournie par Google charge `gtag.js` tout de suite : 172 Ko et
+      143 ms de blocage mesurés, soit quatre points de performance perdus.
+
+      Le comportement est conservé, le calendrier change. La file `dataLayer`
+      et l'appel `config` sont posés en ligne, donc la visite est horodatée à
+      l'instant juste. La bibliothèque, elle, arrive au premier temps mort ou
+      au premier geste du visiteur, selon ce qui vient en premier. Elle vide
+      alors la file, et la visite remonte avec sa vraie heure.
+
+      Contrairement à Ahrefs, GA4 dépose des cookies et transmet à Google. Un
+      bandeau de consentement est légalement requis en France pour le charger.
+      Le site n'en a pas : le point est signalé au client et consigné dans
+      PRODUCT.md.
+    */}
+    {
+      GA_MESURE && (
+        <script is:inline define:vars={{ GA_MESURE }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', GA_MESURE);
+
+          (function () {
+            var pose = false;
+            function poser() {
+              if (pose) return;
+              pose = true;
+              var s = document.createElement('script');
+              s.async = true;
+              s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MESURE;
+              document.head.appendChild(s);
+            }
+            var gestes = ['pointerdown', 'keydown', 'scroll', 'touchstart'];
+            gestes.forEach(function (g) {
+              addEventListener(g, poser, { once: true, passive: true });
+            });
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(poser, { timeout: 3000 });
+            } else {
+              setTimeout(poser, 2200);
+            }
+          })();
+        </script>
+      )
+    }
+
     {/*
       Mesure d'audience Ahrefs. Sans cookie, sans donnée personnelle, donc sans
       bandeau de consentement. Chargée en `async` : elle ne retarde ni le rendu
@@ -156,8 +213,35 @@ const jsonLd = {
 
     <Cartouche />
 
+    {/*
+      Le mouvement arrive au premier temps mort, ou au premier geste.
+
+      Tant que le titre du premier écran dépendait de GSAP, il fallait charger
+      la bibliothèque tout de suite. Ce n'est plus le cas : le titre se lève
+      par la feuille de style. Les 53 Ko de GSAP peuvent donc quitter le
+      chemin critique, puisque tout ce qu'ils animent est sous la ligne de
+      flottaison ou lié au défilement.
+
+      Le filet de `Base` reste en place : si le module ne s'annonce pas en
+      2,6 s, la classe `mouvement-abandon` rend visible ce que la feuille de
+      style avait caché.
+    */}
     <script>
-      import '../scripts/mouvement';
+      const charger = () => import('../scripts/mouvement');
+      let lance = false;
+      const une = () => {
+        if (lance) return;
+        lance = true;
+        charger();
+      };
+      for (const geste of ['pointerdown', 'keydown', 'scroll', 'touchstart']) {
+        addEventListener(geste, une, { once: true, passive: true });
+      }
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(une, { timeout: 2600 });
+      } else {
+        setTimeout(une, 1200);
+      }
     </script>
   </body>
 </html>

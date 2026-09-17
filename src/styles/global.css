@@ -300,6 +300,30 @@
   }
 }
 
+/* Le titre du premier écran se lève depuis sa propre ligne de base. */
+.leve-titre {
+  overflow: hidden;
+}
+
+.leve-titre > * {
+  animation: leve 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes leve {
+  from {
+    transform: translateY(106%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leve-titre > * {
+    animation: none;
+  }
+}
+
 /* La trame de calque : un quadrillage de dessinateur, presque invisible,
    qui donne au premier écran sa matière sans passer par une photographie.
    Deux pas : la maille fine, puis la ligne d'appui tous les cinq carreaux. */
@@ -343,20 +367,26 @@
    ======================================================================= */
 
 @media (prefers-reduced-motion: no-preference) {
-  html.js:not(.mouvement-abandon) [data-rangee] {
-    opacity: 0;
-    transform: translateY(14px);
-  }
+  /*
+     AUCUN TITRE N'EST CACHÉ ICI, et c'est une règle.
 
-  html.js:not(.mouvement-abandon) .nom-ouvrage,
-  html.js:not(.mouvement-abandon) .titre-planche {
-    opacity: 0;
-  }
+     Un titre masqué en attendant JavaScript devient le point de mesure de
+     Google, et cette mesure attend alors le chargement de la bibliothèque.
+     Mesuré sur une fiche du lexique : 3,2 s de temps d'affichage, contre
+     1,8 s sans le masque.
 
-  /* Le tracé du picto est posé en JavaScript, il faut la longueur du chemin. */
-  html.js:not(.mouvement-abandon) [data-picto] {
-    opacity: 0;
-  }
+     Le titre du premier écran se lève par une animation de feuille de style,
+     sur `transform` seul. Les titres plus bas sont découpés par le script au
+     moment où leur repère se crée, donc hors écran, donc sans scintillement.
+
+     Même raison pour les rangées. Masquées ici, elles retardaient l'affichage
+     de 1,4 s sur une fiche du lexique, parce que le plus grand élément peint
+     de la page en faisait partie. C'est le script qui pose leur état de
+     départ, et seulement pour celles qui sont hors écran.
+  */
+
+  /* Même règle pour les pictogrammes : rien n'est caché en attendant le
+     script. Celui-ci ne prend la main que sur les tracés hors écran. */
 }
 
 /* Le filet part de son origine, jamais de son centre. */
