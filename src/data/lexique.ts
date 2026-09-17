@@ -25,7 +25,7 @@ export type Fiche = {
   titreMeta: string;
   /** Autres façons de le chercher. Affichées, et utiles au moteur. */
   aussi?: string[];
-  famille: 'Financement' | 'Structure' | 'Opérations' | 'Pilotage';
+  famille: 'Stratégie' | 'Structure' | 'Financement' | 'Opérations' | 'Pilotage';
   /** Une phrase. Citable seule. */
   definition: string;
   corps: { titre: string; paragraphes: string[] }[];
@@ -35,6 +35,118 @@ export type Fiche = {
 };
 
 export const FICHES: Fiche[] = [
+  {
+    slug: 'plan-strategique',
+    terme: 'Le plan stratégique',
+    titreMeta: 'Plan stratégique : le chiffrer pour le tenir',
+    aussi: ["plan à trois ans", "feuille de route"],
+    famille: 'Stratégie',
+    definition:
+      "Le plan stratégique fixe où va l'entreprise sur trois à cinq ans, et avec quels moyens.",
+    corps: [
+      {
+        titre: "Une direction n'est pas un plan",
+        paragraphes: [
+          "Beaucoup de dirigeants savent où ils veulent aller. Peu l'ont traduit en volumes, en marges et en calendrier.",
+          "Tant que la direction n'est pas chiffrée, elle ne se partage pas. Ni avec une équipe, ni avec un financeur.",
+          "Le chiffrage révèle aussi les impasses. Une ambition qui ne tient pas se voit au troisième trimestre du modèle.",
+        ],
+      },
+      {
+        titre: 'Ce qu\'il contient',
+        paragraphes: [
+          "Le marché visé, l'offre, le modèle économique et les moyens à réunir.",
+          "Puis les étapes, avec ce qui déclenche le passage de l'une à l'autre.",
+          "Le besoin de financement arrive à la fin, comme une conséquence. Jamais comme un point de départ.",
+        ],
+      },
+    ],
+    aRetenir: [
+      "Une direction non chiffrée ne se partage pas",
+      "Les étapes valent mieux qu'un horizon lointain",
+      "Le besoin de financement est une conséquence du plan",
+    ],
+    expertise: {
+      libelle: 'Stratégie et développement',
+      href: '/expertises/strategie-et-developpement',
+    },
+    voisins: ['business-plan', 'croissance-externe', 'holding'],
+  },
+
+  {
+    slug: 'croissance-externe',
+    terme: 'La croissance externe',
+    titreMeta: 'Croissance externe : acheter plutôt que construire',
+    aussi: ["build-up", "acquisition"],
+    famille: 'Stratégie',
+    definition:
+      "La croissance externe consiste à racheter une entreprise plutôt qu'à développer l'activité soi-même.",
+    corps: [
+      {
+        titre: 'Ce qu\'elle achète vraiment',
+        paragraphes: [
+          "Du temps, d'abord. Une part de marché mettrait des années à se construire.",
+          "Parfois une équipe, une technologie ou une implantation géographique.",
+          "Le prix se justifie par ce que l'acquisition évite. Pas seulement par les comptes de la cible.",
+        ],
+      },
+      {
+        titre: 'Là où elle échoue',
+        paragraphes: [
+          "Dans l'intégration, presque toujours. Deux organisations qui ne se parlent pas détruisent la valeur payée.",
+          "Et dans le financement, quand la dette d'acquisition pèse plus que ce que la cible remonte.",
+        ],
+      },
+    ],
+    aRetenir: [
+      "On achète du temps autant qu'un chiffre d'affaires",
+      "L'intégration se prépare avant la signature",
+      "La dette doit tenir sur les remontées de la cible",
+    ],
+    expertise: {
+      libelle: 'Stratégie et développement',
+      href: '/expertises/strategie-et-developpement',
+    },
+    voisins: ['plan-strategique', 'valorisation-d-entreprise', 'holding'],
+  },
+
+  {
+    slug: 'pacte-d-associes',
+    terme: "Le pacte d'associés",
+    titreMeta: "Pacte d'associés : ce qu'il organise",
+    aussi: ["pacte d'actionnaires"],
+    famille: 'Structure',
+    definition:
+      "Le pacte d'associés organise entre associés ce que les statuts ne disent pas.",
+    corps: [
+      {
+        titre: 'Ce qu\'il règle',
+        paragraphes: [
+          "Qui décide quoi, et à quelle majorité. Les statuts restent souvent muets sur les décisions courantes.",
+          "Les mouvements de titres : agrément, préemption, sortie conjointe, sortie forcée.",
+          "Et la sortie, qui est la clause qu'on lit le jour où tout va mal.",
+        ],
+      },
+      {
+        titre: 'Quand il se signe',
+        paragraphes: [
+          "À l'entrée d'un investisseur, presque toujours. Il en fera une condition.",
+          "Entre associés fondateurs, il vaut mieux le signer quand tout va bien. Après, personne ne cède plus rien.",
+        ],
+      },
+    ],
+    aRetenir: [
+      "Il complète les statuts, il ne les remplace pas",
+      "La clause de sortie est celle qu'on relit en crise",
+      "Il se négocie tant que la relation est bonne",
+    ],
+    expertise: {
+      libelle: 'Stratégie et développement',
+      href: '/expertises/strategie-et-developpement',
+    },
+    voisins: ['table-de-capitalisation', 'holding', 'levee-de-fonds'],
+  },
+
   {
     slug: 'business-plan',
     terme: 'Le business plan',
@@ -66,7 +178,7 @@ export const FICHES: Fiche[] = [
       'Le prévisionnel de trésorerie compte davantage que le résultat affiché',
     ],
     expertise: { libelle: 'Financement', href: '/financement' },
-    voisins: ["previsionnel-de-tresorerie", "plan-de-financement", "levee-de-fonds"],
+    voisins: ['plan-strategique', 'plan-de-financement', 'levee-de-fonds'],
   },
 
   {
@@ -615,4 +727,4 @@ export const FICHES: Fiche[] = [
 
 export const parSlugFiche = (slug: string) => FICHES.find((f) => f.slug === slug);
 
-export const FAMILLES = ['Financement', 'Structure', 'Opérations', 'Pilotage'] as const;
+export const FAMILLES = ['Stratégie', 'Structure', 'Financement', 'Opérations', 'Pilotage'] as const;

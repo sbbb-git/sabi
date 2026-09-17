@@ -51,7 +51,16 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: MARQUE,
-  description: 'Cabinet de direction financière à temps partagé. Structurer et financer la croissance.',
+  description:
+    "Cabinet indépendant à Paris. Stratégie, structuration, développement et direction financière à temps partagé.",
+  knowsAbout: [
+    'Conseil en stratégie',
+    'Structuration de groupe',
+    'Développement et croissance externe',
+    'Direction financière à temps partagé',
+    'Financement dilutif et non dilutif',
+    'Subventions et aides publiques',
+  ],
   url: Astro.site!.href,
   email: CONTACT.email,
   areaServed: CONTACT.pays,

@@ -12,13 +12,17 @@ const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Références' }
 
 <Base
   titre="Références"
-  description="Missions conduites par le cabinet : structuration de groupe multi-entités, financement bancaire, crédit-bail, subventions et cession de société."
+  description="Missions conduites : stratégie et développement, structuration de groupe, financement bancaire, subventions, crédit-bail et cession de société."
 
   schemas={[filAriane(maillons)]}
 >
   <FilAriane maillons={maillons} />
 
-  <EnTetePlanche rubrique="Missions conduites" titre="Nos réalisations" />
+  <EnTetePlanche
+    rubrique="Missions conduites"
+    titre="Nos réalisations"
+    objet="De la stratégie d'un groupe à son financement, en passant par sa structuration. Voici les missions conduites, secteur par secteur."
+  />
 
   {/* Des plaques, pas des lignes. Le client a demandé des cartes : ce sont des
       cadres au trait, sans ombre et sans coin arrondi, pour rester dans la

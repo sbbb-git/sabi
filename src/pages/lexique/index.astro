@@ -20,9 +20,9 @@ const schemas = [
   {
     '@context': 'https://schema.org',
     '@type': 'DefinedTermSet',
-    name: 'Lexique du financement et de la direction financière',
+    name: 'Lexique de la stratégie, de la structuration et du financement',
     description:
-      "Les notions de financement, de structuration et de pilotage que le cabinet pratique, définies une par une.",
+      "Les notions de stratégie, de structuration, de financement et de pilotage que le cabinet pratique, définies une par une.",
     url: 'https://sabi-co.fr/lexique',
     hasDefinedTerm: FICHES.map((f) => ({
       '@type': 'DefinedTerm',
@@ -35,8 +35,8 @@ const schemas = [
 ---
 
 <Base
-  titre="Lexique du financement"
-  description="Business plan, BFR, crédit-bail, Bpifrance, levée de fonds, due diligence. Les notions du métier, définies simplement."
+  titre="Lexique du cabinet"
+  description="Plan stratégique, croissance externe, holding, pacte d'associés, BFR, Bpifrance, levée de fonds. Les notions du métier, définies simplement."
   schemas={schemas}
 >
   <FilAriane maillons={maillons} />
@@ -52,8 +52,8 @@ const schemas = [
           Les mots du dossier
         </h1>
         <p class="mt-7 max-w-[58ch] text-[1.0625rem] leading-[1.7] text-graphite lg:text-[1.125rem]">
-          Seize notions que nous employons tous les jours. Chacune expliquée en une
-          page, sans jargon inutile et sans raccourci faux.
+          Dix-neuf notions que nous employons tous les jours, de la stratégie au
+          financement. Chacune expliquée en une page, sans jargon inutile.
         </p>
       </div>
     </div>

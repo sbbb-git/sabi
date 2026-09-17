@@ -98,7 +98,7 @@ export function termeDefini(opts: {
     url: absolu(opts.chemin),
     inDefinedTermSet: {
       '@type': 'DefinedTermSet',
-      name: 'Lexique du financement et de la direction financière',
+      name: 'Lexique de la stratégie, de la structuration et du financement',
       url: absolu('/lexique'),
     },
   };

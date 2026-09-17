@@ -197,7 +197,7 @@ Trente pages, en quatre niveaux.
 | Accueil | 1 | « Que fait ce cabinet » en dix secondes |
 | Rubriques | 5 | Expertises, Financement, Lexique, Références, À propos |
 | Expertises | 6 | « Savez-vous faire ceci » |
-| Lexique | 16 | « C'est quoi ceci » |
+| Lexique | 19 | « C'est quoi ceci » |
 
 **Les six expertises ont chacune leur page.** Cinq sous `/expertises/<slug>`, la
 sixième est `/financement`, plus large que les autres parce qu'elle couvre les
@@ -228,6 +228,34 @@ fabriques de `src/lib/schema.ts` prennent donc les mêmes données que le rendu.
 redisaient les six expertises, placées juste au-dessus, en plus vague. C'est
 exactement le texte creux que le client désigne comme ce qui fait échouer un
 site de cabinet. Récupérables dans l'historique.
+
+## Le périmètre, page par page
+
+Contrôle fait le 17 septembre 2026, à la question du client : « tu as précisé
+un peu partout stratégie structuration développement finance ? »
+
+La réponse était non. Dix-huit pages ne parlaient que de financement. Le
+comptage des quatre thèmes, page par page, a servi de relevé.
+
+**Corrigé.** Les pages qui décrivent le cabinet portent désormais les quatre
+thèmes : accueil, à propos, contact, expertises, références, lexique. Leurs
+titres d'onglet et leurs descriptions aussi. Les données structurées du cabinet
+déclarent un `knowsAbout` qui liste les six domaines.
+
+**Le lexique a gagné une famille « Stratégie »** et trois fiches : le plan
+stratégique, la croissance externe et le pacte d'associés. Dix-neuf fiches en
+tout.
+
+**Onze pages restent purement financières, et c'est voulu.** `/financement` et
+dix fiches dont le sujet est une notion de finance. Une fiche sur le crédit-bail
+qui parlerait de stratégie serait du remplissage.
+
+Contrôle à refaire après tout ajout de page :
+
+```bash
+# compte stratégie / structuration / développement / financement par page
+npm run build && node -e '<le relevé se refait à la main, il tient en dix lignes>'
+```
 
 ## Relecture avant publication
 
