@@ -172,6 +172,24 @@ Lenis, servis en local, jamais en CDN.
 | Bandeau escamotable | `yPercent` du `header` | tout le site |
 | Bande figée | `pin` plus `scrub` | une seule par page |
 
+### Le réglage du défilement
+
+Premier jet mesuré : une molette mettait **1,4 seconde** à se stabiliser. Le
+site tenait pourtant 60 images par seconde, sans une seule image longue, et
+Lighthouse rendait 99. Il se chargeait vite et il dessinait vite. **Il
+répondait lentement**, et c'est cela que le client a ressenti comme de la
+lenteur.
+
+`duration` remplacé par `lerp`, à 0.22 : le rattrapage se fait par fraction de
+l'écart restant à chaque image. La molette se stabilise en **0,4 seconde**.
+
+Les entrées ont suivi : déclenchement à 94-98 % de la fenêtre au lieu de 86-92,
+durées ramenées de 0,7-0,9 s à 0,5-0,6 s, et la bande figée retient 38 % de
+fenêtre au lieu de 62.
+
+La constante `FLUIDE` en tête de `mouvement.ts` coupe Lenis d'une ligne. Les
+repères de GSAP fonctionnent sans lui.
+
 Quatre règles, tenues partout :
 
 1. **Le contenu est lisible sans JavaScript.** Les états de départ sont dans la

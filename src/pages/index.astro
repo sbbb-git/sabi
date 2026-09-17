@@ -6,7 +6,7 @@ import BandePhoto from '../components/BandePhoto.astro';
 import toits from '../assets/toits.jpg';
 import avenue from '../assets/avenue.jpg';
 import viaduc from '../assets/viaduc.jpg';
-import { CONTACT } from '../consts';
+import { CONTACT, RDV, RDV_HREF } from '../consts';
 import { faq } from '../lib/schema';
 import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUATIONS, VOIES_FINANCEMENT } from '../data/contenu';
 
@@ -49,9 +49,7 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
       </p>
 
       <div class="mt-11 flex flex-wrap items-center gap-3">
-        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
-          Prendre rendez-vous
-        </a>
+        <a href={RDV_HREF} class="etiquette">{RDV}</a>
         <a href="/expertises" class="etiquette etiquette-claire">Les expertises</a>
       </div>
     </div>
@@ -332,10 +330,8 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
     <div class="mt-16 border-t border-encre pt-10">
       <p class="titre-planche max-w-[20ch]">Pour enfin avoir les moyens de son ambition.</p>
       <div class="mt-9 flex flex-wrap items-center gap-3">
-        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
-          Prendre rendez-vous
-        </a>
-        <a href="/contact" class="etiquette etiquette-encre">Nous écrire</a>
+        <a href={RDV_HREF} class="etiquette">{RDV}</a>
+        <a href={`mailto:${CONTACT.email}`} class="etiquette etiquette-encre">{CONTACT.email}</a>
       </div>
     </div>
   </section>

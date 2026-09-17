@@ -5,7 +5,7 @@ import EnTetePlanche from '../components/EnTetePlanche.astro';
 import Icone from '../components/Icone.astro';
 import avenue from '../assets/avenue.jpg';
 import FilAriane from '../components/FilAriane.astro';
-import { CONTACT } from '../consts';
+import { RDV, RDV_HREF } from '../consts';
 import { filAriane, service } from '../lib/schema';
 import { AMORCAGE, ETAPES_FINANCEMENT, VOIES_FINANCEMENT } from '../data/contenu';
 
@@ -190,9 +190,7 @@ const schemas = [
     <div class="mt-16 border-t border-encre pt-10">
       <p class="titre-planche max-w-[20ch]">Pour enfin avoir les moyens de son ambition.</p>
       <div class="mt-9 flex flex-wrap items-center gap-3">
-        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
-          Prendre rendez-vous
-        </a>
+        <a href={RDV_HREF} class="etiquette">{RDV}</a>
         <a href="/expertises" class="etiquette etiquette-encre">Les six expertises</a>
       </div>
     </div>

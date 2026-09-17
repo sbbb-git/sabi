@@ -320,7 +320,7 @@
 @media (prefers-reduced-motion: no-preference) {
   html.js:not(.mouvement-abandon) [data-rangee] {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(14px);
   }
 
   html.js:not(.mouvement-abandon) .nom-ouvrage,

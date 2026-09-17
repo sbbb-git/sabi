@@ -7,7 +7,6 @@ export const MARQUE = 'sabi&co';
 
 export const CONTACT = {
   email: 'sacha@sabi-co.fr',
-  calendly: 'https://calendly.com/b00765209-essec/new-meeting',
   linkedin: 'https://www.linkedin.com/in/sachabitoun/',
   ville: 'Paris',
   pays: 'France',
@@ -41,7 +40,25 @@ export const NAV_LEGAL = [
   { libelle: 'Politique de confidentialité', href: '/politique-de-confidentialite' },
 ] as const;
 
-export const RDV = 'Prendre rendez-vous';
+/*
+  L'action du site. Elle mène à la page Contact, pas à un agenda en ligne :
+  le créneau réservé sans échange préalable amène des rendez-vous mal cadrés.
+*/
+export const RDV = 'Contactez-nous';
+export const RDV_HREF = '/contact';
+
+/*
+  Mesure d'audience Ahrefs.
+
+  Cette clé est publique par construction : elle est lue dans le HTML de chaque
+  page par le script de mesure. Elle n'ouvre aucun accès au compte et n'a rien
+  à faire dans les secrets GitHub.
+
+  L'outil ne dépose aucun cookie et ne collecte aucune donnée personnelle, ce
+  qui dispense de bandeau de consentement. Vider cette valeur retire le script
+  du site entier, sans autre modification.
+*/
+export const AHREFS_CLE = 'HLcj3ovruUDoXZUpzayq6g';
 
 /*
   TODO formulaire : coller ici l'identifiant du formulaire Formspree.

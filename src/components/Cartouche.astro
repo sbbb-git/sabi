@@ -4,7 +4,7 @@
  * l'ouvrage, l'échelle, la date et le signataire. Ici il porte aussi l'action :
  * le visiteur agit depuis le cartouche, pas depuis un bouton flottant.
  */
-import { CONTACT, MARQUE, NAV_LEGAL, NAV_PIED, RDV } from '../consts';
+import { CONTACT, MARQUE, NAV_LEGAL, NAV_PIED, RDV, RDV_HREF } from '../consts';
 
 const annee = new Date().getFullYear();
 
@@ -18,7 +18,7 @@ const annee = new Date().getFullYear();
           sabi<span class="text-tirage-clair">&amp;</span>co
         </p>
         <div class="mt-7">
-          <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
+          <a href={RDV_HREF} class="etiquette">
             {RDV}
           </a>
         </div>

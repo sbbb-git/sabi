@@ -71,9 +71,33 @@ lui, sur la section Financement, pas à sa place.
 
 ## Objectif du site
 
-Un seul : obtenir un premier échange. Deux chemins, email et créneau de
-30 minutes. Le formulaire est un confort, pas le passage
-obligé.
+Un seul : obtenir un premier échange.
+
+**L'agenda en ligne a été retiré** le 17 septembre 2026, sur demande du client.
+Toute action du site mène désormais à `/contact`, sous le libellé
+« Contactez-nous ». Le lien Calendly ne figure plus nulle part, ni dans les
+pages, ni dans le bandeau, ni dans le pied.
+
+Le raisonnement tient : un créneau réservé sans échange préalable amène des
+rendez-vous mal cadrés, et le brief du client dit que ce qui compte est la
+qualité des rendez-vous, pas leur nombre.
+
+La page Contact propose l'adresse email et le profil LinkedIn. Le formulaire
+reste un confort, pas le passage obligé.
+
+## Mesure d'audience
+
+**Ahrefs Web Analytics**, branché le 17 septembre 2026. Sans cookie, sans
+identifiant persistant, sans donnée personnelle, donc **sans bandeau de
+consentement** au sens des lignes directrices de la CNIL.
+
+La clé `AHREFS_CLE` vit dans `src/consts.ts`. Elle est publique par
+construction, puisqu'elle est lue dans le HTML de chaque page : elle n'a rien à
+faire dans les secrets GitHub. La vider retire le script du site entier.
+
+La politique de confidentialité nomme l'outil, son éditeur et le lien vers sa
+propre politique. Si un outil déposant un cookie le remplace un jour, le
+bandeau de consentement devient obligatoire et cette page doit être réécrite.
 
 ## Ce qui est vrai, et rien d'autre
 

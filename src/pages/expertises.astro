@@ -6,7 +6,7 @@ import pont from '../assets/pont.jpg';
 import EnTetePlanche from '../components/EnTetePlanche.astro';
 import FilAriane from '../components/FilAriane.astro';
 import { filAriane } from '../lib/schema';
-import { CONTACT } from '../consts';
+import { RDV, RDV_HREF } from '../consts';
 import { EXPERTISES_DETAIL } from '../data/contenu';
 
 const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Expertises' }];
@@ -74,9 +74,7 @@ const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Expertises' }];
     </div>
 
     <div class="mt-14 flex flex-wrap items-center gap-3">
-      <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
-        Prendre rendez-vous
-      </a>
+      <a href={RDV_HREF} class="etiquette">{RDV}</a>
       <a href="/references" class="etiquette etiquette-encre">Voir les missions conduites</a>
     </div>
   </section>

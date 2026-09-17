@@ -3,10 +3,13 @@ import PageLegale from '../components/PageLegale.astro';
 import { CONTACT } from '../consts';
 
 /*
-  TODO confidentialité : confirmer l'identité du responsable de traitement
-  (dénomination sociale et adresse du siège) et l'outil de mesure d'audience retenu.
-  Tant que Plausible ou Umami n'est pas branché, aucun cookie n'est déposé et
-  aucun bandeau de consentement n'est requis.
+  TODO confidentialité : confirmer l'identité du responsable de traitement,
+  dénomination sociale et adresse du siège.
+
+  La mesure d'audience est branchée : Ahrefs Web Analytics, sans cookie et sans
+  donnée personnelle. Aucun bandeau de consentement n'est requis dans cette
+  configuration. Si un outil déposant un cookie le remplace un jour, ce bandeau
+  devient obligatoire et cette page doit être réécrite.
 */
 const AC = 'à compléter';
 ---
@@ -59,9 +62,27 @@ const AC = 'à compléter';
 
   <h2>Cookies et mesure d'audience</h2>
   <p>
-    Ce site ne dépose aucun cookie publicitaire et aucun cookie de suivi. La mesure d'audience,
-    lorsqu'elle est activée, repose sur un outil sans cookie et sans donnée personnelle, ce qui
-    dispense de bandeau de consentement.
+    Ce site ne dépose aucun cookie. Ni cookie publicitaire, ni cookie de suivi, ni cookie
+    de mesure.
+  </p>
+  <p>
+    La fréquentation est mesurée par <strong>Ahrefs Web Analytics</strong>, éditée par
+    Ahrefs Pte. Ltd. L'outil compte les pages vues sans déposer de cookie, sans identifiant
+    de navigateur persistant et sans collecter de donnée permettant de vous identifier.
+    Aucun profil n'est constitué, et aucune donnée n'est revendue.
+  </p>
+  <p>
+    Cette absence de cookie et de donnée personnelle dispense le site de bandeau de
+    consentement, conformément aux lignes directrices de la CNIL sur la mesure d'audience.
+    Les informations de fréquentation sont hébergées par Ahrefs. Leur politique de
+    confidentialité est consultable sur{' '}
+    <a href="https://ahrefs.com/privacy" target="_blank" rel="noopener noreferrer">
+      ahrefs.com/privacy
+    </a>.
+  </p>
+  <p>
+    Vous pouvez bloquer cette mesure par une extension de navigateur ou par le réglage
+    « Do Not Track ». Le site reste entièrement utilisable dans ce cas.
   </p>
 
   <h2>Vos droits</h2>

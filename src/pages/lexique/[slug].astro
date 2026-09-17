@@ -9,7 +9,7 @@
  */
 import Base from '../../layouts/Base.astro';
 import FilAriane from '../../components/FilAriane.astro';
-import { CONTACT } from '../../consts';
+import { RDV, RDV_HREF } from '../../consts';
 import { FICHES, parSlugFiche } from '../../data/lexique';
 import { filAriane, termeDefini } from '../../lib/schema';
 
@@ -162,9 +162,7 @@ const description =
     <div class="border-t border-encre pt-10">
       <p class="titre-planche max-w-[24ch]">Ce sujet se pose chez vous ?</p>
       <div class="mt-9 flex flex-wrap items-center gap-3">
-        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
-          Prendre rendez-vous
-        </a>
+        <a href={RDV_HREF} class="etiquette">{RDV}</a>
         <a href="/lexique" class="etiquette etiquette-encre">Tout le lexique</a>
       </div>
     </div>

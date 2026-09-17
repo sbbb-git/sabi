@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Cartouche from '../components/Cartouche.astro';
-import { CONTACT, MARQUE } from '../consts';
+import { AHREFS_CLE, CONTACT, MARQUE } from '../consts';
 /*
   Préchargement de la fonte. Sans lui, le basculement depuis la police système
   décale la mise en page au chargement : 0,083 de CLS mesuré sur /expertises.
@@ -111,10 +111,20 @@ const jsonLd = {
     }
 
     {/*
-      TODO analytics : brancher Plausible ou Umami une fois le domaine actif.
-      Aucun cookie déposé par ces deux outils, donc aucun bandeau de consentement.
-      Exemple : <script defer data-domain="sabi-co.fr" src="https://plausible.io/js/script.js" />
+      Mesure d'audience Ahrefs. Sans cookie, sans donnée personnelle, donc sans
+      bandeau de consentement. Chargée en `async` : elle ne retarde ni le rendu
+      ni la première peinture.
     */}
+    {
+      AHREFS_CLE && (
+        <script
+          is:inline
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key={AHREFS_CLE}
+          async
+        />
+      )
+    }
 
     {/*
       La classe est posée avant la peinture. Toute la mise en scène du

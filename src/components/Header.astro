@@ -1,5 +1,5 @@
 ---
-import { CONTACT, MARQUE, NAV, RDV } from '../consts';
+import { CONTACT, MARQUE, NAV, RDV, RDV_HREF } from '../consts';
 
 const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
@@ -39,7 +39,7 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
             );
           })
         }
-        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette ml-2">
+        <a href={RDV_HREF} class="etiquette ml-2">
           {RDV}
         </a>
       </nav>
@@ -75,7 +75,7 @@ const ici = Astro.url.pathname.replace(/\/$/, '') || '/';
       <span class="trait"></span>
     </nav>
     <div class="mt-auto pt-10">
-      <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">{RDV}</a>
+      <a href={RDV_HREF} class="etiquette">{RDV}</a>
       <p class="cote mt-8">{CONTACT.email}</p>
     </div>
   </div>

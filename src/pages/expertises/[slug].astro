@@ -11,7 +11,7 @@
 import Base from '../../layouts/Base.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import Icone from '../../components/Icone.astro';
-import { CONTACT } from '../../consts';
+import { RDV, RDV_HREF } from '../../consts';
 import { PAGES_EXPERTISE } from '../../data/pages-expertise';
 import { parSlugFiche } from '../../data/lexique';
 import { faq, filAriane, service } from '../../lib/schema';
@@ -207,10 +207,8 @@ const schemas = [
     <div class="mt-16 border-t border-encre pt-10">
       <p class="titre-planche max-w-[22ch]">Un sujet précis à traiter ?</p>
       <div class="mt-9 flex flex-wrap items-center gap-3">
-        <a href={CONTACT.calendly} target="_blank" rel="noopener noreferrer" class="etiquette">
-          Prendre rendez-vous
-        </a>
-        <a href="/contact" class="etiquette etiquette-encre">Nous écrire</a>
+        <a href={RDV_HREF} class="etiquette">{RDV}</a>
+        <a href="/lexique" class="etiquette etiquette-encre">Le lexique</a>
       </div>
     </div>
   </section>
