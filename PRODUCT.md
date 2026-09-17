@@ -24,13 +24,20 @@ volume de patients, ni mention de l'ARS.
 
 ## Ce qu'on vend
 
-Six expertises, prises séparément ou combinées :
+**Le périmètre n'est pas que financier.** Le client l'a redit le 17 septembre
+2026 : « je fais aussi conseil en stratégie et développement, ça doit pas être
+que financement à chaque fois, il doit y avoir structurer organiser,
+juridique ». La cinquième expertise a donc été réécrite : « Structuration du
+développement » devient **« Stratégie et développement »**, et couvre le plan
+chiffré, la structure juridique et l'organisation.
+
+Six expertises :
 
 1. Direction financière à temps partagé
 2. Financement
 3. Subventions et aides publiques
 4. M&A et transmission
-5. Structuration du développement
+5. Stratégie et développement
 6. Pilotage de la performance
 
 L'angle qui n'appartient qu'à nous : personne sur le marché ne couvre à la fois
@@ -120,17 +127,21 @@ C'est sa décision, elle est appliquée. Mais elle ne change rien à la source :
 `CHIFFRES_CLES` ne porte donc que du vérifiable, et chaque entrée déclare sa
 provenance dans le code.
 
-| Affiché | D'où il vient |
-|---|---|
-| 7 missions conduites | le portfolio en contient exactement sept |
-| 7 secteurs d'activité | un secteur par mission |
-| 15 entités consolidées | mission imagerie médicale |
-| 500 000 € recherchés sur une opération | mission distribution d'équipements |
+### Les chiffres donnés par le client, 17 septembre 2026
 
-**Trois chiffres qu'il demande manquent et doivent venir de lui :** le montant
-total levé ou financé, le nombre d'entreprises accompagnées, et le nombre
-d'années d'expérience. Aucun des trois ne se déduit du portfolio. Les inventer
-serait un faux sur une page d'accueil.
+Il les a fournis, ils remplacent ceux tirés du portfolio. Ils couvrent toute
+son activité, que le portfolio ne représente qu'en partie.
+
+| Affiché | Source |
+|---|---|
+| +25 missions conduites | client |
+| +20 M€ levés, en dilutif ou non dilutif | client |
+| 100 % d'entrepreneurs satisfaits | client |
+
+**Réserve signalée.** « 100 % d'entrepreneurs satisfaits » est une allégation
+commerciale. En droit français, elle doit pouvoir s'appuyer sur une mesure si
+elle est contestée. Aucune enquête ne la documente à ce jour. Le client en a
+été informé ; la décision lui appartient.
 
 Les chiffres de mission restent attachés à leur mission dans les références.
 

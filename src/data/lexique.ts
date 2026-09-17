@@ -534,8 +534,8 @@ export const FICHES: Fiche[] = [
       "Le besoin apparaît souvent avant l'obligation légale",
     ],
     expertise: {
-      libelle: 'Structuration du développement',
-      href: '/expertises/structuration-du-developpement',
+      libelle: 'Stratégie et développement',
+      href: '/expertises/strategie-et-developpement',
     },
     voisins: ["holding", "covenant-bancaire"],
   },
@@ -571,8 +571,8 @@ export const FICHES: Fiche[] = [
       'Chaque service rendu aux filiales exige une convention',
     ],
     expertise: {
-      libelle: 'Structuration du développement',
-      href: '/expertises/structuration-du-developpement',
+      libelle: 'Stratégie et développement',
+      href: '/expertises/strategie-et-developpement',
     },
     voisins: ["consolidation-des-comptes", "table-de-capitalisation"],
   },

@@ -94,16 +94,32 @@ Le picto ne remplace jamais le numéro de repère, il se pose à côté.
 
 ## Photographies
 
-Des vues de **Paris** : toits, ciel, avenue, pont, viaduc. Jamais de bureau,
+Des vues de **Paris** : ciel, avenue, pont. Jamais de bureau,
 jamais de réunion, jamais de poignée de main. C'est la leçon de sateip.fr, qui
 illustre à l'haussmannien et non au open space.
 
-Cinq images sous licence CC BY ou CC0, créditées dans les mentions légales,
+Trois images sous licence CC BY ou CC0, créditées dans les mentions légales,
 servies en local, converties en WebP par Astro, et désaturées par
 `.tirage-photo` pour n'introduire aucune couleur parasite.
 
-Le héros les pose sous un dégradé d'encre, de l'opaque à gauche vers le
-translucide à droite, pour que le titre garde son contraste.
+**Le premier écran n'a plus de photographie.** Les vues disponibles faisaient
+carte postale, et le client les a rejetées. Aucune source libre atteignable ne
+rend mieux : Unsplash refuse, Pexels refuse, Wikimedia limite le débit, et les
+banques restantes plafonnent à mille pixels de large.
+
+La matière vient donc de la planche elle-même. `.trame-calque` pose un
+quadrillage de dessinateur à deux pas, la maille fine tous les 32 px et la
+ligne d'appui tous les 160. Quatre croix de repérage marquent les angles,
+comme sur une feuille de tirage. Un aplat marine seul avait été rejeté deux
+fois ; un aplat qui porte une trame et ses repères dit autre chose.
+
+Effet de bord favorable : le plus grand élément du premier écran est désormais
+le titre, pas une image. Le chargement s'en trouve allégé.
+
+**La légende cotée des planches photo a été retirée.** Elle reste dans le
+document pour les lecteurs d'écran, en `sr-only`. Le dégradé d'encre qui la
+portait n'avait plus d'objet : il ne reste qu'un voile léger, sauf quand la
+bande porte un titre et devient une section à part entière.
 
 **La planche photo**, `BandePhoto.astro`, est autre chose : une vue pleine
 largeur qui **coupe une page de texte**, comme une feuille photographique
@@ -127,6 +143,7 @@ Aucune carte, aucun rayon de bordure, aucune ombre. La structure vient du trait.
 | `.etiquette` | l'action, en étiquette de cartouche, capitales resserrées |
 | `.renvoi` | lien annoté, sa ligne de rappel se déploie au survol |
 | `.hachure` | hachure d'emprise bâtie, jamais une texture de fond |
+| `.trame-calque` | le quadrillage de dessinateur, réservé au premier écran |
 | `Icone` | le détail technique, 32 × 32, posé à côté du repère |
 | `BandePhoto` | la feuille photographique qui coupe une page de texte |
 
@@ -137,7 +154,10 @@ Issus du socle de qualité d'Impeccable :
 - Pas de surtitre au-dessus d'un titre. Les `.cote` de rubrique sont des
   **repères de planche numérotés**, placés en colonne latérale, jamais en
   étiquette posée sur un titre.
-- Pas de grille de cartes identiques. Les expertises sont des lignes cotées.
+- ~~Pas de grille de cartes identiques.~~ **Levé par le client**, deux fois.
+  Les six expertises tiennent en deux lignes de trois, et les réalisations en
+  plaques. Ce sont des cadres au trait : pas de coin arrondi, pas d'ombre, pas
+  de remplissage. La grille est autorisée, la carte d'interface ne l'est pas.
 - ~~Pas de bandeau de chiffres collé sous le héros.~~ **Levé par le client**,
   qui le demande explicitement, sur le modèle de sateip.fr. Les cotes de
   l'ouvrage sont revenues juste sous le héros.

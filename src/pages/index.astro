@@ -3,9 +3,8 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icone from '../components/Icone.astro';
 import BandePhoto from '../components/BandePhoto.astro';
-import toits from '../assets/toits.jpg';
 import avenue from '../assets/avenue.jpg';
-import viaduc from '../assets/viaduc.jpg';
+import pont from '../assets/pont.jpg';
 import { CONTACT, RDV, RDV_HREF } from '../consts';
 import { faq } from '../lib/schema';
 import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUATIONS, VOIES_FINANCEMENT } from '../data/contenu';
@@ -13,39 +12,52 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
 ---
 
 <Base
-  titre="Structurer, financer et accompagner la croissance"
-  description="Cabinet de direction financière à temps partagé à Paris. Nous accompagnons les dirigeants sur le financement, les subventions publiques et le M&A."
+  titre="Stratégie, finance et développement"
+  description="Cabinet de conseil et de direction financière à temps partagé, à Paris. Stratégie, structuration, financement et pilotage aux côtés des dirigeants."
   donneesStructurees
   schemas={[faq(QUESTIONS)]}
 >
-  {/* Premier écran. Aplat bleu nuit pleine largeur, la ville dedans.
-      C'est la composition de sateip.fr, relevée puis traduite. */}
+  {/* Premier écran. Plus de photographie : les vues disponibles faisaient
+      carte postale, et aucune source libre atteignable ne rend mieux. La
+      matière vient de la trame de calque, qui est le monde du site. */}
   <section class="relative isolate overflow-hidden bg-encre text-blanc">
-    <Image
-      src={toits}
-      alt=""
-      aria-hidden="true"
-      widths={[768, 1024]}
-      sizes="100vw"
-      quality={62}
-      class="tirage-photo absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.34]"
-      loading="eager"
-    />
+    <div class="trame-calque absolute inset-0 -z-10" aria-hidden="true"></div>
     <div
-      class="absolute inset-0 -z-10 bg-gradient-to-r from-encre via-encre/90 to-encre/40"
+      class="absolute inset-0 -z-10 bg-[radial-gradient(125%_95%_at_16%_8%,rgba(11,23,40,0.1)_0%,rgba(11,23,40,0.82)_68%)]"
       aria-hidden="true"
-    ></div>
+    >
+    </div>
+
+    {/* Les croix de repérage d'une feuille de tirage, aux quatre angles. Elles
+        disent que l'écran est une planche, ce qu'un aplat seul ne dit pas. */}
+    {
+      [
+        'top-8 left-8',
+        'top-8 right-8',
+        'bottom-8 left-8',
+        'bottom-8 right-8',
+      ].map((pos) => (
+        <span
+          class:list={['pointer-events-none absolute -z-10 block h-7 w-7 opacity-50', pos]}
+          aria-hidden="true"
+        >
+          <span class="absolute top-1/2 left-0 block h-px w-full bg-tirage-clair" />
+          <span class="absolute top-0 left-1/2 block h-full w-px bg-tirage-clair" />
+        </span>
+      ))
+    }
 
     <div class="planche pt-20 pb-24 lg:pt-28 lg:pb-32">
-      <p class="cote cote-claire">Finance · Développement · Pilotage &amp; data</p>
+      <p class="cote cote-claire">Stratégie &middot; Finance &middot; Développement</p>
+      <span class="ligne-cote mt-6 block w-28" aria-hidden="true"></span>
 
-      <h1 class="nom-ouvrage mt-7 max-w-[17ch] text-blanc">
+      <h1 class="nom-ouvrage mt-8 max-w-[17ch] text-blanc">
         Structurer, financer et accompagner la croissance.
       </h1>
 
-      <p class="mt-8 max-w-[42ch] text-[1.0625rem] leading-[1.6] text-tirage-clair lg:text-[1.1875rem]">
-        Un cabinet de direction financière à temps partagé. Nous accompagnons les
-        dirigeants sur leurs sujets financiers, jusqu'à ce qu'ils tournent seuls.
+      <p class="mt-8 max-w-[44ch] text-[1.0625rem] leading-[1.6] text-tirage-clair lg:text-[1.1875rem]">
+        Nous accompagnons les dirigeants sur leurs sujets de stratégie, de
+        finance et de développement.
       </p>
 
       <div class="mt-11 flex flex-wrap items-center gap-3">
@@ -60,17 +72,15 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
       viennent du portfolio, elles ne se déduisent pas. */}
   <section class="border-b border-tirage-pale bg-papier">
     <div class="planche">
-      <dl class="grid grid-cols-2 lg:grid-cols-4">
+      <dl class="grid sm:grid-cols-3">
         {
           CHIFFRES_CLES.map((c, i) => (
             <div
               data-rangee
               class:list={[
                 'border-tirage-pale py-9 lg:py-12',
-                i % 2 === 0 ? 'pr-6' : 'border-l pl-6 lg:pl-10',
-                i < 2 ? 'border-b lg:border-b-0' : '',
-                i === 2 ? 'lg:border-l lg:pl-10' : '',
-                i > 0 && i !== 2 ? 'lg:border-l lg:pl-10' : '',
+                i > 0 ? 'border-t sm:border-t-0 sm:border-l sm:pl-6 lg:pl-10' : '',
+                i < 2 ? 'pr-6' : '',
               ]}
             >
               <dd
@@ -88,89 +98,59 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
     </div>
   </section>
 
-  {/* Les six expertises. Le recouvrement : elles se prennent séparées ou
-      combinées, et la planche montre l'intersection. */}
+  {/* Six expertises, en deux lignes de trois. La grille demandée par le
+      client : on les embrasse d'un regard au lieu de les lire une par une. */}
   <section class="bg-papier-clair">
     <div class="planche py-16 lg:py-24">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <h2 class="titre-planche max-w-[20ch]">Six expertises, séparées ou combinées</h2>
-          <p class="mt-6 max-w-[62ch] text-[1.0625rem] leading-[1.65] text-graphite">
-            Chacune se prend seule ou avec les autres. Une direction financière
-            complète, ou une seule expertise sur un projet précis.
-          </p>
-        </div>
+        <h2 class="titre-planche max-w-[14ch]">Six expertises</h2>
         <a href="/expertises" class="renvoi shrink-0">
           Le détail des six
           <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
 
-      <ol class="mt-12 border-t border-encre lg:mt-16">
+      <ul class="mt-12 grid gap-px border-t border-encre sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
         {
           EXPERTISES.map((expertise, i) => (
-            <li data-rangee class="border-b border-tirage-pale">
-              <a
-                href={expertise.href}
-                class="group grid gap-3 py-6 lg:grid-cols-[5rem_minmax(0,1fr)_minmax(0,1.25fr)] lg:items-baseline lg:gap-10 lg:py-7"
-              >
+            <li
+              data-rangee
+              class:list={[
+                'border-b border-tirage-pale',
+                i % 3 !== 0 ? 'lg:border-l' : '',
+                i % 2 !== 0 ? 'sm:border-l lg:border-l-0' : '',
+                i % 3 !== 0 ? 'lg:border-l' : '',
+              ]}
+            >
+              <a href={expertise.href} class="group block h-full px-0 py-8 sm:px-7 lg:px-8">
                 <div class="flex items-center gap-4">
                   <span class="repere">{String(i + 1).padStart(2, '0')}</span>
                   <Icone
                     nom={expertise.icone}
-                    taille={32}
+                    taille={34}
                     class="text-tirage transition-transform duration-200 group-hover:-translate-y-0.5"
                   />
                 </div>
-                <h3 class="titre-rubrique transition-colors duration-150 group-hover:text-tirage">
+                <h3 class="titre-rubrique mt-6 max-w-[20ch] transition-colors duration-150 group-hover:text-tirage">
                   {expertise.titre}
                 </h3>
-                <p class="text-[0.9375rem] leading-[1.55] text-graphite">
+                <p class="mt-3 max-w-[38ch] text-[0.9375rem] leading-[1.6] text-graphite">
                   {expertise.phrase}
                 </p>
               </a>
             </li>
           ))
         }
-      </ol>
+      </ul>
     </div>
   </section>
 
-  {/* Le constat, une idée par planche. */}
-  <section class="planche py-16 lg:py-24">
-    <div class="grid gap-10 lg:grid-cols-12 lg:gap-10">
-      <div class="lg:col-span-3">
-        <p class="cote">Le cabinet</p>
-      </div>
-      <div class="lg:col-span-9">
-        <h2 class="titre-planche max-w-[24ch]">
-          En grandissant, une entreprise crée des sujets que personne ne porte
-          vraiment.
-        </h2>
-        <p class="mt-6 max-w-[54ch] text-[1.0625rem] text-graphite">
-          sabi&amp;co les prend en charge, et reste jusqu'à ce qu'ils tournent seuls.
-        </p>
-
-        {/* Les cinq piliers ont été retirés : ils redisaient les six expertises,
-            placées juste au-dessus, en plus vague. Récupérables dans l'historique. */}
-        <div class="mt-10 flex flex-wrap items-center gap-3">
-          <a href="/expertises" class="etiquette etiquette-encre">Les six expertises</a>
-          <a href="/lexique" class="etiquette etiquette-encre">Le lexique</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* Quand un dirigeant nous appelle. Quatre situations, pas des arguments. */}
+  {/* Pourquoi on nous appelle. Des situations, pas des arguments. */}
   <section class="bg-papier-clair">
     <div class="planche py-16 lg:py-24">
-      <h2 class="titre-planche max-w-[22ch]">Ce qui déclenche un premier appel</h2>
-      <p class="mt-6 max-w-[62ch] text-[1.0625rem] leading-[1.65] text-graphite">
-        Un sujet financier bloque une décision. Personne en interne n'a le temps
-        de le porter.
-      </p>
+      <h2 class="titre-planche max-w-[22ch]">Pourquoi faire appel à sabi&amp;co ?</h2>
 
-      <div class="mt-12 grid gap-px border-t border-tirage-pale lg:mt-16 lg:grid-cols-2">
+      <div class="mt-10 grid gap-px border-t border-tirage-pale lg:mt-14 lg:grid-cols-2">
         {
           SITUATIONS.map((s, i) => (
             <article data-rangee class="border-b border-tirage-pale py-8 lg:pr-12">
@@ -186,58 +166,6 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
           ))
         }
       </div>
-    </div>
-  </section>
-
-  {/* Financer votre ambition. Les deux voies posées côte à côte : c'est le
-      premier arbitrage que pose un dirigeant, et la page dédiée le développe. */}
-  <section class="planche py-16 lg:py-24">
-    <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-      <div>
-        <p class="cote">Financement</p>
-        <h2 class="titre-planche mt-5 max-w-[16ch]">Financer votre ambition</h2>
-        <p class="mt-6 max-w-[62ch] text-[1.0625rem] leading-[1.65] text-graphite">
-          Un amorçage se finance autrement qu'une reprise. Nous couvrons les deux
-          voies. L'une ouvre le capital, l'autre le laisse intact.
-        </p>
-      </div>
-      <a href="/financement" class="renvoi shrink-0">
-        Le financement en détail
-        <span aria-hidden="true">&rarr;</span>
-      </a>
-    </div>
-
-    <div class="mt-12 grid gap-px border-t border-encre lg:mt-16 lg:grid-cols-2">
-      {
-        VOIES_FINANCEMENT.map((voie, i) => (
-          <article
-            data-rangee
-            class:list={[
-              'border-b border-tirage-pale py-8',
-              i === 0 ? 'lg:border-r lg:pr-12' : 'lg:pl-12',
-            ]}
-          >
-            <div class="flex items-center gap-3">
-              <Icone nom={voie.icone} taille={32} class="text-tirage" />
-              <span class="cote">{voie.titre}</span>
-            </div>
-            <p
-              class="mt-5 max-w-[34ch] text-[1.25rem] leading-[1.25] font-semibold tracking-[-0.02em] text-encre lg:text-[1.5rem]"
-              style="font-stretch:88%"
-            >
-              {voie.accroche}
-            </p>
-            <ul class="mt-6 space-y-2.5">
-              {voie.lignes.slice(0, 4).map((ligne) => (
-                <li class="flex gap-4 text-[0.9375rem] leading-[1.5] text-graphite">
-                  <span class="mt-[0.55em] h-px w-4 shrink-0 bg-tirage" aria-hidden="true" />
-                  <span>{ligne}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))
-      }
     </div>
   </section>
 
@@ -266,48 +194,15 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
     </div>
   </section>
 
-  {/* Les références. Chaque objet se termine sur sa cote. */}
-  <section class="bg-papier-clair">
-    <div class="planche py-16 lg:py-24">
-      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <h2 class="titre-planche max-w-[20ch]">Des dossiers menés, décrits par leur objet</h2>
-          <p class="mt-6 max-w-[62ch] text-[1.0625rem] leading-[1.65] text-graphite">
-            Chaque mission est décrite par son objet et par ce qu'elle a produit.
-          </p>
-        </div>
-        <a href="/references" class="renvoi shrink-0">
-          Toutes les missions
-          <span aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
 
-      <div class="mt-12 border-t border-encre lg:mt-16">
-        {
-          REFERENCES.map((ref) => (
-            <article data-rangee class="grid gap-2 border-b border-tirage-pale py-7 lg:grid-cols-12 lg:items-baseline lg:gap-10">
-              <p class="cote lg:col-span-3">{ref.secteur}</p>
-              <div class="lg:col-span-6">
-                <h3 class="titre-rubrique">{ref.objet}</h3>
-                <p class="mt-3 max-w-[52ch] text-[0.9375rem] leading-[1.6] text-graphite">
-                  {ref.phrase}
-                </p>
-              </div>
-              {ref.chiffre && (
-                <p data-compteur class="cote cote-accent lg:col-span-3 lg:text-right">{ref.chiffre}</p>
-              )}
-            </article>
-          ))
-        }
-      </div>
-
-      <p class="mt-14 text-[1.375rem] leading-[1.15] font-semibold tracking-[-0.025em] text-tirage lg:mt-16 lg:text-[1.75rem]" style="font-stretch:86%">
-        Prochaine réalisation : la vôtre.
-      </p>
-    </div>
-  </section>
-
-  <BandePhoto src={viaduc} legende="Paris · ouvrage de franchissement" hauteur="haute" fige />
+  <BandePhoto
+    src={pont}
+    legende="Ouvrage de franchissement sur la Seine"
+    hauteur="haute"
+    fige
+    titre="Nos réalisations"
+    lien={{ libelle: 'Voir les missions conduites', href: '/references' }}
+  />
 
   {/* Les questions posées en premier rendez-vous. Elles servent au lecteur
       comme aux moteurs, qui piochent dedans pour répondre directement. */}
@@ -328,7 +223,7 @@ import { BANDE_ACCUEIL, CHIFFRES_CLES, EXPERTISES, QUESTIONS, REFERENCES, SITUAT
     </dl>
 
     <div class="mt-16 border-t border-encre pt-10">
-      <p class="titre-planche max-w-[20ch]">Pour enfin avoir les moyens de son ambition.</p>
+      <p class="titre-planche max-w-[22ch]">Un sujet à mettre à plat ?</p>
       <div class="mt-9 flex flex-wrap items-center gap-3">
         <a href={RDV_HREF} class="etiquette">{RDV}</a>
         <a href={`mailto:${CONTACT.email}`} class="etiquette etiquette-encre">{CONTACT.email}</a>

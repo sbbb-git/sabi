@@ -237,27 +237,35 @@ export const PAGES_EXPERTISE: PageExpertise[] = [
   },
 
   {
-    slug: 'structuration-du-developpement',
+    slug: 'strategie-et-developpement',
     icone: 'structuration',
-    titre: 'Structuration du développement',
-    titreMeta: 'Structuration de groupe et consolidation',
+    titre: 'Stratégie et développement',
+    titreMeta: 'Conseil en stratégie et développement',
     description:
-      "Holding, filiales, flux intragroupe et consolidation des comptes. Une vision de groupe qui permet enfin de décider.",
+      "Plan stratégique chiffré, structure juridique, organisation et consolidation. Traduire une intention en calendrier et en besoins.",
     chapo:
-      "Les entités s'accumulent plus vite qu'on n'organise leur lecture. Chacune a ses comptes, aucune ne donne la vision d'ensemble.",
+      "Une stratégie qui ne se chiffre pas reste une intention. Un plan sans structure juridique pour le porter ne tient pas non plus.",
     pourQui: [
+      'Un dirigeant qui a une direction en tête et pas encore de plan chiffré',
+      'Une entreprise qui ouvre des sites ou lance une activité',
       'Un groupe né de plusieurs opérations successives',
-      'Une entreprise qui ouvre des sites',
-      'Un dirigeant qui additionne des tableaux au lieu de lire un état',
-      'Une société qui prépare une levée ou une cession',
+      "Une société dont les statuts et les flux datent d'une autre taille",
     ],
     sections: [
+      {
+        titre: 'Chiffrer la stratégie',
+        paragraphes: [
+          "Une direction se défend quand elle est traduite en volumes, en marges et en calendrier.",
+          "Nous construisons le plan à trois ans, avec les hypothèses qui le tiennent debout.",
+          "Le besoin de financement tombe à la fin, comme une conséquence. Jamais comme un point de départ.",
+        ],
+      },
       {
         titre: "Poser la structure avant d'en avoir besoin",
         paragraphes: [
           "Une holding se crée plus facilement avant la troisième filiale qu'après la sixième.",
           "Le schéma de détention décide de la fiscalité, du financement et des conditions de sortie.",
-          "Une restructuration tardive coûte en temps, en frais et en impôt.",
+          "Une restructuration tardive coûte en temps, en frais et en impôt. L'avocat travaille mieux sur un cadrage déjà fait.",
         ],
       },
       {
@@ -278,6 +286,7 @@ export const PAGES_EXPERTISE: PageExpertise[] = [
       },
     ],
     livrables: [
+      'Plan stratégique à trois ans, chiffré et défendable',
       'Schéma de détention, holding et organisation des filiales',
       'Consolidation des comptes et vision de groupe',
       'Flux intragroupe, conventions et refacturation',
@@ -285,6 +294,10 @@ export const PAGES_EXPERTISE: PageExpertise[] = [
       "Ouverture de sites, plan d'investissement et suivi des travaux",
     ],
     questions: [
+      {
+        q: 'Faites-vous du conseil en stratégie ?',
+        r: "Oui, dès lors qu'il se chiffre. Le plan, les hypothèses, le calendrier et les moyens qu'il suppose.",
+      },
       {
         q: "À partir de combien d'entités faut-il consolider ?",
         r: "Dès que deux sociétés se financent l'une l'autre. Le besoin arrive avant l'obligation légale.",

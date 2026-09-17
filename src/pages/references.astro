@@ -18,28 +18,42 @@ const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Références' }
 >
   <FilAriane maillons={maillons} />
 
-  <EnTetePlanche rubrique="Rubrique 02 · Missions conduites" titre="Des dossiers menés, décrits par leur objet" />
+  <EnTetePlanche rubrique="Rubrique 02 · Missions conduites" titre="Nos réalisations" />
 
+  {/* Des plaques, pas des lignes. Le client a demandé des cartes : ce sont des
+      cadres au trait, sans ombre et sans coin arrondi, pour rester dans la
+      planche. Chaque plaque porte son secteur, son objet et sa cote. */}
   <section class="planche pb-16 lg:pb-24">
-    <div class="border-t border-encre">
+    <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
       {
         REFERENCES.map((ref) => (
-          <article data-rangee class="grid gap-3 border-b border-tirage-pale py-8 lg:grid-cols-12 lg:items-baseline lg:gap-10">
-            <p class="cote lg:col-span-3">{ref.secteur}</p>
-            <div class="lg:col-span-6">
-              <h2 class="titre-rubrique">{ref.objet}</h2>
-              <p class="mt-3 max-w-[52ch] text-[0.9375rem] leading-[1.55] text-graphite">{ref.phrase}</p>
-            </div>
-            <p data-compteur class="cote cote-accent lg:col-span-3 lg:text-right">{ref.chiffre ?? ''}</p>
-          </article>
+          <li
+            data-rangee
+            class="group flex h-full flex-col border border-tirage-pale bg-papier p-6 transition-colors duration-200 hover:border-encre lg:p-7"
+          >
+            <p class="cote">{ref.secteur}</p>
+            <h2 class="titre-rubrique mt-5 max-w-[24ch]">{ref.objet}</h2>
+            <p class="mt-4 max-w-[38ch] text-[0.9375rem] leading-[1.6] text-graphite">
+              {ref.phrase}
+            </p>
+            {ref.chiffre && (
+              <p
+                data-compteur
+                class="mt-auto border-t border-tirage-pale pt-5 text-[1.5rem] leading-none font-semibold tracking-[-0.03em] text-tirage tabular-nums lg:text-[1.75rem]"
+                style="font-stretch:84%"
+              >
+                {ref.chiffre}
+              </p>
+            )}
+          </li>
         ))
       }
-    </div>
+    </ul>
 
     <p class="mt-14 text-[1.5rem] leading-[1.15] font-semibold tracking-[-0.025em] text-tirage lg:mt-20 lg:text-[2.25rem]" style="font-stretch:86%">
       Prochaine réalisation : la vôtre.
     </p>
   </section>
 
-  <BandePhoto src={ciel} legende="Paris · ligne de toits" />
+  <BandePhoto src={ciel} legende="Ligne de toits" />
 </Base>

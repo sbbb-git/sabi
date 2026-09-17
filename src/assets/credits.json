@@ -1,12 +1,5 @@
 [
   {
-    "fichier": "toits.jpg",
-    "titre": "baloon",
-    "auteur": "Camy487",
-    "licence": "by 2.0",
-    "source": "https://www.flickr.com/photos/49759435@N05/26740198177"
-  },
-  {
     "fichier": "avenue.jpg",
     "titre": "April In Paris - 12",
     "auteur": "Sir Hectimere",
@@ -26,12 +19,5 @@
     "auteur": "Rawpixel",
     "licence": "cc0 1.0",
     "source": "https://www.rawpixel.com/image/3302512/free-photo-image-architecture-aerial-view-building"
-  },
-  {
-    "fichier": "viaduc.jpg",
-    "titre": "Bir-Hakeim",
-    "auteur": "Bruxelles5",
-    "licence": "by 3.0",
-    "source": "https://commons.wikimedia.org/w/index.php?curid=9981044"
   }
 ]

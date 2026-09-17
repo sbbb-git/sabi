@@ -13,15 +13,30 @@ import type { ImageMetadata } from 'astro';
 
 interface Props {
   src: ImageMetadata;
+  /**
+   * Décrit la vue pour les lecteurs d'écran. Elle n'est plus affichée : la
+   * légende cotée en pied a été retirée sur demande du client.
+   */
   legende: string;
   /** La bande se fige le temps qu'on la traverse. Réservé à une par page. */
   fige?: boolean;
+  /** Un titre posé sur la vue, avec son renvoi. La bande porte alors une section. */
+  titre?: string;
+  lien?: { libelle: string; href: string };
   /** Hauteur de la bande. `courte` pour une respiration, `haute` pour un temps fort. */
   hauteur?: 'courte' | 'haute';
   class?: string;
 }
 
-const { src, legende, hauteur = 'courte', fige = false, class: classe = '' } = Astro.props;
+const {
+  src,
+  legende,
+  hauteur = 'courte',
+  fige = false,
+  titre,
+  lien,
+  class: classe = '',
+} = Astro.props;
 
 /*
   Une bande figée occupe presque la fenêtre : c'est ce qui fait qu'on la
@@ -53,16 +68,43 @@ const debord = fige ? 'h-full' : 'h-[124%]';
     data-fige-fond={fige ? '' : undefined}
     loading="lazy"
   />
-  {/* L'encre ne revient que sous la légende, pour la tenir lisible. Le reste
-      de la vue reste une photographie, pas un aplat teinté. */}
+  {/* Un voile léger, qui raccorde la vue aux sections d'encre voisines sans
+      la teinter. Le dégradé fort n'existait que pour porter la légende. */}
   <div
-    class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(11,23,40,0.94)_0%,rgba(11,23,40,0.45)_18%,rgba(11,23,40,0)_42%)]"
+    class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(11,23,40,0.34)_0%,rgba(11,23,40,0.08)_45%,rgba(11,23,40,0.22)_100%)]"
     aria-hidden="true"
   >
   </div>
 
-  <figcaption data-fige-contenu class="planche absolute inset-x-0 bottom-0 pb-6 lg:pb-8">
-    <span class="ligne-cote mb-3 block w-16" aria-hidden="true"></span>
-    <span class="cote cote-claire">{legende}</span>
-  </figcaption>
+  {/* La légende reste dans le document, pour les lecteurs d'écran. */}
+  <figcaption class="sr-only">{legende}</figcaption>
+
+  {/* Quand la bande porte un titre, elle cesse d'être une respiration : elle
+      devient la section elle-même, et l'encre remonte pour tenir le texte. */}
+  {
+    titre && (
+      <div
+        class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(11,23,40,0.9)_0%,rgba(11,23,40,0.62)_46%,rgba(11,23,40,0.2)_100%)]"
+        aria-hidden="true"
+      />
+    )
+  }
+  {
+    titre && (
+      <div data-fige-contenu class="planche flex h-full items-center">
+        <div>
+          <span class="ligne-cote mb-6 block w-24" aria-hidden="true" />
+          <p class="nom-ouvrage max-w-[14ch] text-blanc" style="font-size:clamp(2rem,5.4vw,4rem)">
+            {titre}
+          </p>
+          {lien && (
+            <a href={lien.href} class="renvoi renvoi-clair mt-9 inline-flex">
+              {lien.libelle}
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          )}
+        </div>
+      </div>
+    )
+  }
 </figure>

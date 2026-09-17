@@ -300,6 +300,31 @@
   }
 }
 
+/* La trame de calque : un quadrillage de dessinateur, presque invisible,
+   qui donne au premier écran sa matière sans passer par une photographie.
+   Deux pas : la maille fine, puis la ligne d'appui tous les cinq carreaux. */
+.renvoi-clair {
+  color: var(--color-tirage-clair);
+}
+
+.renvoi-clair::after {
+  background: var(--color-tirage-clair);
+}
+
+.trame-calque {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-tirage-clair) 42%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-tirage-clair) 42%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, color-mix(in srgb, var(--color-tirage-clair) 16%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-tirage-clair) 16%, transparent) 1px, transparent 1px);
+  background-size:
+    160px 160px,
+    160px 160px,
+    32px 32px,
+    32px 32px;
+  background-position: -1px -1px;
+}
+
 /* =======================================================================
    Le mouvement
 

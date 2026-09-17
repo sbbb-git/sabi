@@ -27,13 +27,13 @@ export type Reference = {
 /*
   Les cotes de l'ouvrage, en haut de l'accueil.
 
-  ATTENTION. Chaque valeur ci-dessous se vérifie dans le portfolio, et nulle
-  part ailleurs. Aucun total cumulé n'y figure : ni montant levé global, ni
-  nombre d'entreprises accompagnées, ni années d'expérience. Ces trois chiffres
-  doivent venir du client avant d'apparaître ici.
+  Valeurs données par le client le 17 septembre 2026, sur ses mots. Elles ne
+  viennent plus du portfolio : elles couvrent toute son activité, que le
+  portfolio ne représente qu'en partie. La source, c'est lui.
 
-  Toute valeur ajoutée sans source vérifiable est une invention, et une
-  invention sur une page d'accueil est un faux.
+  Réserve signalée et assumée par lui : « 100 % d'entrepreneurs satisfaits »
+  est une allégation commerciale. En France, elle doit pouvoir s'appuyer sur
+  une mesure si elle est contestée. Aucune enquête ne la documente à ce jour.
 */
 export type ChiffreCle = {
   valeur: string;
@@ -43,19 +43,14 @@ export type ChiffreCle = {
 };
 
 export const CHIFFRES_CLES: ChiffreCle[] = [
-  { valeur: '7', libelle: 'missions conduites', source: 'portfolio, sept missions' },
-  { valeur: '7', libelle: "secteurs d'activité", source: 'portfolio, un secteur par mission' },
-  { valeur: '15', libelle: 'entités consolidées', source: 'portfolio, mission imagerie médicale' },
-  {
-    valeur: '500 000 €',
-    libelle: 'recherchés sur une opération',
-    source: 'portfolio, mission distribution',
-  },
+  { valeur: '+25', libelle: 'missions conduites', source: 'client, 17/09/2026' },
+  { valeur: '+20 M€', libelle: 'levés, en dilutif ou non dilutif', source: 'client, 17/09/2026' },
+  { valeur: '100 %', libelle: "d'entrepreneurs satisfaits", source: 'client, 17/09/2026' },
 ];
 
 /** Accueil, bande sombre. */
 export const BANDE_ACCUEIL =
-  "Intervention en temps partagé, aux côtés des équipes en place. Autour, un réseau d'experts-comptables et d'avocats, mobilisé au cas par cas.";
+  "Intervention au plus proche des dirigeants en place. Un réseau d'experts mobilisés.";
 
 /** Page Expertises. */
 export const EXPERTISES: Expertise[] = [
@@ -87,10 +82,10 @@ export const EXPERTISES: Expertise[] = [
     phrase: "Nous préparons la cession ou l'acquisition, jusqu'au closing.",
   },
   {
-    titre: 'Structuration du développement',
-    href: '/expertises/structuration-du-developpement',
+    titre: 'Stratégie et développement',
+    href: '/expertises/strategie-et-developpement',
     icone: 'structuration',
-    phrase: "Nous organisons les entités et consolidons les comptes du groupe.",
+    phrase: "Nous cadrons le plan, la structure juridique et l'organisation qui suit.",
   },
   {
     titre: 'Pilotage de la performance',
@@ -231,12 +226,12 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
     ],
   },
   {
-    titre: 'Structuration du développement',
-    href: '/expertises/structuration-du-developpement',
+    titre: 'Stratégie et développement',
+    href: '/expertises/strategie-et-developpement',
     icone: 'structuration',
-    phrase: "Nous organisons les entités et consolidons les comptes du groupe.",
+    phrase: "Nous cadrons le plan, la structure juridique et l'organisation qui suit.",
     developpe:
-      "Les entités s'accumulent plus vite qu'on n'organise leur lecture. Nous posons la structure juridique et comptable qui suit la croissance. Puis la consolidation, qui donne enfin une vision de groupe.",
+      "Une stratégie qui ne se chiffre pas reste une intention. Nous la traduisons en plan, en calendrier et en besoins. Puis nous posons la structure juridique et comptable qui la porte.",
     couvre: [
       'Schéma de détention, holding et organisation des filiales',
       'Consolidation des comptes et vision de groupe',
@@ -262,13 +257,25 @@ export const EXPERTISES_DETAIL: ExpertiseDetail[] = [
   },
 ];
 
-/** Les situations qui déclenchent un appel. Page d'accueil. */
+/**
+ * Pourquoi un dirigeant appelle. Six raisons, affichées sur l'accueil.
+ *
+ * Le périmètre couvre la stratégie, l'organisation et le juridique autant que
+ * le financement. Le client l'a demandé explicitement : « ça doit pas être que
+ * financement, financer etc à chaque fois ».
+ */
 export const SITUATIONS: Bloc[] = [
   {
-    titre: 'Vous lancez et vous cherchez vos premiers financements',
-    icone: 'lancement',
+    titre: 'Vous avez une stratégie en tête, pas encore de plan',
+    icone: 'cadrer',
     texte:
-      "Le projet existe et l'activité démarre. Le financement conditionne le reste. Amorçage, dispositifs publics ou ouverture du capital : tout se joue sur le dossier.",
+      "L'intuition est bonne, la direction est prise. Reste à la chiffrer et à la découper en étapes. Un tiers doit pouvoir la défendre.",
+  },
+  {
+    titre: 'Votre organisation ne suit plus votre activité',
+    icone: 'groupe',
+    texte:
+      "Les sociétés se sont empilées au fil des opérations. Les statuts, les flux entre entités et les conventions datent d'une autre taille d'entreprise.",
   },
   {
     titre: 'Votre croissance dépasse votre structure financière',
@@ -277,16 +284,16 @@ export const SITUATIONS: Bloc[] = [
       "Le chiffre d'affaires progresse. Personne ne sait dire où en est la trésorerie avant la fin du mois. Les décisions se prennent au ressenti.",
   },
   {
+    titre: 'Vous lancez et vous cherchez vos premiers financements',
+    icone: 'lancement',
+    texte:
+      "Le projet existe et l'activité démarre. Amorçage, dispositifs publics ou ouverture du capital : tout se joue sur le dossier.",
+  },
+  {
     titre: 'Vous devez financer un projet et vous ne savez pas par où commencer',
     icone: 'financement',
     texte:
       "Une ouverture, un rachat, du matériel. Le besoin est identifié. Le montage reste à construire, et une seule banque a été sollicitée.",
-  },
-  {
-    titre: 'Votre groupe a grandi plus vite que son organisation',
-    icone: 'groupe',
-    texte:
-      "Les entités se sont multipliées au fil des opérations. Chacune a ses comptes, aucune ne donne la vision d'ensemble.",
   },
   {
     titre: 'Vous préparez une cession ou une acquisition',
