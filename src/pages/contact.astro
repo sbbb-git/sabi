@@ -48,7 +48,7 @@ const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Contact' }];
               <a
                 href={moyen.href}
                 target={moyen.externe ? '_blank' : undefined}
-                rel={moyen.externe ? 'noopener noreferrer' : undefined}
+                rel={moyen.externe ? 'noopener noreferrer nofollow' : undefined}
                 class="titre-rubrique mt-4 inline-block underline decoration-tirage-pale decoration-1 underline-offset-[0.3em] transition-colors duration-150 hover:text-tirage hover:decoration-tirage"
               >
                 {moyen.valeur}
