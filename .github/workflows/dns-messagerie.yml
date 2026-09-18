@@ -1,0 +1,47 @@
+name: DNS messagerie
+
+# Pose les MX d'OVH, le SPF et le DMARC dans la zone Cloudflare de sabi-co.fr.
+# Déclenchement manuel seulement : ce n'est pas une tâche de déploiement, et
+# une zone DNS ne se réécrit pas à chaque poussée.
+#
+# Le jeton CLOUDFLARE_API_TOKEN doit porter, en plus de Cloudflare Pages > Edit
+# dont se sert le déploiement :
+#   Zone > DNS  > Edit   sur sabi-co.fr
+#   Zone > Zone > Read   sur sabi-co.fr
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: dns-messagerie
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  poser:
+    name: Poser les enregistrements
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Écrire les enregistrements dans la zone
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          DOMAINE: sabi-co.fr
+        run: python3 .github/scripts/dns-messagerie.py
+
+      - name: Relire la zone depuis un résolveur public
+        run: |
+          echo "Propagation : la zone Cloudflare est autoritaire tout de suite,"
+          echo "les résolveurs publics suivent en quelques minutes."
+          echo
+          for type in MX TXT; do
+            echo "--- $type sabi-co.fr ---"
+            curl -s -H 'accept: application/dns-json' \
+              "https://cloudflare-dns.com/dns-query?name=sabi-co.fr&type=$type" \
+              | python3 -c "import sys,json;[print(' ',r['data']) for r in (json.load(sys.stdin).get('Answer') or [])] or print('  aucun')"
+          done
