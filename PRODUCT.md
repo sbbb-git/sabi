@@ -363,6 +363,66 @@ Ce contenu n'introduit **aucun chiffre, aucun nom de client, aucun tarif et
 aucun délai promis**. Il n'emploie que le vocabulaire réel du métier, qui est
 aussi celui que les dirigeants tapent dans un moteur.
 
+**Le troisième régime**, ouvert le 19 septembre 2026 : la section Questions,
+dans `src/data/questions.ts`. Elle affirme des règles publiques, ce que ni les
+pages d'expertise ni le lexique ne font. Chaque règle chiffrée porte donc sa
+source et sa date de vérification, affichées sur la page. Une affirmation sans
+source n'a rien à y faire.
+
+## La section Questions
+
+Douze questions, une page chacune, plus un sommaire qui les reprend toutes
+avec leur réponse courte.
+
+**Pourquoi elle existe.** Le lexique répond à « c'est quoi X ». Une page
+d'expertise décrit un métier. Personne ne tape ni l'un ni l'autre. On tape
+« faut-il », « à partir de quand », « est-ce que je peux ». Ce sont aussi les
+formulations qu'un assistant recopie quand il répond à un dirigeant.
+
+**La réponse d'abord.** `reponseCourte` tient en trois phrases au plus, et
+doit rester vraie citée seule, détachée de la page. C'est le seul bloc qui
+compte : un moteur l'extrait, un dirigeant pressé ne lit que lui. Tout le
+reste de la page sert à le vérifier, jamais à le compléter.
+
+**Les sources sont la condition d'existence de la section.** Quatre pages
+affirment une règle publique, et chacune cite le document qui la porte :
+l'antériorité de la dépense chez Bpifrance, la déduction des subventions de
+l'assiette du CIR au BOFiP, le cadre de la garantie Bpifrance, les conditions
+du prêt d'honneur Initiative France.
+
+Une précision qui a failli être écrite fausse, et qui dit pourquoi les sources
+se lisent au lieu de se citer de mémoire : la garantie Bpifrance protège la
+**résidence principale**, pas l'ensemble du patrimoine privé. Le document de
+Bpifrance le dit mot pour mot. Une recherche rapide disait autre chose.
+
+**Les seize mots par phrase valent ici aussi**, à une exception près : les
+citations textuelles d'une source officielle, dans `sources[].note`.
+Raccourcir une citation la falsifie.
+
+**Le maillage est dérivé, jamais saisi.** Une page d'expertise affiche les
+questions dont `expertise.href` pointe vers elle. Une fiche du lexique affiche
+les questions dont `lexique` la contient. Rien à tenir à jour à la main, et
+aucun lien mort possible.
+
+## Ce que lisent les assistants
+
+Trois dispositions, prises le 19 septembre 2026, pour que le site soit cité
+et pas seulement indexé.
+
+- **`/llms.txt`**, produit à la compilation depuis les mêmes données que les
+  pages, dans `src/pages/llms.txt.ts`. Il liste les questions avec leur
+  réponse, les expertises, le lexique. Écrit à la main, il se serait
+  désynchronisé dès la première page ajoutée.
+- **`robots.txt`** nomme explicitement les robots des assistants et les
+  autorise. C'est un choix, pas un oubli : une réponse d'assistant qui cite le
+  cabinet vaut mieux qu'une page que personne n'atteint.
+- **Le sommaire `/questions` affiche les douze réponses courtes**, pas
+  seulement les titres. La page devient alors une source complète, lisible
+  d'un bloc, et le `FAQPage` qu'elle déclare est vrai pour la même raison.
+
+`/llms.txt` dit aussi ce que le site n'affiche pas : aucun tarif. Une réponse
+d'assistant qui attribuerait un prix au cabinet serait inventée.
+
 ## Ce qui manque encore
 
 - **D'autres missions.** Le portfolio n'en contient que sept, toutes déjà en

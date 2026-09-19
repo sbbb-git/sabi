@@ -11,6 +11,7 @@ import Base from '../../layouts/Base.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import { RDV, RDV_HREF } from '../../consts';
 import { FICHES, parSlugFiche } from '../../data/lexique';
+import { QUESTIONS_PAGES } from '../../data/questions';
 import { filAriane, termeDefini } from '../../lib/schema';
 
 export function getStaticPaths() {
@@ -27,6 +28,8 @@ const maillons = [
 ];
 
 const voisins = fiche.voisins.map(parSlugFiche).filter((f) => f !== undefined);
+/* Les questions où cette notion est employée. Dérivées, jamais saisies. */
+const questionsLiees = QUESTIONS_PAGES.filter((q) => q.lexique?.includes(fiche.slug));
 
 const schemas = [
   filAriane(maillons),
@@ -128,6 +131,31 @@ const description =
       </div>
     </section>
   </article>
+
+  {
+    questionsLiees.length > 0 && (
+      <section class="planche py-14 lg:py-20">
+        <h2 class="cote">Là où cette notion se pose</h2>
+        <ul class="mt-7 border-t border-encre">
+          {questionsLiees.map((q) => (
+            <li data-rangee class="border-b border-tirage-pale">
+              <a
+                href={`/questions/${q.slug}`}
+                class="group grid gap-3 py-7 lg:grid-cols-12 lg:gap-10"
+              >
+                <h3 class="titre-rubrique max-w-[32ch] transition-colors duration-150 group-hover:text-tirage lg:col-span-5">
+                  {q.question}
+                </h3>
+                <p class="max-w-[68ch] text-[0.9375rem] leading-[1.6] text-graphite lg:col-span-7">
+                  {q.reponseCourte}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 
   {
     voisins.length > 0 && (

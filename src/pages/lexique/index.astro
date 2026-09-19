@@ -10,7 +10,7 @@ import Base from '../../layouts/Base.astro';
 import FilAriane from '../../components/FilAriane.astro';
 import { FAMILLES, FICHES } from '../../data/lexique';
 import { filAriane, listePages } from '../../lib/schema';
-import { RDV, RDV_HREF } from '../../consts';
+import { RDV, RDV_HREF, coteRubrique } from '../../consts';
 
 const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Lexique' }];
 
@@ -44,7 +44,7 @@ const schemas = [
   <section class="planche pt-8 pb-12 lg:pt-10 lg:pb-16">
     <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
       <div class="lg:col-span-3">
-        <p class="cote">Rubrique 03 · Lexique</p>
+        <p class="cote">{coteRubrique('/lexique', 'Lexique')}</p>
         <span class="ligne-cote mt-5 block w-24" aria-hidden="true"></span>
       </div>
       <div class="lg:col-span-9">

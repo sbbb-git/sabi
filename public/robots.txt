@@ -1,4 +1,49 @@
+# sabi-co.fr
+#
+# Tout est ouvert, y compris aux robots des assistants. C'est un choix : le
+# site existe pour être lu et cité, et une réponse d'assistant qui cite le
+# cabinet vaut mieux qu'une page que personne n'atteint.
+#
+# La carte lisible du site, pour les modèles, est dans /llms.txt.
+
 User-agent: *
+Allow: /
+
+# Robots des assistants, nommés explicitement pour lever toute ambiguïté.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: Bingbot
 Allow: /
 
 Sitemap: https://sabi-co.fr/sitemap-index.xml

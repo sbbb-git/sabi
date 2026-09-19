@@ -4,7 +4,7 @@
  * rubrique, le nom de l'ouvrage et l'objet. C'est la même chose ici, et c'est
  * ce qui remplace le bandeau sombre générique des pages internes.
  */
-import { NAV } from '../consts';
+import { coteRubrique } from '../consts';
 
 interface Props {
   /**
@@ -20,8 +20,7 @@ interface Props {
 const { rubrique, titre, objet } = Astro.props;
 
 const ici = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
-const rang = NAV.findIndex((l) => l.href === ici);
-const cote = rang >= 0 ? `Rubrique ${String(rang + 1).padStart(2, '0')} · ${rubrique}` : rubrique;
+const cote = coteRubrique(ici, rubrique);
 ---
 
 <section class="planche pt-12 pb-14 lg:pt-16 lg:pb-20">

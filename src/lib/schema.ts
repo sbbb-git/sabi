@@ -84,6 +84,40 @@ export function faq(questions: { q: string; r: string }[]) {
   };
 }
 
+/**
+ * Une page de questions et réponses.
+ *
+ * Même exigence que `faq` : on ne déclare que ce que la page affiche. La date
+ * de vérification est portée par la page elle-même, parce qu'une règle fiscale
+ * ou un barème public se périme, et qu'un lecteur comme un moteur ont le droit
+ * de savoir quand la vérification a eu lieu.
+ */
+export function questionsReponses(opts: {
+  questions: { q: string; r: string; chemin?: string }[];
+  chemin: string;
+  nom: string;
+  verifie?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    name: opts.nom,
+    url: absolu(opts.chemin),
+    ...(opts.verifie ? { dateModified: opts.verifie } : {}),
+    publisher: CABINET,
+    mainEntity: opts.questions.map((x) => ({
+      '@type': 'Question',
+      name: x.q,
+      ...(x.chemin ? { url: absolu(x.chemin) } : {}),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: x.r,
+        ...(x.chemin ? { url: absolu(x.chemin) } : {}),
+      },
+    })),
+  };
+}
+
 /** Une fiche du lexique : un terme, sa définition, son ensemble. */
 export function termeDefini(opts: {
   terme: string;

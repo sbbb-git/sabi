@@ -1,0 +1,245 @@
+---
+/**
+ * Une question, une réponse.
+ *
+ * La réponse courte est posée en gros, immédiatement sous la question, avant
+ * tout le reste. C'est le bloc qu'un moteur cite et que lit un dirigeant
+ * pressé. Tout ce qui suit sert à le vérifier, jamais à le compléter : la
+ * réponse doit rester vraie même détachée de la page.
+ *
+ * Les sources sont en bas, visibles, avec la phrase exacte quand elle existe.
+ * Une page qui affirme une règle publique sans dire d'où elle la tient ne
+ * mérite ni d'être crue ni d'être reprise.
+ */
+import Base from '../../layouts/Base.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Icone from '../../components/Icone.astro';
+import { RDV, RDV_HREF } from '../../consts';
+import {
+  ICONE_FAMILLE,
+  QUESTIONS_PAGES,
+  parSlugQuestion,
+} from '../../data/questions';
+import { parSlugFiche } from '../../data/lexique';
+import { filAriane, questionsReponses } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return QUESTIONS_PAGES.map((q) => ({ params: { slug: q.slug }, props: { q } }));
+}
+
+const { q } = Astro.props;
+const chemin = `/questions/${q.slug}`;
+
+const maillons = [
+  { libelle: 'Accueil', href: '/' },
+  { libelle: 'Questions', href: '/questions' },
+  { libelle: q.question },
+];
+
+const fiches = (q.lexique ?? []).map(parSlugFiche).filter((f) => f !== undefined);
+const voisines = q.voisines.map(parSlugQuestion).filter((v) => v !== undefined);
+
+const schemas = [
+  filAriane(maillons),
+  questionsReponses({
+    questions: [{ q: q.question, r: q.reponseCourte }],
+    chemin,
+    nom: q.question,
+    verifie: q.verifie,
+  }),
+];
+
+const description =
+  q.reponseCourte.length <= 155
+    ? q.reponseCourte
+    : `${q.reponseCourte.slice(0, 152).trimEnd()}...`;
+
+const leJour = new Date(q.verifie).toLocaleDateString('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Base titre={q.titreMeta} description={description} schemas={schemas}>
+  <FilAriane maillons={maillons} />
+
+  <article>
+    <section class="planche pt-8 pb-12 lg:pt-10 lg:pb-16">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+        <div class="lg:col-span-3">
+          <p class="cote">{q.famille}</p>
+          <span class="ligne-cote mt-5 block w-24" aria-hidden="true"></span>
+          <Icone nom={ICONE_FAMILLE[q.famille]} taille={32} class="mt-7 text-tirage" />
+        </div>
+        <div class="lg:col-span-9">
+          <h1 class="titre-planche max-w-[20ch]" style="font-size:clamp(2rem,4.4vw,3.25rem)">
+            {q.question}
+          </h1>
+          {/* La réponse, seule et en grand. Citable telle quelle. */}
+          <p
+            class="mt-8 max-w-[46ch] text-[1.25rem] leading-[1.35] font-semibold tracking-[-0.02em] text-encre lg:text-[1.5rem]"
+            style="font-stretch:88%"
+          >
+            {q.reponseCourte}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="planche pb-12 lg:pb-16">
+      <div class="border-t border-encre">
+        {
+          q.corps.map((bloc, i) => (
+            <div
+              data-rangee
+              class="grid gap-4 border-b border-tirage-pale py-9 lg:grid-cols-12 lg:gap-10 lg:py-12"
+            >
+              <div class="lg:col-span-4">
+                <span class="repere">{String(i + 1).padStart(2, '0')}</span>
+                <h2 class="titre-rubrique mt-5 max-w-[24ch]">{bloc.titre}</h2>
+              </div>
+              <div class="space-y-4 lg:col-span-8">
+                {bloc.paragraphes.map((t) => (
+                  <p class="max-w-[66ch] text-[1.0625rem] leading-[1.7] text-graphite">{t}</p>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="bg-papier-clair">
+      <div class="planche py-14 lg:py-20">
+        <h2 class="cote">À retenir</h2>
+        <ul class="mt-8 border-t border-encre">
+          {
+            q.aRetenir.map((r, i) => (
+              <li data-rangee class="flex items-baseline gap-5 border-b border-tirage-pale py-5">
+                <span class="repere shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                <span class="max-w-[62ch] text-[1.0625rem] leading-[1.6] text-encre">{r}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        {
+          q.expertise && (
+            <div class="mt-10">
+              <p class="max-w-[54ch] text-[0.9375rem] leading-[1.7] text-graphite">
+                C'est un sujet que le cabinet traite. Le détail se trouve sur la page
+                de l'expertise concernée.
+              </p>
+              <a href={q.expertise.href} class="renvoi mt-5 inline-flex">
+                {q.expertise.libelle}
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    {
+      q.sources && q.sources.length > 0 && (
+        <section class="planche py-14 lg:py-20">
+          <h2 class="cote">Sources</h2>
+          <ul class="mt-7 border-t border-encre">
+            {q.sources.map((s) => (
+              <li data-rangee class="border-b border-tirage-pale py-6">
+                <a
+                  href={s.href}
+                  rel="noopener nofollow"
+                  target="_blank"
+                  class="renvoi-clair inline-flex"
+                >
+                  {s.libelle}
+                  <span aria-hidden="true">&nearr;</span>
+                </a>
+                {s.note && (
+                  <p class="mt-3 max-w-[70ch] text-[0.9375rem] leading-[1.6] text-graphite">
+                    {s.note}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p class="mt-6 text-[0.8125rem] leading-[1.6] text-graphite">
+            Règles vérifiées le {leJour}. Une règle publique évolue : vérifiez la
+            source avant d'engager une décision.
+          </p>
+        </section>
+      )
+    }
+
+    {
+      q.aussi && q.aussi.length > 0 && (
+        <section class="planche pb-12 lg:pb-16">
+          <h2 class="cote">La même question, autrement posée</h2>
+          <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+            {q.aussi.map((a) => (
+              <li class="text-[0.9375rem] leading-[1.6] text-graphite">{a}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </article>
+
+  {
+    fiches.length > 0 && (
+      <section class="planche pb-12 lg:pb-16">
+        <h2 class="cote">Les mots employés ici</h2>
+        <ul class="mt-6 flex flex-wrap gap-3">
+          {fiches.map((f) => (
+            <li>
+              <a href={`/lexique/${f.slug}`} class="etiquette etiquette-encre">
+                {f.terme}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    voisines.length > 0 && (
+      <section class="planche pb-14 lg:pb-20">
+        <h2 class="cote">Questions voisines</h2>
+        <ul class="mt-7 grid gap-px border-t border-encre lg:grid-cols-2">
+          {voisines.map((v, i) => (
+            <li
+              data-rangee
+              class:list={[
+                'border-b border-tirage-pale py-7',
+                i % 2 === 1 ? 'lg:border-l lg:pl-8' : 'lg:pr-8',
+              ]}
+            >
+              <a href={`/questions/${v.slug}`} class="group block">
+                <span class="cote">{v.famille}</span>
+                <h3 class="titre-rubrique mt-3 max-w-[30ch] transition-colors duration-150 group-hover:text-tirage">
+                  {v.question}
+                </h3>
+                <p class="mt-3 max-w-[52ch] text-[0.9375rem] leading-[1.6] text-graphite">
+                  {v.reponseCourte}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="planche pb-16 lg:pb-24">
+    <div class="border-t border-encre pt-10">
+      <p class="titre-planche max-w-[24ch]">Votre cas ne rentre pas dans la réponse ?</p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href={RDV_HREF} class="etiquette">{RDV}</a>
+        <a href="/questions" class="etiquette etiquette-encre">Toutes les questions</a>
+      </div>
+    </div>
+  </section>
+</Base>

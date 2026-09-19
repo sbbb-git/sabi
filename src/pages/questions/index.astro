@@ -1,0 +1,109 @@
+---
+/**
+ * Le sommaire des questions.
+ *
+ * Il affiche la réponse courte de chaque question, pas seulement son titre.
+ * C'est délibéré : cette page devient alors une source complète, lisible d'un
+ * bloc par un lecteur pressé comme par un assistant qui cherche une réponse.
+ * Le schéma FAQPage qu'elle déclare est vrai pour la même raison, puisqu'il
+ * reprend exactement ce que la page montre.
+ */
+import Base from '../../layouts/Base.astro';
+import FilAriane from '../../components/FilAriane.astro';
+import Icone from '../../components/Icone.astro';
+import { RDV, RDV_HREF, coteRubrique } from '../../consts';
+import { FAMILLES, ICONE_FAMILLE, QUESTIONS_PAGES } from '../../data/questions';
+import { filAriane, listePages, questionsReponses } from '../../lib/schema';
+
+const maillons = [{ libelle: 'Accueil', href: '/' }, { libelle: 'Questions' }];
+
+const derniereVerif = QUESTIONS_PAGES.map((q) => q.verifie).sort().at(-1);
+
+const schemas = [
+  filAriane(maillons),
+  listePages(
+    QUESTIONS_PAGES.map((q) => ({ nom: q.question, chemin: `/questions/${q.slug}` })),
+  ),
+  questionsReponses({
+    questions: QUESTIONS_PAGES.map((q) => ({
+      q: q.question,
+      r: q.reponseCourte,
+      chemin: `/questions/${q.slug}`,
+    })),
+    chemin: '/questions',
+    nom: 'Les questions que posent les dirigeants',
+    verifie: derniereVerif,
+  }),
+];
+---
+
+<Base
+  titre="Questions de dirigeants"
+  description="Subvention avant la dépense, CIR, garantie Bpifrance, prêt d'honneur, dilution, BFR, holding, reprise. Douze questions précises, répondues et sourcées."
+  schemas={schemas}
+>
+  <FilAriane maillons={maillons} />
+
+  <section class="planche pt-8 pb-12 lg:pt-10 lg:pb-16">
+    <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-3">
+        <p class="cote">{coteRubrique('/questions', 'Questions')}</p>
+        <span class="ligne-cote mt-5 block w-24" aria-hidden="true"></span>
+      </div>
+      <div class="lg:col-span-9">
+        <h1 class="titre-planche max-w-[20ch]" style="font-size:clamp(2.25rem,5vw,3.75rem)">
+          Ce qu'on nous demande
+        </h1>
+        <p class="mt-7 max-w-[58ch] text-[1.0625rem] leading-[1.7] text-graphite lg:text-[1.125rem]">
+          Douze questions que des dirigeants nous posent vraiment. La réponse
+          d'abord, le raisonnement ensuite, les sources publiques en bas de page.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {
+    FAMILLES.map((famille) => {
+      const groupe = QUESTIONS_PAGES.filter((q) => q.famille === famille);
+      if (!groupe.length) return null;
+      return (
+        <section class="planche pb-12 lg:pb-16">
+          <div class="flex items-center gap-4">
+            <Icone nom={ICONE_FAMILLE[famille]} taille={26} class="text-tirage" />
+            <h2 class="cote">{famille}</h2>
+          </div>
+          <ul class="mt-6 border-t border-encre">
+            {groupe.map((q) => (
+              <li data-rangee class="border-b border-tirage-pale">
+                <a
+                  href={`/questions/${q.slug}`}
+                  class="group grid gap-3 py-7 lg:grid-cols-12 lg:gap-10"
+                >
+                  <h3 class="titre-rubrique max-w-[32ch] transition-colors duration-150 group-hover:text-tirage lg:col-span-5">
+                    {q.question}
+                  </h3>
+                  <p class="max-w-[68ch] text-[0.9375rem] leading-[1.6] text-graphite lg:col-span-7">
+                    {q.reponseCourte}
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      );
+    })
+  }
+
+  <section class="planche pb-16 lg:pb-24">
+    <div class="border-t border-encre pt-10">
+      <p class="titre-planche max-w-[24ch]">Une question qui n'est pas dans la liste ?</p>
+      <p class="mt-6 max-w-[54ch] text-[1.0625rem] leading-[1.7] text-graphite">
+        Posez-la. Si la réponse peut servir à d'autres dirigeants, elle finira ici.
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a href={RDV_HREF} class="etiquette">{RDV}</a>
+        <a href="/lexique" class="etiquette etiquette-encre">Le lexique</a>
+      </div>
+    </div>
+  </section>
+</Base>
